@@ -1,0 +1,233 @@
+
+@font-face {
+    font-family: 'TossFaceFontWeb';
+    src: url('https://static.toss.im/tossface-font/TossFaceFontWeb.otf') format('truetype');
+    font-weight: 500;
+}
+
+
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(31, 31, 32);
+}
+
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7vh;
+    padding: 1vh 0.1vh;
+    background: transparent; /* 초기 상태는 투명 */
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.header.scrolled {
+    background-color: rgba(255, 255, 255, 0.8); /* 스크롤 시 하얀 배경 */
+    backdrop-filter: blur(5px); /* 블러 효과 */
+}
+
+.logo {
+    font-family: 'Pretendard-Regular';
+    font-size: 3vh;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    opacity: 0.6;
+    margin-left: 3vh;
+    transition: opacity 0.5s, color 0.5s;
+}
+
+.navbar a {
+    font-family: 'Pretendard-Regular';
+    font-size: 2.5vh;
+    color: rgb(255, 255, 255); /* 기본은 흰색 */
+    text-decoration: none;
+    margin-right: 6vh;
+    opacity: 0.6;
+    transition: opacity 0.5s, color 0.5s;
+}
+
+
+/* 스크롤 시 a 요소의 스타일 변경 */
+.header.scrolled .navbar a {
+    color: rgb(66, 66, 66); /* 스크롤 시 글자 색상을 어두운 색으로 변경 */
+}
+
+.header.scrolled .logo {
+    opacity: 1;
+    color: #2c4bce; /* 스크롤 시 글자 색상을 어두운 색으로 변경 */
+}
+
+.navbar a:hover {
+    opacity: 1;
+}
+
+.logo:hover {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+.info_1_section {
+    margin-top: 110vh; /* 필요에 따라 조정 */
+    height: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ifo_title_h1 {
+    font-family: 'nanumsquare';
+    font-size: 5.5vh;
+    text-align: center;
+    color: #414141;
+    margin-top: -32vh;
+}
+
+.if1_1_title {
+    position: relative;
+    text-align: center;
+}
+
+.discord_provision {
+    font-family: 'S-CoreDream-5Medium';
+    font-size: 2.7vh;
+    color: #c2bfbf;
+    text-align: left;
+    margin-top: 11vh;
+    margin-bottom: 10vh;
+}
+
+.discord_provision_list {
+    margin-left: 4.5vh;
+    list-style-type: decimal;
+    padding-left: 0;
+}
+
+.discord_provision_list li {
+    font-family: 'S-CoreDream-3Light';
+    font-size: 2.3vh;
+    line-height: 4vh;
+    margin-bottom: 3vh;
+    padding: 0.1vh;
+    text-align: left;
+    color: #b3b3b3;
+}
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+.order_text_1_section {
+    font-family: 'nanumsquare';
+    font-size: 2.3vh;
+    line-height: 4vh;
+    margin-top: 6vh;
+    text-align: center;
+    color: #474747;
+}
+
+
+.emoji {
+    cursor:default;
+    opacity: 15%;
+    font-size: 30vh;
+    animation: float 5s ease-in-out infinite;
+}
+
+.emoji_Two {
+    cursor:default;
+    opacity: 10%;
+    font-size: 23vh;
+    animation: float 8s ease-in-out infinite;
+    text-align: right;
+    transform: translateX(10%);
+}
+
+.emoji_Three {
+    cursor:default;
+    opacity: 5%;
+    font-size: 20vh;
+    animation: float 2s ease-in-out infinite;
+    text-align: left;
+    transform: translateX(10%);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(-200%);
+    }
+    50% {
+        transform: translateY(-210%);
+    }
+}
+
+
+
+.lastButton button{
+    color: rgb(179, 179, 179);
+    font-family: 'Pretendard-Regular';
+    font-size: 2vh;
+    padding: 2vh 8vh;
+    font-weight: 200;
+    border: 0.2vh solid #474747;
+    background: none;
+    border-radius: 2vh;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+  
+.lastButton {
+    position: absolute;
+    color: rgb(114, 114, 114);
+    font-family: 'Pretendard-Regular';
+    font-size: 2vh;
+    left: 50%;
+    top: 190vh;
+    opacity: 1;
+    transform: translateX(-50%);
+}
+
+.lastButton button:hover {
+    background-color: #252525;
+    color: rgb(231, 231, 231);
+}
+
+.discordButton svg {
+    height: auto;
+    width: 3vh;
+    fill: #b6b6b6;
+    margin-bottom: -0.4vh;
+}

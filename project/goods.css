@@ -1,0 +1,172 @@
+
+@font-face {
+    font-family: 'TossFaceFontWeb';
+    src: url('https://static.toss.im/tossface-font/TossFaceFontWeb.otf') format('truetype');
+    font-weight: 500;
+}
+
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'S-CoreDream-5Medium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CookieRunOTF-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/CookieRunOTF-Bold00.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HakgyoansimGaeulsopungB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimGaeulsopungB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* body와 html의 높이를 100%로 설정 */
+    background-color: rgb(255, 255, 255);
+}
+
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7vh;
+    padding: 1vh 0.1vh;
+    background: transparent; /* 초기 상태는 투명 */
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.header.scrolled {
+    background-color: rgba(255, 255, 255, 0.8); /* 스크롤 시 하얀 배경 */
+    backdrop-filter: blur(5px); /* 블러 효과 */
+}
+
+.logo {
+    font-family: 'Pretendard-Regular';
+    font-size: 3vh;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    opacity: 0.6;
+    margin-left: 3vh;
+    transition: opacity 0.5s, color 0.5s;
+}
+
+.navbar a {
+    font-family: 'Pretendard-Regular';
+    font-size: 2.5vh;
+    color: rgb(255, 255, 255); /* 기본은 흰색 */
+    text-decoration: none;
+    margin-right: 6vh;
+    opacity: 0.6;
+    transition: opacity 0.5s, color 0.5s;
+}
+
+
+/* 스크롤 시 a 요소의 스타일 변경 */
+.header.scrolled .navbar a {
+    color: rgb(66, 66, 66); /* 스크롤 시 글자 색상을 어두운 색으로 변경 */
+}
+
+.header.scrolled .logo {
+    opacity: 1;
+    color: #2c4bce; /* 스크롤 시 글자 색상을 어두운 색으로 변경 */
+}
+
+.navbar a:hover {
+    opacity: 1;
+}
+
+.logo:hover {
+    opacity: 1;
+}
+
+
+
+.Main_Image {
+    height: auto;
+    width: 50vh;
+    position: absolute;
+    right: 20%;
+    opacity: 0.05;
+    align-items: center; /* 세로 중앙 정렬 */
+    transform: translate(50%, 25%);
+    z-index: 100;
+}
+
+.info_1_section {
+    height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2c4bce;
+}
+
+.ifo_title_h1 {
+    font-size: 5.5vh;
+
+    margin-top: 12vh;
+    font-family: 'NanumSquare';
+    font-weight: 800;
+    text-align: center;
+    color: #6c8fdb;
+}
+
+
+#wave {
+    margin-top: -1vh;
+}
+
+
+.info_2_section {
+    height: 55vh;
+}
+
+
+.ift_title_h1 {
+    line-height: 4.5vh;
+    margin-top: 30vh;
+    font-family: 'NanumSquare';
+    font-size: 3vh;
+    font-weight: 500;
+    text-align: center;
+    color: #cecece;
+}
