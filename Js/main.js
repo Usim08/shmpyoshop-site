@@ -1,4 +1,4 @@
-// Background Gradient Cycler
+
 var gradients = [
     ['#850cda', '#2c72ce'],
     ['#0cd7c1', '#2c4bce'],
@@ -8,17 +8,17 @@ var gradients = [
   var gradientsRev = gradients.reverse();
   var gradientCover = document.querySelector('.main');
   
-  // 그라데이션 div 생성
+ 
   for (var g = 0; g < gradientsRev.length; g++) {
     var gradEl = document.createElement('div');
     gradEl.className = 'gradient';
-    gradEl.style.position = 'absolute'; // 위치를 절대값으로 설정
+    gradEl.style.position = 'absolute';
     gradEl.style.top = 0;
     gradEl.style.left = 0;
-    gradEl.style.width = '100%'; // 전체 너비
-    gradEl.style.height = '100%'; // 전체 높이
+    gradEl.style.width = '100%';
+    gradEl.style.height = '100%';
     gradEl.style.background = `linear-gradient(to left top, ${gradientsRev[g][0]}, ${gradientsRev[g][1]})`;
-    gradEl.style.opacity = 0; // 초기 투명도 설정
+    gradEl.style.opacity = 0;
     gradientCover.appendChild(gradEl);
   }
   
@@ -26,25 +26,25 @@ var gradients = [
   
   function gradientCycler() {
     function gradeFade(i, opDest) {
-      var fadeDur = 2000; // 20초
+      var fadeDur = 2000;
       $(gradientEls[i]).animate({
         'opacity': opDest
       }, {
         duration: fadeDur,
         complete: function() {
           if (parseInt(i) > 0) {
-            if (parseInt(opDest) === 0) gradeFade(i - 1, 0); // 투명하게
+            if (parseInt(opDest) === 0) gradeFade(i - 1, 0);
             else gradFadeStart();
           } else {
-            gradeFade(gradientEls.length - 1, 1); // 마지막 그라데이션으로 돌아가기
+            gradeFade(gradientEls.length - 1, 1);
           }
         }
       });
     }
   
     var gradFadeStart = function() {
-      $('.gradient').css('opacity', 1); // 모든 그라데이션 초기화
-      gradeFade(gradientEls.length - 1, 0); // 마지막부터 페이드 시작
+      $('.gradient').css('opacity', 1);
+      gradeFade(gradientEls.length - 1, 0);
     };
   
     gradFadeStart();

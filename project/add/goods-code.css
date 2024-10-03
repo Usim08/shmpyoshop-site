@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'TossFaceFontWeb';
     src: url('https://static.toss.im/tossface-font/TossFaceFontWeb.otf') format('truetype');
@@ -7,14 +6,12 @@
 
 @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
-
 @font-face {
     font-family: 'S-CoreDream-3Light';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
-
 
 @font-face {
     font-family: 'S-CoreDream-5Medium';
@@ -51,14 +48,12 @@
     font-style: normal;
 }
 
-
 body {
     margin: 0;
     padding: 0;
-    height: 100%; /* body와 html의 높이를 100%로 설정 */
+    height: 100%;
     background-color: #e8e8ec;
 }
-
 
 .header {
     position: fixed;
@@ -67,7 +62,7 @@ body {
     width: 100%;
     height: 7vh;
     padding: 1vh 0.1vh;
-    background: transparent; /* 초기 상태는 투명 */
+    background: transparent;
     transition: background-color 0.3s ease;
     display: flex;
     justify-content: space-between;
@@ -76,8 +71,8 @@ body {
 }
 
 .header.scrolled {
-    background-color: rgba(255, 255, 255, 0.8); /* 스크롤 시 하얀 배경 */
-    backdrop-filter: blur(5px); /* 블러 효과 */
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
 }
 
 .logo {
@@ -100,15 +95,13 @@ body {
     transition: opacity 0.5s, color 0.5s;
 }
 
-
-/* 스크롤 시 a 요소의 스타일 변경 */
 .header.scrolled .navbar a {
-    color: rgb(66, 66, 66); /* 스크롤 시 글자 색상을 어두운 색으로 변경 */
+    color: rgb(66, 66, 66);
 }
 
 .header.scrolled .logo {
     opacity: 1;
-    color: #2c4bce; /* 스크롤 시 글자 색상을 어두운 색으로 변경 */
+    color: #2c4bce;
 }
 
 .navbar a:hover {
@@ -123,20 +116,17 @@ body {
     height: 90vh;
 }
 
-
 .info_1_section {
     height: 55vh;
     width: 60vh;
     border-radius: 3vh;
     border-color: #c9cad8;
     border-width: 0.3vh;
-    border-style: solid; /* 또는 다른 스타일 (dashed, dotted 등) */
+    border-style: solid;
     margin-top: 20vh;
     margin-left: 50%;
     transform: translateX(-50%);
 }
-
-
 
 .ifo_title_h1 {
     margin-top: 6.5vh;
@@ -147,53 +137,15 @@ body {
     color: #4a4b4e;
 }
 
-
-/* .input_one_section {
-    background-color: rgb(250, 250, 250);
-    border: none;
-    color: #4a4b4e;
-    font-family: 'NanumSquare';
-    font-size: 2vh;
-    font-weight: 400;
-    border-radius: 1.5vh;
-    text-align: left;
-    padding: 2vh 3vh;
-    outline: none;
-    width: 42vh; 
-    margin-top: 2vh;
-    margin-left: 50%;
-    transform: translateX(-50%);
-} */
-
-/* .input_two_section {
-    background-color: #2c4bce;
-    border: none;
-    color: #ffffff;
-    font-family: 'NanumSquare';
-    font-size: 2vh;
-    font-weight: 400;
-    border-radius: 1.5vh;
-    text-align: center;
-    padding: 2vh 3vh;
-    outline: none;
-    cursor: pointer;
-    width: 48vh; 
-    margin-left: 50%;
-    transform: translate(-50%, 40%);
-
-    transition: background-color 0.2s;
-} */
-
 .input_two_section:hover {
     background-color: #2943b3;
 }
 
-
-.lastinput input::placeholder{
+.lastinput input::placeholder {
     color: rgb(216, 216, 216);
 }
 
-.lastinput input{
+.lastinput input {
     color: rgb(83, 83, 83);
     font-family: 'NanumSquare';
     outline: none;
@@ -206,10 +158,9 @@ body {
     cursor: text;
     transition: background-color 0.3s ease;
     text-align: center;
-
     width: 42vh;
 }
-  
+
 .lastinput {
     position: absolute;
     color: rgb(114, 114, 114);
@@ -221,11 +172,7 @@ body {
     transform: translateX(-50%);
 }
 
-
-
-
-
-.lastbutton button{
+.lastbutton button {
     color: rgb(255, 255, 255);
     font-family: 'NanumSquare';
     font-weight: 500;
@@ -238,7 +185,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-  
+
 .lastbutton {
     position: absolute;
     color: rgb(114, 114, 114);
@@ -253,43 +200,13 @@ body {
 .info_last_list {
     margin-top: 22vh;
     width: 48vh; 
-    list-style-type:disc;
+    list-style-type: disc;
     line-height: 3vh;
-
     margin-left: 50%;
     transform: translateX(-50%);
 }
 
-/* .info_1_check_list{
-    position: absolute;
-    color: #a8aaaf;
-    margin-top: 7vh;
-    width: 48ch; 
-    font-family: 'NanumSquare';
-    text-align: left;
-    list-style-type:disc;
-    line-height: 3vh;
-    font-size: 1.6vh;
-    margin-left: 50%;
-    transform: translateX(-50%);
-
-
-    color: rgb(255, 255, 255);
-    font-family: 'NanumSquare';
-    font-weight: 500;
-    font-size: 2vh;
-    padding: 2vh 3vh;
-    background-color: #2c4bce;
-    border: none;
-    border-radius: 2vh;
-    width: 48vh;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-} */
-
-
-.info_1_check_list li{
+.info_1_check_list li {
     font-family: 'NanumSquare';
     color: #a8aaaf;
     text-align: left;

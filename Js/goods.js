@@ -2,12 +2,12 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
-        alert('시크릿 코드를 입력해주세요.');
+        alert('쉼표샵 시크릿 코드를 입력해주세요!');
         return;
     }
 
     try {
-        const response = await fetch('https://shmpyo-shop-29178e46b40e.herokuapp.com/register', {
+        const response = await fetch('https://www.shmpyoshop.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,6 +23,6 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
         }
     } catch (error) {
         console.error('오류가 발생했습니다:', error);
-        alert('오류가 발생했어요. 다시 시도해주세요.');
+        alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
     }
 });

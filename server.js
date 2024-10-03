@@ -1,59 +1,98 @@
 require('dotenv').config();
-const SecretCode = require('./models/secretCode'); // 모델 import
+const SecretCode = require('./models/secretCode');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const cors = require('cors'); // CORS 패키지 추가
+const cors = require('cors');
+const session = require('express-session');
+const passport = require('passport');
+const DiscordStrategy = require('passport-discord').Strategy;
 
-const port = process.env.PORT || 3019; // 환경 변수에서 포트 가져오기
+const port = process.env.PORT || 3019;
 const app = express();
 
-// 미들웨어 설정
-app.use(cors()); // CORS 미들웨어 사용
-app.use(express.static(__dirname)); // 정적 파일 제공
-app.use(express.json()); // JSON 요청을 처리하기 위한 미들웨어
 
-// MongoDB 연결
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors());
+app.use(express.static(__dirname));
+app.use(express.json());
+app.use(session({
+    secret: 'secret', // 비밀 키 설정
+    resave: false,
+    saveUninitialized: false
+}));
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
       console.log('몽고디비 연결완료');
-      return mongoose.connection.db.listCollections().toArray(); // 컬렉션 목록 조회
+      return mongoose.connection.db.listCollections().toArray();
   })
   .then(collections => {
       const collectionNames = collections.map(col => col.name);
       console.log('연결된 컬렉션들:', collectionNames.join(', '));
   })
   .catch(err => console.error('몽고디비 연결 실패:', err));
-
-// POST 요청을 처리하는 /register 경로
-app.post('/register', async (req, res) => {
-  const { secretCode } = req.body;
+;
 
 
-  try {
-      // secret 필드를 사용하여 시크릿 코드 검색
-      const existingCode = await SecretCode.findOne({ secret: secretCode });
-      if (!existingCode) {
-          return res.status(404).json({ success: false, message: '시크릿 코드가 존재하지 않습니다.' });
-      }
+passport.use(new DiscordStrategy({
+    clientID: process.env.DISCORD_CLIENT_ID,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    callbackURL: process.env.DISCORD_CALLBACK_URL,
+    scope: ['identify']
+}, (accessToken, refreshToken, profile, done) => {
+    return done(null, profile);
+}));
 
-      existingCode.ID = "테스트"; // ID 필드에 "테스트" 저장
-      await existingCode.save();
-      res.status(200).json({ success: true, message: '시크릿 코드 등록 완료' });
-  } catch (error) {
-      console.error('서버 오류:', error);
-      res.status(500).json({ success: false, message: '서버 오류' });
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((obj, done) => {
+    done(null, obj);
+});
+
+app.get('/auth/discord', (req, res) => {
+    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=1193950006714040461&response_type=code&redirect_uri=${encodeURIComponent('https://www.shmpyoshop.com/')} &scope=identify+email+guilds`;
+    res.redirect(discordAuthUrl);
+});
+
+
+app.get('/auth/discord', passport.authenticate('discord'));
+
+app.get('/auth/discord/callback', passport.authenticate('discord', { failureRedirect: '/' }),
+  (req, res) => {
+      // 로그인 성공 후 홈 페이지로 리다이렉트
+      res.redirect('/home');
   }
+);
+
+app.post('/register', async (req, res) => {
+    const { secretCode } = req.body;
+    const userId = req.user.id; // 디스코드 유저 ID
+
+    try {
+        const existingCode = await SecretCode.findOne({ secret: secretCode });
+        if (!existingCode) {
+            return res.status(404).json({ success: false, message: '시크릿 코드를 잘못 입력하셨거나, 존재하지 않는 시크릿 코드예요.' });
+        }
+
+        existingCode.ID = userId; // 디스코드 유저 ID 저장
+        await existingCode.save();
+        res.status(200).json({ success: true, message: '시크릿 코드 등록 완료' });
+    } catch (error) {
+        console.error('서버 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
 });
 
 
 
-// 루트 라우트
 app.get('/', (req, res) => {
     res.redirect('/home');
 });
 
-// 페이지 라우트
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'home.html'));
 });
@@ -70,5 +109,4 @@ app.get('/project/shmpyo-goods', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'shmpyo-goods.html'));
 });
 
-
-app.listen(process.env.PORT||port)
+app.listen(process.env.PORT || port);
