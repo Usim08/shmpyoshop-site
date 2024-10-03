@@ -52,8 +52,8 @@ app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-app.get('/add/service-terms', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'add', 'goods-code.html'));
+app.get('/project/add/service-terms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'project', 'add', 'goods-code.html'));
 });
 
 app.get('/project/service-terms', (req, res) => {
