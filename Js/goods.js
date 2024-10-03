@@ -7,7 +7,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     }
 
     try {
-        const response = await fetch('http://localhost:3019/register', { // URL 확인
+        const response = await fetch('https://shmpyo-shop.herokuapp.com/register', { // URL 확인
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
