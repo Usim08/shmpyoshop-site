@@ -17,7 +17,14 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         const result = await response.json();
         if (result.success) {
-            alert('코드가 성공적으로 등록되었어요!');
+            // 1번 HTML 페이지를 표시
+            window.location.href = '/project/add/goods-code-loading.html'; // 1번 HTML 페이지로 이동
+            
+            // 3초 후에 2번 HTML 페이지로 이동
+            setTimeout(() => {
+                console.log('2번 페이지로 이동합니다.');
+                window.location.href = '/project/verified_access_for_download_shmpyo_exclusive_goods/SP_XVTAN.html'; // 2번 HTML 페이지로 이동
+            }, 3000); // 3000ms = 3초
         } else {
             alert(result.message);
         }

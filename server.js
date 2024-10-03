@@ -32,7 +32,11 @@ app.post('/register', async (req, res) => {
           return res.status(404).json({ success: false, message: '시크릿 코드를 잘못 입력하셨거나, 존재하지 않는 시크릿 코드예요.' });
       }
 
-      existingCode.ID = "테스트";
+      if (existingCode.userid) {
+          return res.status(400).json({ success: false, message: '이미 있는 코드예요.' });
+      }
+
+      existingCode.userid = "테스트";
       await existingCode.save();
       res.status(200).json({ success: true, message: '시크릿 코드 등록 완료' });
   } catch (error) {
