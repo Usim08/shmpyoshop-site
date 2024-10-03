@@ -48,11 +48,17 @@ app.post('/register', async (req, res) => {
 
 
 
+// 루트 라우트
+app.get('/', (req, res) => {
+    res.redirect('/home');
+});
+
+// 페이지 라우트
 app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-app.get('/project/add/service-terms', (req, res) => {
+app.get('/project/add/goods-code', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'project', 'add', 'goods-code.html'));
 });
 
@@ -65,13 +71,4 @@ app.get('/project/shmpyo-goods', (req, res) => {
 });
 
 
-
-app.get('/', (req, res) => {
-    res.redirect('/home');
-});
-
-
-
-
-// 서버 시작
 app.listen(process.env.PORT||port)
