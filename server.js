@@ -46,10 +46,32 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// 홈 페이지 라우트
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'home.html'));
+
+
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
+
+app.get('/goods-code', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'goods-code.html'));
+});
+
+app.get('/service-terms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'service-terms.html'));
+});
+
+app.get('/shmpyo-goods', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'shmpyo-goods.html'));
+});
+
+
+
+app.get('/', (req, res) => {
+    res.redirect('/home');
+});
+
+
+
 
 // 서버 시작
 app.listen(process.env.PORT||port)
