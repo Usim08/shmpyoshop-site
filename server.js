@@ -52,16 +52,16 @@ app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-app.get('/goods-code', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'goods-code.html'));
+app.get('/add/service-terms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'add', 'goods-code.html'));
 });
 
-app.get('/service-terms', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'service-terms.html'));
+app.get('/project/service-terms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'project', 'service-terms.html'));
 });
 
-app.get('/shmpyo-goods', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'shmpyo-goods.html'));
+app.get('/project/shmpyo-goods', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'project', 'shmpyo-goods.html'));
 });
 
 
