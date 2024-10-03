@@ -55,19 +55,19 @@ app.get('/', (req, res) => {
 
 // 페이지 라우트
 app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'home.html'));
+    res.sendFile(path.join(__dirname, 'home.html'));
 });
 
 app.get('/project/add/goods-code', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'project', 'add', 'goods-code.html'));
+    res.sendFile(path.join(__dirname, 'project', 'add', 'goods-code.html'));
 });
 
 app.get('/project/service-terms', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'project', 'service-terms.html'));
+    res.sendFile(path.join(__dirname, 'project', 'service-terms.html'));
 });
 
 app.get('/project/shmpyo-goods', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'project', 'shmpyo-goods.html'));
+    res.sendFile(path.join(__dirname, 'project', 'shmpyo-goods.html'));
 });
 
 
