@@ -17,12 +17,12 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         const result = await response.json();
         if (result.success) {
-            alert('코드가 성공적으로 등록되었습니다.');
+            alert('코드가 성공적으로 등록되었어요!');
         } else {
             alert(result.message);
         }
     } catch (error) {
         console.error('오류가 발생했습니다:', error);
-        alert('오류가 발생했습니다. 다시 시도해주세요.');
+        alert('오류가 발생했어요. 다시 시도해주세요.');
     }
 });
