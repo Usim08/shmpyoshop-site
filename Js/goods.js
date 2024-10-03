@@ -1,5 +1,5 @@
 document.getElementById('registerBtn').addEventListener('click', async () => {
-    const secretCode = document.getElementById('secretCode').value.trim(); // 공백 제거
+    const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
         alert('시크릿 코드를 입력해주세요.');
@@ -7,7 +7,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     }
 
     try {
-        const response = await fetch('https://shmpyo-shop.herokuapp.com/register', { // URL 확인
+        const response = await fetch('https://shmpyo-shop-29178e46b40e.herokuapp.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
