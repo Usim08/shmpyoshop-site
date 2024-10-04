@@ -18,7 +18,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
         const result = await response.json();
         if (result.success) {
             // 1번 HTML 페이지를 표시
-            window.location.href = '/project/add/goods-code-loading.html'; // 1번 HTML 페이지로 이동
+            window.location.href = '/project/verified_access_for_download_shmpyo_exclusive_goods/',secretCode,'/shmpyo-goods-download'; // 1번 HTML 페이지로 이동
             
             // 3초 후에 2번 HTML 페이지로 이동
             setTimeout(() => {
