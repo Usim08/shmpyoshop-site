@@ -2,7 +2,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
-        alert('상품 비밀 코드를 입력해주세요!');
+        alert('쉼표샵 시크릿 코드를 입력해주세요!');
         return;
     }
 
@@ -17,14 +17,13 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         const result = await response.json();
         if (result.success) {
-            // 1번 HTML 페이지를 표시
-            window.location.href = '/project/verified_access_for_download_shmpyo_exclusive_goods/',secretCode,'/shmpyo-goods-download'; // 1번 HTML 페이지로 이동
-            
-            // 3초 후에 2번 HTML 페이지로 이동
+            // 1번 페이지가 이미 보여지고 있다고 가정합니다
+            alert('코드가 성공적으로 등록되었어요! 3초 후에 다운로드 페이지로 이동합니다.');
+
+            // 3초 후에 서버에서 받은 redirectUrl로 이동
             setTimeout(() => {
-                console.log('2번 페이지로 이동합니다.');
-                window.location.href = '/project/verified_access_for_download_shmpyo_exclusive_goods/',secretCode,'/shmpyo-goods-download'; // 2번 HTML 페이지로 이동
-            }, 3000); // 3000ms = 3초
+                window.location.href = result.redirectUrl;
+            }, 3000);
         } else {
             alert(result.message);
         }
