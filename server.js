@@ -23,6 +23,7 @@ mongoose.connect(process.env.MONGO_URI)
   })
   .catch(err => console.error('몽고디비 연결 실패:', err));
 
+// 비밀 코드 등록 처리
 app.post('/register', async (req, res) => {
   const { secretCode } = req.body;
 
@@ -36,17 +37,38 @@ app.post('/register', async (req, res) => {
           return res.status(400).json({ success: false, message: '이미 등록된 비밀 코드입니다. 코드를 다시 한번 확인해주세요!' });
       }
 
+      // 유저 ID 등록 (예시: "테스트")
       existingCode.userid = "테스트";
       await existingCode.save();
-      res.status(200).json({ success: true, message: '비밀 코드 등록 완료' });
 
-      app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/',secretCode,'/shmpyo-goods-download', (req, res) => {
-        res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', 'SP-XVTAN.html'));
+      // 1번 페이지로 이동 후 3초 후에 다운로드 페이지로 이동
+      res.status(200).json({
+          success: true,
+          message: '비밀 코드 등록 완료',
+          redirectUrl: `/project/verified_access_for_download_shmpyo_exclusive_goods/${secretCode}`
       });
   } catch (error) {
       console.error('서버 오류:', error);
       res.status(500).json({ success: false, message: '서버 오류' });
   }
+});
+
+// 비밀 코드 기반으로 다운로드 페이지 접근
+app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/:secretCode', async (req, res) => {
+    const { secretCode } = req.params;
+
+    try {
+        const existingCode = await SecretCode.findOne({ secret: secretCode });
+        if (!existingCode) {
+            return res.status(404).send('존재하지 않는 비밀 코드입니다.');
+        }
+
+        // 비밀 코드가 유효하면 다운로드 페이지로 이동
+        res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', 'SP-XVTAN.html'));
+    } catch (error) {
+        console.error('서버 오류:', error);
+        res.status(500).send('서버 오류');
+    }
 });
 
 app.get('/', (req, res) => {
@@ -68,6 +90,5 @@ app.get('/project/service-terms', (req, res) => {
 app.get('/project/shmpyo-goods', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'shmpyo-goods.html'));
 });
-
 
 app.listen(process.env.PORT || port);
