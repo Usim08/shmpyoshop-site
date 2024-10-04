@@ -17,11 +17,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         const result = await response.json();
         if (result.success) {
-            window.location.href = '/project/add/goods-code-loading.html';
-
-            setTimeout(() => {
-                window.location.href = result.redirectUrl;
-            }, 3000);
+            window.location.href = '/project/add/goods-code-loading.html?redirectUrl=' + encodeURIComponent(result.redirectUrl);
         } else {
             alert(result.message);
         }

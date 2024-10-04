@@ -115,5 +115,20 @@
         
         
     </div>
+
+    <script>
+        window.addEventListener('load', () => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirectUrl = urlParams.get('redirectUrl');
+
+          if (redirectUrl) {
+              setTimeout(() => {
+                  window.location.href = decodeURIComponent(redirectUrl);
+              }, 3000);
+          } else {
+              console.error('리다이렉트 URL이 제공되지 않았습니다.');
+          }
+        });
+    </script>
 </body>
 </html>
