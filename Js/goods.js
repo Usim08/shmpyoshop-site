@@ -2,7 +2,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
-        alert('쉼표샵 시크릿 코드를 입력해주세요!');
+        alert('상품 비밀 코드를 입력해주세요!');
         return;
     }
 
@@ -23,7 +23,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
             // 3초 후에 2번 HTML 페이지로 이동
             setTimeout(() => {
                 console.log('2번 페이지로 이동합니다.');
-                window.location.href = '/project/verified_access_for_download_shmpyo_exclusive_goods/SP_XVTAN.html'; // 2번 HTML 페이지로 이동
+                window.location.href = '/project/verified_access_for_download_shmpyo_exclusive_goods/',secretCode,'/shmpyo-goods-download'; // 2번 HTML 페이지로 이동
             }, 3000); // 3000ms = 3초
         } else {
             alert(result.message);

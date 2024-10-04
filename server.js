@@ -29,7 +29,7 @@ app.post('/register', async (req, res) => {
   try {
       const existingCode = await SecretCode.findOne({ secret: secretCode });
       if (!existingCode) {
-          return res.status(404).json({ success: false, message: '시크릿 코드를 잘못 입력하셨거나, 존재하지 않는 시크릿 코드예요.' });
+          return res.status(404).json({ success: false, message: '상품 비밀 코드를 잘못 입력하셨거나, 존재하지 않는 비밀 코드예요.' });
       }
 
       if (existingCode.userid) {
@@ -38,7 +38,11 @@ app.post('/register', async (req, res) => {
 
       existingCode.userid = "테스트";
       await existingCode.save();
-      res.status(200).json({ success: true, message: '시크릿 코드 등록 완료' });
+      res.status(200).json({ success: true, message: '비밀 코드 등록 완료' });
+
+      app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/',secretCode,'/shmpyo-goods-download', (req, res) => {
+        res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', 'SP-XVTAN.html'));
+      });
   } catch (error) {
       console.error('서버 오류:', error);
       res.status(500).json({ success: false, message: '서버 오류' });
@@ -64,5 +68,6 @@ app.get('/project/service-terms', (req, res) => {
 app.get('/project/shmpyo-goods', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'shmpyo-goods.html'));
 });
+
 
 app.listen(process.env.PORT || port);
