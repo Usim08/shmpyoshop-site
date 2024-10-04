@@ -64,7 +64,7 @@ app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/:secretCod
         }
 
         // 비밀 코드가 유효하면 다운로드 페이지로 이동
-        res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', 'SP-XVTAN.html'));
+        res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', 'SP_XVTAN.html'));
     } catch (error) {
         console.error('서버 오류:', error);
         res.status(500).send('서버 오류');
