@@ -17,10 +17,8 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         const result = await response.json();
         if (result.success) {
-            // 1번 페이지가 이미 보여지고 있다고 가정합니다
-            alert('코드가 성공적으로 등록되었어요! 3초 후에 다운로드 페이지로 이동합니다.');
+            window.location.href = '/project/add/goods-code-loading.html';
 
-            // 3초 후에 서버에서 받은 redirectUrl로 이동
             setTimeout(() => {
                 window.location.href = result.redirectUrl;
             }, 3000);
