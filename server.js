@@ -79,10 +79,6 @@ app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'home.html'));
 });
 
-app.get('/project/add/goods-code', (req, res) => {
-    res.sendFile(path.join(__dirname, 'project', 'add', 'goods-code.html'));
-});
-
 app.get('/project/service-terms', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'service-terms.html'));
 });
