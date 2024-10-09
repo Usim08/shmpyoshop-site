@@ -1,3 +1,51 @@
+// 디스코드 OAuth 인증 관련 정보
+const clientId = '1193950006714040461'; // 디스코드 애플리케이션의 클라이언트 ID
+const $login = document.querySelector("#loginDiscord")
+const redirectUri = 'https://www.shmpyoshop.com/'; // 리디렉션 URI (디스코드 애플리케이션 설정에서 설정해야 함)
+const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=identify`;
+
+// 로그인 함수
+function login() {
+  // 디스코드 OAuth 로그인 페이지로 리다이렉트
+  window.location.href = discordAuthUrl;
+}
+
+// 페이지가 로드될 때 실행되는 함수
+// 페이지가 로드될 때 실행되는 함수
+window.onload = function() {
+  // URL에서 액세스 토큰 가져오기
+  const urlParams = new URLSearchParams(window.location.hash.substring(1));
+  const accessToken = urlParams.get('access_token');
+
+  // 액세스 토큰이 존재하면 사용자 정보 가져오기
+  if (accessToken) {
+      fetch('https://discord.com/api/users/@me', {
+          headers: {
+              authorization: `Bearer ${accessToken}`
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+          // 사용자 정보를 세션 저장소에 저장
+          sessionStorage.setItem('userData', JSON.stringify(data));
+          // 사용자 정보를 페이지에 표시
+          $login.textContent = data.username;
+      })
+      .catch(error => console.error('Error fetching user info:', error));
+  } else {
+      // 세션 저장소에서 사용자 정보 가져오기
+      const userData = sessionStorage.getItem('userData');
+      if (userData) {
+          const data = JSON.parse(userData);
+          $login.textContent = data.username;
+      }
+  }
+};
+
+
+
+
+
 
 var gradients = [
     ['#850cda', '#2c72ce'],
@@ -66,19 +114,22 @@ window.addEventListener('scroll', function() {
 
 
 
+
+
+
 function handleScroll() {
     let sections = [
-        {selector: '.if1_1_title', offset: 0.08, transform: 'translate(-50%, 40%)'},
-        {selector: '.imageOne', offset: 0.08, transform: 'translate(-50%, 10%)', opacity: '10%'},
-        {selector: '.if1_2_title', offset: 0.18, transform: 'translate(-50%, 80%)'},
-        {selector: '.if2_1_title', offset: 0.32, transform: 'translate(-50%, 40%)'},
-        {selector: '.ift_Emoji', offset: 0.32, transform: 'translate(-50%, 10%)', opacity: '30%'},
-        {selector: '.if3_1_title', offset: 0.45, transform: 'translate(-50%, 40%)'},
-        {selector: '.imageThree', offset: 0.45, transform: 'translate(-50%, 15%)', opacity: '20%'},
-        {selector: '.if3_2_title', offset: 0.5, transform: 'translate(-50%, 90%)'},
-        {selector: '.if4_1_title', offset: 0.75, transform: 'translate(-50%, 40%)'},
-        {selector: '.iff_Emoji', offset: 0.75, transform: 'translate(-50%, 20%)', opacity: '30%'},
-        {selector: '.if4_3_all_container', offset: 0.8, transform: 'translate(-50%, 120%)'}
+        {selector: '.if1_1_title', offset: 0.15, transform: 'translate(-50%, 120%)', opacity: '100%'},
+        {selector: '.if1_container', offset: 0.23, transform: 'translateY(10%)', opacity: '100%'},
+        {selector: '.if2_container', offset: 0.23, transform: 'translateY(35%)', opacity: '100%'},
+
+        {selector: '.if2_1_title', offset: 0.5, transform: 'translate(-50%, 120%)', opacity: '100%'},
+        {selector: '.if2_3_container', offset: 0.6, transform: 'translate(-50%, 0)', opacity: '100%'},
+        {selector: '.if2_4_container', offset: 0.6, transform: 'translate(-50%, 0)', opacity: '100%'},
+        {selector: '.if2_5_container', offset: 0.6, transform: 'translate(-50%, 0)', opacity: '100%'},
+
+        {selector: '.ifth_title_h1', offset: 0.9, transform: 'translateY(110%)', opacity: '100%'}
+
     ];
 
     let scrollTop = window.scrollY;
@@ -103,3 +154,4 @@ window.addEventListener('scroll', handleScroll);
 
 var copy = document.querySelector(".if2_logos-slide").cloneNode(true);
 document.querySelector(".if2_logos").appendChild(copy);
+

@@ -56,62 +56,7 @@ body {
     overflow-x: hidden;
 }
 
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 7vh;
-    padding: 1vh 0.1vh;
-    background: transparent;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-}
-
-.header.scrolled {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-}
-
-.logo {
-    font-family: 'Pretendard-Regular';
-    font-size: 3vh;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    opacity: 0.6;
-    margin-left: 3vh;
-    transition: opacity 0.5s, color 0.5s;
-}
-
-.navbar a {
-    font-family: 'Pretendard-Regular';
-    font-size: 2.5vh;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    margin-right: 6vh;
-    opacity: 0.6;
-    transition: opacity 0.5s, color 0.5s;
-}
-
-.header.scrolled .navbar a {
-    color: rgb(66, 66, 66);
-}
-
-.header.scrolled .logo {
-    opacity: 1;
-    color: #2c4bce;
-}
-
-.navbar a:hover {
-    opacity: 1;
-}
-
-.logo:hover {
-    opacity: 1;
-}
+.header { position: fixed; top: 0; left: 0; width: 100%; height: 55px; padding: 10px 5px; background: transparent; transition: background-color 0.3s ease; display: flex; justify-content: space-between; align-items: center; z-index: 100; } .header.scrolled { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); border-color: rgb(241, 241, 241); border-width: 0 0 2px 0; border-style: solid; } .logo { font-family: 'PRegular'; font-size: 25px; color: rgb(255, 255, 255); text-decoration: none; opacity: 0.6; margin-left: 30px; transition: opacity 0.5s, color 0.5s; } .navbar a { font-family: 'PRegular'; font-size: 22px; color: rgb(255, 255, 255); text-decoration: none; margin-right: 55px; opacity: 0.6; transition: opacity 0.5s, color 0.5s; } .header.scrolled .navbar a { color: rgb(66, 66, 66); } .header.scrolled .logo { opacity: 1; color: #2c4bce; } .navbar a:hover { opacity: 1; } .logo:hover { opacity: 1; } .footer_design_shmpyo { font-family: 'PLight'; color: rgb(170, 173, 177); height: 250px; font-size: 17px; background-color: #ffffff; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } .footer_design_shmpyo_div { width: 1300px; margin-left: 50%; display: flex; gap: 90px; transform: translate(-50%, 20%); line-height: 30px; } .footer_design_shmpyo_logo { opacity: 80%; margin-bottom: 10px; height: 40px; width: auto; }
 
 .Main_Image {
     height: auto;

@@ -2,7 +2,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
-        alert('쉼표샵 시크릿 코드를 입력해주세요!');
+        alert('쉼표샵 상품 비밀 코드를 입력해주세요!');
         return;
     }
 

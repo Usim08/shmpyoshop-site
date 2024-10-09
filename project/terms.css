@@ -5,22 +5,29 @@
 }
 
 @font-face {
-    font-family: 'S-CoreDream-3Light';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'S-CoreDream-5Medium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Pretendard-Regular';
+    font-family: 'PRegular';
     src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PSemibold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PBold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PLight';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
     font-weight: 400;
     font-style: normal;
 }
@@ -28,189 +35,97 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: rgb(31, 31, 32);
+    background-color: #f8f8f8;
 }
 
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 7vh;
-    padding: 1vh 0.1vh;
-    background: transparent;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-}
+.header { position: fixed; top: 0; left: 0; width: 100%; height: 55px; padding: 10px 5px; background: transparent; transition: background-color 0.3s ease; display: flex; justify-content: space-between; align-items: center; z-index: 100; } .header.scrolled { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); border-color: rgb(241, 241, 241); border-width: 0 0 2px 0; border-style: solid; } .logo { font-family: 'PRegular'; font-size: 25px; color: rgb(66, 66, 66); text-decoration: none; opacity: 0.6; margin-left: 30px; transition: opacity 0.5s, color 0.5s; } .navbar a { font-family: 'PRegular'; font-size: 22px; color: rgb(66, 66, 66); text-decoration: none; margin-right: 55px; opacity: 0.6; transition: opacity 0.5s, color 0.5s; } .header.scrolled .navbar a { color: rgb(66, 66, 66); } .header.scrolled .logo { opacity: 1; color: #2c4bce; } .navbar a:hover { opacity: 1; } .logo:hover { opacity: 1; } .footer_design_shmpyo { margin-top: auto; font-family: 'PLight'; color: rgb(170, 173, 177); height: 250px; font-size: 17px; background-color: #ffffff; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } .footer_design_shmpyo_div { width: 1300px; margin-left: 50%; display: flex; gap: 90px; transform: translate(-50%, 20%); line-height: 30px; } .footer_design_shmpyo_logo { opacity: 80%; margin-bottom: 10px; height: 40px; width: auto; }
 
-.header.scrolled {
-    background-color: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-}
 
-.logo {
-    font-family: 'Pretendard-Regular';
-    font-size: 3vh;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    opacity: 0.6;
-    margin-left: 3vh;
-    transition: opacity 0.5s, color 0.5s;
-}
-
-.navbar a {
-    font-family: 'Pretendard-Regular';
-    font-size: 2.5vh;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    margin-right: 6vh;
-    opacity: 0.6;
-    transition: opacity 0.5s, color 0.5s;
-}
-
-.header.scrolled .navbar a {
-    color: rgb(66, 66, 66);
-}
-
-.header.scrolled .logo {
-    opacity: 1;
-    color: #2c4bce;
-}
-
-.navbar a:hover {
-    opacity: 1;
-}
-
-.logo:hover {
-    opacity: 1;
-}
 
 .info_1_section {
-    margin-top: 110vh;
-    height: 1vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 2200px;
+    width: 1000px;
+    margin-left: 50%;
+    transform: translate(-50%, 10px);
+    animation: List 2s;
 }
 
 .ifo_title_h1 {
-    font-family: 'nanumsquare';
-    font-size: 5.5vh;
+    font-family: 'PBold';
+    font-size: 50px;
+    color: #525764;
+    transform: translateY(150px);
     text-align: center;
-    color: #414141;
-    margin-top: -32vh;
+    animation: MainText 1s;
 }
 
-.if1_1_title {
-    position: relative;
-    text-align: center;
+@keyframes MainText {
+    0% { transform: translateY(200px); opacity: 0%; }
+    100% { transform: translateY(150px); opacity: 100%; }
+}
+
+@keyframes List {
+    0% { opacity: 0%; }
+    100% { opacity: 100%; }
 }
 
 .discord_provision {
-    font-family: 'S-CoreDream-5Medium';
-    font-size: 2.7vh;
-    color: #c2bfbf;
+    font-family: 'PSemiBold';
+    font-size: 25px;
+    color: #525764;
     text-align: left;
-    margin-top: 11vh;
-    margin-bottom: 10vh;
+    transform: translateY(200px);
 }
 
 .discord_provision_list {
-    margin-left: 4.5vh;
+    margin-left: 50px;
     list-style-type: decimal;
     padding-left: 0;
+    transform: translateY(220px);
 }
 
 .discord_provision_list li {
-    font-family: 'S-CoreDream-3Light';
-    font-size: 2.3vh;
-    line-height: 4vh;
-    margin-bottom: 3vh;
-    padding: 0.1vh;
+    font-family: 'PLight';
+    font-size: 20px;
     text-align: left;
-    color: #b3b3b3;
+    list-style:decimal;
+    color: #525764;
+    margin-bottom: 50px;
 }
 
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+.system_provision {
+    font-family: 'PSemiBold';
+    font-size: 25px;
+    color: #525764;
+    text-align: left;
+    transform: translateY(300px);
+}
+
+.system_provision_list {
+    margin-left: 50px;
+    list-style-type: decimal;
+    padding-left: 0;
+    transform: translateY(320px);
+}
+
+.system_provision_list li {
+    font-family: 'PLight';
+    font-size: 20px;
+    text-align: left;
+    list-style:decimal;
+    color: #525764;
+    margin-bottom: 50px;
+}
+
+.system_provision_list a {
+    color: #2c4bce;
+    text-decoration: none;
+}
 
 .order_text_1_section {
-    font-family: 'nanumsquare';
-    font-size: 2.3vh;
-    line-height: 4vh;
-    margin-top: 6vh;
+    font-family: 'PLight';
+    font-size: 20px;
     text-align: center;
-    color: #474747;
-}
-
-.emoji {
-    cursor: default;
-    opacity: 15%;
-    font-size: 30vh;
-    animation: float 5s ease-in-out infinite;
-}
-
-.emoji_Two {
-    cursor: default;
-    opacity: 10%;
-    font-size: 23vh;
-    animation: float 8s ease-in-out infinite;
-    text-align: right;
-    transform: translateX(10%);
-}
-
-.emoji_Three {
-    cursor: default;
-    opacity: 5%;
-    font-size: 20vh;
-    animation: float 2s ease-in-out infinite;
-    text-align: left;
-    transform: translateX(10%);
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(-200%);
-    }
-    50% {
-        transform: translateY(-210%);
-    }
-}
-
-.lastButton button {
-    color: rgb(179, 179, 179);
-    font-family: 'Pretendard-Regular';
-    font-size: 2vh;
-    padding: 2vh 8vh;
-    font-weight: 200;
-    border: 0.2vh solid #474747;
-    background: none;
-    border-radius: 2vh;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.lastButton {
-    position: absolute;
-    color: rgb(114, 114, 114);
-    font-family: 'Pretendard-Regular';
-    font-size: 2vh;
-    left: 50%;
-    top: 190vh;
-    opacity: 1;
-    transform: translateX(-50%);
-}
-
-.lastButton button:hover {
-    background-color: #252525;
-    color: rgb(231, 231, 231);
-}
-
-.discordButton svg {
-    height: auto;
-    width: 3vh;
-    fill: #b6b6b6;
-    margin-bottom: -0.4vh;
+    color: #bbbfc7;
+    margin-top: 120px;
 }
