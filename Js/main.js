@@ -1,23 +1,15 @@
-// 디스코드 OAuth 인증 관련 정보
-const clientId = '1193950006714040461'; // 디스코드 애플리케이션의 클라이언트 ID
+
+const clientId = '1193950006714040461';
 const $login = document.querySelector("#loginDiscord")
-const redirectUri = 'https://www.shmpyoshop.com/'; // 리디렉션 URI (디스코드 애플리케이션 설정에서 설정해야 함)
+const redirectUri = 'https://www.shmpyoshop.com/';
 const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=identify`;
 
-// 로그인 함수
 function login() {
-  // 디스코드 OAuth 로그인 페이지로 리다이렉트
   window.location.href = discordAuthUrl;
 }
-
-// 페이지가 로드될 때 실행되는 함수
-// 페이지가 로드될 때 실행되는 함수
 window.onload = function() {
-  // URL에서 액세스 토큰 가져오기
   const urlParams = new URLSearchParams(window.location.hash.substring(1));
   const accessToken = urlParams.get('access_token');
-
-  // 액세스 토큰이 존재하면 사용자 정보 가져오기
   if (accessToken) {
       fetch('https://discord.com/api/users/@me', {
           headers: {
@@ -26,14 +18,11 @@ window.onload = function() {
       })
       .then(response => response.json())
       .then(data => {
-          // 사용자 정보를 세션 저장소에 저장
           sessionStorage.setItem('userData', JSON.stringify(data));
-          // 사용자 정보를 페이지에 표시
           $login.textContent = data.username;
       })
       .catch(error => console.error('Error fetching user info:', error));
   } else {
-      // 세션 저장소에서 사용자 정보 가져오기
       const userData = sessionStorage.getItem('userData');
       if (userData) {
           const data = JSON.parse(userData);
