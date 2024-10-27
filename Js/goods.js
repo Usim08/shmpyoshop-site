@@ -191,9 +191,9 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
 
         const result = await response.json();
         if (result.success) {
-            // 인증 성공 시 타이머 멈춤
-            clearInterval(timerInterval); // <- 전역 변수로 선언된 timerInterval을 멈춤
-
+            clearInterval(timerInterval);
+            document.getElementById('phone_verify_sub').innerText = "인증번호";
+            document.getElementById('verifyBtn').style.opacity = 0.5;
             document.getElementById('verifyBtn').style.opacity = 0.5;
             document.getElementById('verifyBtn').disabled = true;
             document.getElementById('verify_number_btn').style.opacity = 0.5;

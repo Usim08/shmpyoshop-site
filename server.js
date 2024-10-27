@@ -37,8 +37,7 @@ app.post('/register', async (req, res) => {
         if (existingCode.value == true) {
             res.status(200).json({
                 success: false,
-                message: '이미 등록된 비밀 코드예요. 다운로드 페이지로 이동합니다',
-                redirectUrl: `/project/verified_access_for_download_shmpyo_exclusive_goods/${secretCode}`
+                message: '이미 등록된 비밀 코드예요. 파일 다운로드 페이지에서 파일을 다운로드 받으실 수 있습니다.',
             });
         }
   
