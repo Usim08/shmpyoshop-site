@@ -80,7 +80,6 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
 
         } else {
             alert(result.message);
-            window.location.href = '/project/add/goods-code-loading.html?redirectUrl=' + encodeURIComponent(result.redirectUrl);
         }
     } catch (error) {
         console.error('오류가 발생했습니다:', error);
