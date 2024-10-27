@@ -35,36 +35,59 @@
             <a href="/project/shmpyo-goods">전체상품</a>
         </nav>
     </header>
+    
     <div class="info_1_main">
         <div class="info_1_section">
-            <h1 class="ifo_title_h1">쉼표샵 상품 등록하기</h1>
-
+            <h1 class="ifo_title_h1">비밀코드 활성화 신청</h1>
+    
             <div class="info_1_box_text">
                 <div class="lastinput">
-                    <input type="text" id="secretCode" class="input_one_section" placeholder="상품 비밀 코드를 입력하세요">
+                    <p class="sub_title">상품의 비밀 코드</p>
+                    <div class="secretcode_input">
+                        <input type="text" id="secretCode" class="input_one_section">
+                        <button class="verify_button" id="check_secret_code">확인</button>
+                    </div>
+
+                    <p class="sub_title" id="one_title" style="display: none;">이름(본명)을 알려주세요</p>
+                    <input type="text" id="name" class="input_one_section" style="display: none;">
+
+                    <p class="sub_title" id="two_title" style="display: none;">전화번호</p>
+                    <div class="phone-verification" id="one_section" style="display: none;">
+                        <input type="text" id="phone_number" class="input_one_section" placeholder="01012345678">
+                        <button class="verify_button" id="verifyBtn">인증</button>
+                    </div>
+
+                    <p class="sub_title" id="phone_verify_sub" style="display: none;">인증번호 (3:00)</p>
+                    <div class="phone-verifyNumber" id="two_section" style="display: none;">
+                        <input type="text" id="verify_number" class="input_one_section">
+                        <button class="verify_button" id="verify_number_btn">확인</button>  
+                    </div>  
+
+                    <p class="sub_title" id="three_title" style="display: none;">게임 링크</p>
+                    <input type="text" id="where" class="input_one_section" style="display: none;">
                 </div>
 
-
-                <div class="lastbutton">
-                    <button class="input_two_section" id="registerBtn">등록하기</button>
-                </div>
-                <div class="info_last_list">
+                <div class="info_last_list" id = "info_last_list" style="display: none;">
                     <div class="info_1_check_list">
                         <li>쉼표샵 이용 규정을 준수하지 않아 비밀 코드가 비활성화된 경우, 이에 대한 책임은 지지 않습니다.</li>
                         <li>코드를 등록한 이후에는 환불이 불가능합니다.</li>
                         <li>한 번 등록한 코드는 재등록할 수 없습니다.</li>
-                        <li>등록한 코드는 내정보에서 확인하실 수 있습니다.</li>
+                        <li>등록한 코드는 카카오톡 또는 디스코드를 통해 확인하실 수 있습니다.</li>
                     </div>
+                </div>
+                <div class="lastbutton" id="lastbutton" style="display: none;">
+                    <button class="input_two_section" id="registerBtn">신청하기</button>
                 </div>
             </div>
         </div>
     </div>
+    
 
 
     <footer class="footer_design_shmpyo">
         <div class="footer_design_shmpyo_div">
             <p><img src="/IMG/쉼표샵 파랑.png" class="footer_design_shmpyo_logo" style="pointer-events: none;"><br>대표 : 신기하<br>사업장 주소 : 경기도 수원시 권선구 세권로 1, 308동 1404호<br>© 2024 shmpyoShop. All Right Reserved.</p>
-            <p><img src="/IMG/쉼표샵 파랑.png" class="footer_design_shmpyo_logo" style="opacity: 0; pointer-events: none;"><br>사업자 등록번호 : 864-11-02693<br>대표번호  : 010-6775-4665</p>
+            <p><img src="/IMG/쉼표샵 파랑.png" class="footer_design_shmpyo_logo" style="opacity: 0; pointer-events: none;"><br>사업자 등록번호 : 864-11-02693<br>대표번호  : 0507-1340-4665</p>
         </div>
     </footer>
     <script src="/Js/goods.js"></script>

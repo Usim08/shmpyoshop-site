@@ -6,29 +6,28 @@
 
 @font-face {
     font-family: 'PRegular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'PSemibold';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
-    font-weight: 400;
+    font-family: 'PSemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-SemiBold.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'PBold';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
-    font-weight: 400;
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
     font-family: 'PLight';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
-    font-weight: 400;
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Light.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
 
@@ -85,7 +84,7 @@ body {
 }
 
 .discord_provision_list li {
-    font-family: 'PLight';
+    font-family: 'PRegular';
     font-size: 20px;
     text-align: left;
     list-style:decimal;
@@ -109,7 +108,7 @@ body {
 }
 
 .system_provision_list li {
-    font-family: 'PLight';
+    font-family: 'PRegular';
     font-size: 20px;
     text-align: left;
     list-style:decimal;
@@ -123,7 +122,7 @@ body {
 }
 
 .order_text_1_section {
-    font-family: 'PLight';
+    font-family: 'PRegular';
     font-size: 20px;
     text-align: center;
     color: #bbbfc7;
