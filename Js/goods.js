@@ -106,11 +106,8 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         return;
     }
 
-
-
     try {
-        document.getElementById('verifyBtn').disabled = true
-
+        // 서버로 요청
         const response = await fetch('https://www.shmpyoshop.com/send-verify-code', {
             method: 'POST',
             headers: {
@@ -134,44 +131,47 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
             document.getElementById('two_section').style.display = 'flex';
 
             let timeLeft = 180;
-            // 타이머 초기화 및 설정
-            let timerInterval = setInterval(updateTimer, 1000);
+            let timerInterval;
 
-            function updateTimer() {
-                if (timeLeft > 0) {
-                    timeLeft -= 1;
-                    const minutes = Math.floor(timeLeft / 60);
-                    const seconds = timeLeft % 60;
-                    phoneVerifySub.innerText = `인증번호 (${minutes}:${seconds.toString().padStart(2, '0')})`;
-                } else {
-                    clearInterval(timerInterval);
-                    alert('인증시간이 초과되었어요. 다시 인증을 시도해 주세요.');
-                    phoneVerifySub.innerText = '인증번호';
-                    document.getElementById('verify_number').disabled = true;
-                }
+            // 타이머 함수 정의
+            function startTimer() {
+                clearInterval(timerInterval); // 기존 타이머 정지
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft -= 1;
+                        const minutes = Math.floor(timeLeft / 60);
+                        const seconds = timeLeft % 60;
+                        phoneVerifySub.innerText = `인증번호 (${minutes}:${seconds.toString().padStart(2, '0')})`;
+                    } else {
+                        clearInterval(timerInterval);
+                        alert('인증시간이 초과되었어요. 다시 인증을 시도해 주세요.');
+                        phoneVerifySub.innerText = '인증번호';
+                        document.getElementById('verify_number').disabled = true;
+                    }
+                }, 1000);
             }
+
+            startTimer(); // 최초 타이머 시작
 
             // 3초 후 재인증 버튼 활성화
             setTimeout(() => {
-                document.getElementById('verifyBtn').textContent = "재인증하기";
                 document.getElementById('verifyBtn').disabled = false;
             }, 3000);
 
             // 재인증 버튼을 누르면 타이머 초기화
             document.getElementById('verifyBtn').addEventListener('click', () => {
-                clearInterval(timerInterval); // 기존 타이머 초기화
                 timeLeft = 180; // 타이머 초기화
-                timerInterval = setInterval(updateTimer, 1000); // 새 타이머 시작
+                startTimer(); // 새 타이머 시작
             }, { once: true });
         } else {
             alert(result.message);
         }
     } catch (error) {
-        document.getElementById('verifyBtn').disabled = false
         console.error('인증번호 발송 중 오류가 발생했습니다:', error);
         alert('인증번호 발송에 실패했습니다. 다시 시도해 주세요.');
     }
 });
+
 
 
 
