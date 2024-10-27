@@ -165,7 +165,7 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
     }
 
     try {
-        const response = await fetch('http://localhost:3019/verify-code', {
+        const response = await fetch('https://www.shmpyoshop.com/verify-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
