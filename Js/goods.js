@@ -148,7 +148,12 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
                     clearInterval(timerInterval);
                     alert('인증시간이 초과되었어요. 다시 인증을 시도해 주세요.');
                     phoneVerifySub.innerText = '인증번호';
+                    document.getElementById('verify_number').value = "";
                     document.getElementById('verify_number').disabled = true;
+
+                    document.getElementById('verifyBtn').style.opacity = 1;
+                    document.getElementById('verifyBtn').disabled = false;
+            
                 }
             }
         } else {
