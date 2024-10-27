@@ -89,6 +89,9 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
 });
 
 
+// 전역 변수로 timerInterval 선언
+let timerInterval;
+
 document.getElementById('verifyBtn').addEventListener('click', async () => {
     const phoneNumber = document.getElementById('phone_number').value.trim();
     const name = document.getElementById('name').value.trim();
@@ -106,12 +109,9 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         return;
     }
 
-
-
     try {
         document.getElementById('verifyBtn').style.opacity = 0.5;
         document.getElementById('verifyBtn').disabled = true;
-
 
         const response = await fetch('https://www.shmpyoshop.com/send-verify-code', {
             method: 'POST',
@@ -136,7 +136,8 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
 
             let timeLeft = 180;
             // 타이머 초기화 및 설정
-            let timerInterval = setInterval(updateTimer, 1000);
+            clearInterval(timerInterval);  // 이전 타이머 멈추기 (중복 방지)
+            timerInterval = setInterval(updateTimer, 1000);
 
             function updateTimer() {
                 if (timeLeft > 0) {
@@ -153,7 +154,6 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
 
                     document.getElementById('verifyBtn').style.opacity = 1;
                     document.getElementById('verifyBtn').disabled = false;
-            
                 }
             }
         } else {
@@ -166,8 +166,6 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         alert('인증번호 발송에 실패했습니다. 다시 시도해 주세요.');
     }
 });
-
-
 
 document.getElementById('verify_number_btn').addEventListener('click', async () => {
     const verifyCode = document.getElementById('verify_number').value.trim();
@@ -194,7 +192,7 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
         const result = await response.json();
         if (result.success) {
             // 인증 성공 시 타이머 멈춤
-            clearInterval(timerInterval); // <- 여기서 타이머 멈추기
+            clearInterval(timerInterval); // <- 전역 변수로 선언된 timerInterval을 멈춤
 
             document.getElementById('verifyBtn').style.opacity = 0.5;
             document.getElementById('verifyBtn').disabled = true;
@@ -214,4 +212,3 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
         alert('인증번호 확인에 실패했습니다. 다시 시도해 주세요.');
     }
 });
-
