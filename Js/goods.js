@@ -170,7 +170,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
 
 
 document.getElementById('verify_number_btn').addEventListener('click', async () => {
-    const verifyCode = document.getElementById('verify_number').value.trim(); // verify_number -> verifyCode로 변경
+    const verifyCode = document.getElementById('verify_number').value.trim();
     const phoneNumber = document.getElementById('phone_number').value.trim();
 
     if (!verifyCode) {
@@ -193,10 +193,13 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
 
         const result = await response.json();
         if (result.success) {
+            // 인증 성공 시 타이머 멈춤
+            clearInterval(timerInterval); // <- 여기서 타이머 멈추기
+
             document.getElementById('verifyBtn').style.opacity = 0.5;
-            document.getElementById('verifyBtn').disabled = true
+            document.getElementById('verifyBtn').disabled = true;
             document.getElementById('verify_number_btn').style.opacity = 0.5;
-            document.getElementById('verify_number_btn').disabled = true
+            document.getElementById('verify_number_btn').disabled = true;
             document.getElementById('verify_number').disabled = true;
 
             document.getElementById('three_title').style.display = 'block';
@@ -211,3 +214,4 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
         alert('인증번호 확인에 실패했습니다. 다시 시도해 주세요.');
     }
 });
+
