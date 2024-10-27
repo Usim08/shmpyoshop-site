@@ -106,8 +106,11 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         return;
     }
 
+
+
     try {
-        // 서버로 요청
+        document.getElementById('verifyBtn').disabled = true
+
         const response = await fetch('https://www.shmpyoshop.com/send-verify-code', {
             method: 'POST',
             headers: {
@@ -131,8 +134,10 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
             document.getElementById('two_section').style.display = 'flex';
 
             let timeLeft = 180;
-            const timerInterval = setInterval(() => {
-                clearInterval(timerInterval);
+            // 타이머 초기화 및 설정
+            let timerInterval = setInterval(updateTimer, 1000);
+
+            function updateTimer() {
                 if (timeLeft > 0) {
                     timeLeft -= 1;
                     const minutes = Math.floor(timeLeft / 60);
@@ -144,15 +149,30 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
                     phoneVerifySub.innerText = '인증번호';
                     document.getElementById('verify_number').disabled = true;
                 }
-            }, 1000);
+            }
+
+            // 3초 후 재인증 버튼 활성화
+            setTimeout(() => {
+                document.getElementById('verifyBtn').textContent = "재인증하기";
+                document.getElementById('verifyBtn').disabled = false;
+            }, 3000);
+
+            // 재인증 버튼을 누르면 타이머 초기화
+            document.getElementById('verifyBtn').addEventListener('click', () => {
+                clearInterval(timerInterval); // 기존 타이머 초기화
+                timeLeft = 180; // 타이머 초기화
+                timerInterval = setInterval(updateTimer, 1000); // 새 타이머 시작
+            }, { once: true });
         } else {
             alert(result.message);
         }
     } catch (error) {
+        document.getElementById('verifyBtn').disabled = false
         console.error('인증번호 발송 중 오류가 발생했습니다:', error);
         alert('인증번호 발송에 실패했습니다. 다시 시도해 주세요.');
     }
 });
+
 
 
 document.getElementById('verify_number_btn').addEventListener('click', async () => {
