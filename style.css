@@ -708,7 +708,6 @@ body {
     .header.scrolled {
         background-color: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(5px);
-        border-color: rgb(241, 241, 241);
         border-width: 0 0 2px 0;
         border-style: solid;
     }
@@ -716,7 +715,6 @@ body {
     .logo {
         font-family: 'PRegular';
         font-size: 25px;
-        color: rgb(255, 255, 255);
         text-decoration: none;
         opacity: 0.6;
         margin-left: 30px;
@@ -726,20 +724,14 @@ body {
     .navbar a {
         font-family: 'PRegular';
         font-size: 15px;
-        color: rgb(255, 255, 255);
         text-decoration: none;
         margin-right: 12px;
         opacity: 0.6;
         transition: opacity 0.5s, color 0.5s;
     }
     
-    .header.scrolled .navbar a {
-        color: rgb(66, 66, 66);
-    }
-    
     .header.scrolled .logo {
         opacity: 1;
-        color: #2c4bce;
     }
     
     .navbar a:hover {
@@ -776,6 +768,10 @@ body {
         margin-bottom: 10px;
         height: 40px;
         width: auto;
+    }
+
+    body {
+        overflow-x:hidden;
     }
     
 }
