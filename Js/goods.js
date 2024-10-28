@@ -11,6 +11,8 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     }
 
     try {
+        document.getElementById('registerBtn').style.opacity = 0.5;
+        document.getElementById('registerBtn').disabled = true;
         const response = await fetch('https://www.shmpyoshop.com/all-done', {
             method: 'POST',
             headers: {
@@ -27,7 +29,8 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
             alert(result.message);
         }
     } catch (error) {
-        console.error('오류가 발생했습니다:', error);
+        document.getElementById('registerBtn').style.opacity = 1;
+        document.getElementById('registerBtn').disabled = false;
         alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
     }
 });
