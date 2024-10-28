@@ -125,6 +125,11 @@ app.get('/project/shmpyo-goods', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'shmpyo-goods.html'));
 });
 
+app.get('/project/add/goods-code', (req, res) => {
+    res.sendFile(path.join(__dirname, 'project', 'goods-code.html'));
+});
+
+
 
 app.post('/send-verify-code', async (req, res) => {
     const { phoneNumber, name } = req.body;
