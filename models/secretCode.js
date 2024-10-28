@@ -4,7 +4,7 @@ const secretCodeSchema = new mongoose.Schema({
     secret: { type: String, required: true },
     value: { type: Boolean },
     goodsname: { type: String, required: true },
-    goodscode: { type: String, required: true },
+    goodsnumber: { type: String, required: true },
     userid: { type: String, required: true }
 });
 
