@@ -126,7 +126,7 @@ app.get('/project/shmpyo-goods', (req, res) => {
 });
 
 app.get('/project/add/goods-code', (req, res) => {
-    res.sendFile(path.join(__dirname, 'project', 'goods-code.html'));
+    res.sendFile(path.join(__dirname, 'project','add', 'goods-code.html'));
 });
 
 
