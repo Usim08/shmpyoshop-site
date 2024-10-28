@@ -83,7 +83,7 @@ app.post('/all-done', async (req, res) => {
         existingCode.value = true;
         await existingCode.save();
 
-        const verification = new WebsiteVerify({
+        const verification = new user_save({
             phoneNumber: phone_number, // 스키마에 맞게 수정
             discordId: existingCode.userid, // 스키마에 맞게 수정
             secret: secretCode, // 스키마에 맞게 수정
