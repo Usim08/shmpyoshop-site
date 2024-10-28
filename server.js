@@ -1,6 +1,7 @@
 require('dotenv').config();
 const SecretCode = require('./models/secretCode');
 const WebsiteVerify = require('./models/website_verify');
+const user_save = require('./models/save_user_code');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -53,15 +54,14 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/all-done', async (req, res) => {
-    const { secretCode, name, phone_number, where } = req.body;
-  
+    const { secretCode, name, phone_number, where } = req.body; // where는 게임 링크
+
     try {
         const existingCode = await SecretCode.findOne({ secret: secretCode });
 
         if (!existingCode) {
             return res.status(404).json({ success: false, message: '비밀 코드가 없습니다.' });
         }
-
 
         const { SolapiMessageService } = require('solapi');
         const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
@@ -79,10 +79,21 @@ app.post('/all-done', async (req, res) => {
                 }
             }
         });
-  
+
         existingCode.value = true;
         await existingCode.save();
-  
+
+        const verification = new WebsiteVerify({
+            phoneNumber: phone_number, // 스키마에 맞게 수정
+            discordId: existingCode.userid, // 스키마에 맞게 수정
+            secret: secretCode, // 스키마에 맞게 수정
+            name,
+            gameLink: where, // where을 gameLink로 매핑
+            goodscode: existingCode.goodscode, // 스키마에 맞게 수정
+            goodsname: existingCode.goodsname // 스키마에 맞게 수정
+        });
+        await verification.save();
+
         res.status(200).json({
             success: true,
         });
@@ -91,6 +102,7 @@ app.post('/all-done', async (req, res) => {
         res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
+
 
 
 app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/:secretCode', async (req, res) => {
