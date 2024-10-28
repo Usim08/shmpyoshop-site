@@ -3,45 +3,28 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();
     const name = document.getElementById('name').value.trim();
     const phone_number = document.getElementById('phone_number').value.trim();
-    const verify_number = document.getElementById('verify_number').value.trim();
     const where = document.getElementById('where').value.trim();
-    
-    if (!secretCode) {
-        alert('상품의 비밀 코드를 입력하지 않으셨어요');
-        return;
-    }
-    if (!name) {
-        alert('이름을 입력하지 않으셨어요');
-        return;
-    }
-    if (!phone_number) {
-        alert('전화번호를 입력하지 않으셨어요');
-        return;
-    }
-    if (!verify_number) {
-        alert('인증번호를 입력하지 않으셨어요');
-        return;
-    }
+
     if (!where) {
-        alert('디스코드 서버 링크를 첨부하지 않으셨어요');
+        alert('게임 링크를 첨부해 주세요');
         return;
     }
 
     try {
-        const response = await fetch('https://www.shmpyoshop.com/register', {
+        const response = await fetch('https://www.shmpyoshop.com/all-done', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ secretCode })
+            body: JSON.stringify({ secretCode, name, phone_number, where })
         });
 
         const result = await response.json();
         if (result.success) {
-            console.log("완료!")
+            alert('비밀 코드 활성화 완료! 자세한 내용은 카카오톡에서 확인해 주세요.\n쉼표샵을 이용해주셔서 감사합니다.');
+            window.location.href = 'https://www.shmpyoshop.com/home'
         } else {
             alert(result.message);
-            window.location.href = '/project/add/goods-code-loading.html?redirectUrl=' + encodeURIComponent(result.redirectUrl);
         }
     } catch (error) {
         console.error('오류가 발생했습니다:', error);
@@ -88,7 +71,6 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
 });
 
 
-// 전역 변수로 timerInterval 선언
 let timerInterval;
 
 document.getElementById('verifyBtn').addEventListener('click', async () => {
@@ -96,15 +78,14 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
     const name = document.getElementById('name').value.trim();
     const phoneVerifySub = document.getElementById('phone_verify_sub');
 
-    // 전화번호와 형식 확인
     if (!phoneNumber) {
-        alert('전화번호를 입력하지 않으셨어요');
+        alert('전화번호를 입력해 주세요');
         return;
     }
 
     const phonePattern = /^\d{10,11}$/;
     if (!phonePattern.test(phoneNumber)) {
-        alert('유효한 전화번호를 입력하세요.');
+        alert('유효한 전화번호를 입력해 주세요');
         return;
     }
 
@@ -126,7 +107,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
 
         const result = await response.json();
         if (result.success) {
-            alert('인증번호가 발송되었습니다! 메시지를 확인해주세요');
+            alert('인증번호가 발송되었어요. 카카오톡을 확인해 주세요');
             document.getElementById('phone_number').disabled = true;
             document.getElementById('verify_number').disabled = false;
 
@@ -134,8 +115,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
             document.getElementById('two_section').style.display = 'flex';
 
             let timeLeft = 180;
-            // 타이머 초기화 및 설정
-            clearInterval(timerInterval);  // 이전 타이머 멈추기 (중복 방지)
+            clearInterval(timerInterval);
             timerInterval = setInterval(updateTimer, 1000);
 
             function updateTimer() {
@@ -162,7 +142,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         document.getElementById('verifyBtn').style.opacity = 0.5;
         document.getElementById('verifyBtn').disabled = true;
         console.error('인증번호 발송 중 오류가 발생했습니다:', error);
-        alert('인증번호 발송에 실패했습니다. 다시 시도해 주세요.');
+        alert('인증번호 발송에 실패했어요. 다시 시도해 주세요.');
     }
 });
 
@@ -171,7 +151,7 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
     const phoneNumber = document.getElementById('phone_number').value.trim();
 
     if (!verifyCode) {
-        alert('인증번호를 입력해주세요');
+        alert('인증번호를 입력해 주세요');
         return;
     }
 
@@ -208,6 +188,6 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
         }
     } catch (error) {
         console.error('인증번호 확인 중 오류가 발생했습니다:', error);
-        alert('인증번호 확인에 실패했습니다. 다시 시도해 주세요.');
+        alert('인증번호 확인에 실패했어요. 다시 시도해 주세요.');
     }
 });

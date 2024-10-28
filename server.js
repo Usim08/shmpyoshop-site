@@ -40,6 +40,45 @@ app.post('/register', async (req, res) => {
                 message: '이미 등록된 비밀 코드예요. 파일 다운로드 페이지에서 파일을 다운로드 받으실 수 있습니다.',
             });
         }
+
+  
+        res.status(200).json({
+            success: true,
+        });
+    } catch (error) {
+        console.error('서버 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+
+
+app.post('/all-done', async (req, res) => {
+    const { secretCode, name, phone_number, where } = req.body;
+  
+    try {
+        const existingCode = await SecretCode.findOne({ secret: secretCode });
+
+        if (!existingCode) {
+            return res.status(404).json({ success: false, message: '비밀 코드가 없습니다.' });
+        }
+
+
+        const { SolapiMessageService } = require('solapi');
+        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
+
+        await messageService.send({
+            "to": phone_number,
+            "from": '01067754665',
+            "kakaoOptions": {
+                "pfId": "KA01PF241022150327686bCbW0aZDu0y",
+                "templateId": "KA01TP241026144535317dadfKhxSXs9",
+                "variables": {
+                    "#{이름}": name,
+                    "#{비밀코드}": secretCode,
+                    "#{상품이름}": existingCode.goodsname
+                }
+            }
+        });
   
         existingCode.value = true;
         await existingCode.save();
@@ -52,7 +91,7 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
-  
+
 
 app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/:secretCode', async (req, res) => {
     const { secretCode } = req.params;
@@ -102,14 +141,20 @@ app.post('/send-verify-code', async (req, res) => {
         const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
 
         await messageService.send({
-            'to': phoneNumber,
-            'from': '01067754665',
-            'text': `안녕하세요, 쉼표샵입니다!\n${name} 고객님의 인증번호는 [${verifyCode}] 입니다.\n코드가 유출되지 않도록 유의해주세요!`
+        "to": phoneNumber,
+        "from": '01067754665',
+        "kakaoOptions": {
+            "pfId": "KA01PF241022150327686bCbW0aZDu0y",
+            "templateId": "KA01TP241026144808928N0zKLn26eca",
+            "variables": {
+                "#{이름}": name,
+                "#{인증번호}":verifyCode
+            }
+        }
         });
 
         res.json({ success: true, message: '인증번호가 발송되었습니다.' });
 
-        // 3분 후 자동 삭제
         setTimeout(async () => {
             await WebsiteVerify.deleteOne({ phoneNumber, verifyCode });
             console.log(`인증번호가 만료되어 삭제되었습니다: ${phoneNumber}`);

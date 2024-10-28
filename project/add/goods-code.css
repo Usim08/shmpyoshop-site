@@ -195,3 +195,9 @@ body {
     text-align: left;
     font-size: 15px;
 }
+
+.info_1_check_list li a {
+    color: #5888ff;
+    text-decoration: none;
+    font-family: 'PSemibold';
+}
