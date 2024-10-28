@@ -89,7 +89,7 @@ app.post('/all-done', async (req, res) => {
             secret: secretCode, // 스키마에 맞게 수정
             name: name,
             gameLink: where, // where을 gameLink로 매핑
-            goodscode: existingCode.goodscode, // 스키마에 맞게 수정
+            goodscode: existingCode.goodsnumber, // 스키마에 맞게 수정
             goodsname: existingCode.goodsname // 스키마에 맞게 수정
         });
         await verification.save();
