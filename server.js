@@ -87,7 +87,7 @@ app.post('/all-done', async (req, res) => {
             phoneNumber: phone_number, // 스키마에 맞게 수정
             discordId: existingCode.userid, // 스키마에 맞게 수정
             secret: secretCode, // 스키마에 맞게 수정
-            name,
+            name: name,
             gameLink: where, // where을 gameLink로 매핑
             goodscode: existingCode.goodscode, // 스키마에 맞게 수정
             goodsname: existingCode.goodsname // 스키마에 맞게 수정
