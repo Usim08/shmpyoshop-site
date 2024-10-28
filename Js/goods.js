@@ -1,3 +1,14 @@
+window.addEventListener('scroll', function() {
+    const header = document.getElementById('header');
+
+    if (window.scrollY > 0) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+
 document.getElementById('registerBtn').addEventListener('click', async () => {
 
     const secretCode = document.getElementById('secretCode').value.trim();
