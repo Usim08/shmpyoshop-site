@@ -1,123 +1,117 @@
+const roundBox1 = document.querySelector('.information_one_section_round_box');
+const nextButton1 = document.querySelector('.next');
+const prevButton1 = document.querySelector('.prev');
 
-const clientId = '1193950006714040461';
-const $login = document.querySelector("#loginDiscord")
-const redirectUri = 'https://www.shmpyoshop.com/';
-const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=identify`;
+let currentPosition1 = 0;
+const moveAmount1 = 375;
 
-function login() {
-  window.location.href = discordAuthUrl;
+function moveRightBox1() {
+  if (currentPosition1 == 0) {
+    currentPosition1 -= moveAmount1;
+    roundBox1.style.transform = `translateX(${currentPosition1}px)`;
+  }
 }
-window.onload = function() {
-  const urlParams = new URLSearchParams(window.location.hash.substring(1));
-  const accessToken = urlParams.get('access_token');
-  if (accessToken) {
-      fetch('https://discord.com/api/users/@me', {
-          headers: {
-              authorization: `Bearer ${accessToken}`
-          }
-      })
-      .then(response => response.json())
-      .then(data => {
-          sessionStorage.setItem('userData', JSON.stringify(data));
-          $login.textContent = data.username;
-      })
-      .catch(error => console.error('Error fetching user info:', error));
-  } else {
-      const userData = sessionStorage.getItem('userData');
-      if (userData) {
-          const data = JSON.parse(userData);
-          $login.textContent = data.username;
-      }
+
+function moveLeftBox1() {
+  if (currentPosition1 == -375) {
+    currentPosition1 += moveAmount1;
+    roundBox1.style.transform = `translateX(${currentPosition1}px)`;
   }
-};
+}
 
+nextButton1.addEventListener('click', moveRightBox1);
+prevButton1.addEventListener('click', moveLeftBox1);
 
+const counterElement = document.getElementById('counter');
+const targetNumber = 15;
+const startScrollPosition = 3200;
+const duration = 1000;
 
+let isAnimating = false;
 
-
-
-var gradients = [
-    ['#850cda', '#2c72ce'],
-    ['#0cd7c1', '#2c4bce'],
-    ['#5d0cd7', '#2c4bce']
-  ];
-  
-  var gradientsRev = gradients.reverse();
-  var gradientCover = document.querySelector('.main');
-  
- 
-  for (var g = 0; g < gradientsRev.length; g++) {
-    var gradEl = document.createElement('div');
-    gradEl.className = 'gradient';
-    gradEl.style.position = 'absolute';
-    gradEl.style.top = 0;
-    gradEl.style.left = 0;
-    gradEl.style.width = '100%';
-    gradEl.style.height = '100%';
-    gradEl.style.background = `linear-gradient(to left top, ${gradientsRev[g][0]}, ${gradientsRev[g][1]})`;
-    gradEl.style.opacity = 0;
-    gradientCover.appendChild(gradEl);
+window.addEventListener('scroll', () => {
+  if (window.scrollY >= startScrollPosition && !isAnimating) {
+    isAnimating = true;
+    animateCounter();
   }
-  
-  var gradientEls = document.querySelectorAll('.main .gradient');
-  
-  function gradientCycler() {
-    function gradeFade(i, opDest) {
-      var fadeDur = 2000;
-      $(gradientEls[i]).animate({
-        'opacity': opDest
-      }, {
-        duration: fadeDur,
-        complete: function() {
-          if (parseInt(i) > 0) {
-            if (parseInt(opDest) === 0) gradeFade(i - 1, 0);
-            else gradFadeStart();
-          } else {
-            gradeFade(gradientEls.length - 1, 1);
-          }
-        }
-      });
-    }
-  
-    var gradFadeStart = function() {
-      $('.gradient').css('opacity', 1);
-      gradeFade(gradientEls.length - 1, 0);
-    };
-  
-    gradFadeStart();
-  }
-  
-gradientCycler();
-  
-
-window.addEventListener('scroll', function() {
-    const header = document.getElementById('header');
-
-    if (window.scrollY > 0) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
 });
 
+function animateCounter() {
+  let currentNumber = 0;
+  const increment = targetNumber / (duration / 16);
+
+  const counterInterval = setInterval(() => {
+    currentNumber += increment;
+
+    if (currentNumber >= targetNumber) {
+      currentNumber = targetNumber;
+      clearInterval(counterInterval);
+    }
+
+    counterElement.textContent = Math.floor(currentNumber);
+  }, 16);
+}
 
 
+const roundBox2 = document.querySelector('.information_three_section_round_box');
+const nextButton2 = document.querySelector('.right');
+const prevButton2 = document.querySelector('.left');
 
+let currentPosition2 = 0;
+const moveAmount2 = 375;
 
+function moveRightBox2() {
+  if (currentPosition2 == 0) {
+    currentPosition2 -= moveAmount2;
+    roundBox2.style.transform = `translateX(${currentPosition2}px)`;
+  }
+}
+
+function moveLeftBox2() {
+  if (currentPosition2 == -375) {
+    currentPosition2 += moveAmount2;
+    roundBox2.style.transform = `translateX(${currentPosition2}px)`;
+  }
+}
+
+nextButton2.addEventListener('click', moveRightBox2);
+prevButton2.addEventListener('click', moveLeftBox2);
 
 
 function handleScroll() {
     let sections = [
-        {selector: '.if1_1_title', offset: 0.15, transform: 'translate(-50%, 120%)', opacity: '100%'},
-        {selector: '.if1_container', offset: 0.23, transform: 'translateY(10%)', opacity: '100%'},
-        {selector: '.if2_container', offset: 0.23, transform: 'translateY(35%)', opacity: '100%'},
+        {selector: '.information_one_section_main_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_main_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_round_one_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_round_two_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_round_three_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_one_title_image', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_one_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_one_sub_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_two_title_image', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_two_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_two_sub_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_main_sub_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_main_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_one_title_image', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_one_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_one_sub_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_two_title_image', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_two_title_sub_text', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_two_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_two_sub_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_three_section_main_sub_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_three_section_main_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_three_section_round_one_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_three_section_round_two_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_three_section_round_three_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_four_section_round_three_box_image', offset: 0.9, transform: 'translate(-50%, 0)', opacity: '100%'},
+        {selector: '.information_four_section_main_title', offset: 0.9, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.lastbutton button', offset: 0.9, transform: 'translate(-50%, 0)', opacity: '100%'},
 
-        {selector: '.if2_1_title', offset: 0.5, transform: 'translate(-50%, 120%)', opacity: '100%'},
-        {selector: '.if2_3_container', offset: 0.6, transform: 'translate(-50%, 0)', opacity: '100%'},
-        {selector: '.if2_4_container', offset: 0.6, transform: 'translate(-50%, 0)', opacity: '100%'},
-        {selector: '.if2_5_container', offset: 0.6, transform: 'translate(-50%, 0)', opacity: '100%'},
 
-        {selector: '.ifth_title_h1', offset: 0.9, transform: 'translateY(110%)', opacity: '100%'}
+
+
 
     ];
 
@@ -139,8 +133,3 @@ function handleScroll() {
 }
 
 window.addEventListener('scroll', handleScroll);
-
-
-var copy = document.querySelector(".if2_logos-slide").cloneNode(true);
-document.querySelector(".if2_logos").appendChild(copy);
-

@@ -14,14 +14,6 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();
     const name = document.getElementById('name').value.trim();
     const phone_number = document.getElementById('phone_number').value.trim();
-    const where = document.getElementById('where').value.trim();
-
-    if (!where) {
-        document.getElementById('error-message-game').textContent = '게임 링크를 첨부하세요';
-        return;
-    } else {
-        document.getElementById('error-message-game').textContent = '';
-    }
 
     try {
         document.getElementById('registerBtn').style.opacity = 0.5;
@@ -31,7 +23,7 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ secretCode, name, phone_number, where })
+            body: JSON.stringify({ secretCode, name, phone_number})
         });
 
         const result = await response.json();
@@ -53,14 +45,11 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
     const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
-        document.getElementById('error-message').textContent = '비밀 코드를 입력하세요';
         return;
-    } else {
-        document.getElementById('error-message').textContent = '';
     }
 
     try {
-        const response = await fetch('https://www.shmpyoshop.com/register', {
+        const response = await fetch('http://localhost:3019/check_code_for_true_or_false', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +69,7 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
             document.getElementById('two_title').style.display = 'block';
 
         } else {
-            document.getElementById('error-message').textContent = result.message;
+            alert(result.message);
         }
     } catch (error) {
         console.error('오류가 발생했습니다:', error);
@@ -97,25 +86,20 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
     const phoneVerifySub = document.getElementById('phone_verify_sub');
 
     if (!phoneNumber) {
-        document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
         return;
-    } else {
-        document.getElementById('error-message-phone').textContent = '';
     }
 
     const phonePattern = /^\d{10,11}$/;
     if (!phonePattern.test(phoneNumber)) {
-        document.getElementById('error-message-phone').textContent = '전화번호 형식을 다시 한번 확인해 주세요';
+        alert('유효한 전화번호를 입력해 주세요');
         return;
-    } else {
-        document.getElementById('error-message-phone').textContent = '';
     }
 
     try {
         document.getElementById('verifyBtn').style.opacity = 0.5;
         document.getElementById('verifyBtn').disabled = true;
 
-        const response = await fetch('https://www.shmpyoshop.com/send-verify-code', {
+        const response = await fetch('http://localhost:3019/send-verify-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -173,14 +157,11 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
     const phoneNumber = document.getElementById('phone_number').value.trim();
 
     if (!verifyCode) {
-        document.getElementById('error-message-verify').textContent = '인증번호를 입력하세요';
         return;
-    } else {
-        document.getElementById('error-message-verify').textContent = '';
     }
 
     try {
-        const response = await fetch('https://www.shmpyoshop.com/verify-code', {
+        const response = await fetch('http://localhost:3019/verify-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -203,8 +184,6 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
             document.getElementById('verify_number_btn').disabled = true;
             document.getElementById('verify_number').disabled = true;
 
-            document.getElementById('three_title').style.display = 'block';
-            document.getElementById('where').style.display = 'block';
             document.getElementById('info_last_list').style.display = 'block';
             document.getElementById('lastbutton').style.display = 'block';
         } else {
