@@ -57,7 +57,7 @@ body {
 .h1Text {
     font-family: 'PSemiBold';
     font-size: 7vh;
-    color: rgb(34, 34, 34);
+    color: #222222;
     text-align: center;
     z-index: 20;
     position: relative;
