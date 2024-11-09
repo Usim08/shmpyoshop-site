@@ -95,19 +95,18 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
     const phoneNumber = document.getElementById('phone_number').value.trim();
     const name = document.getElementById('name').value.trim();
     const phoneVerifySub = document.getElementById('phone_verify_sub');
-
-    if (!phoneNumber) {
-        document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
-        return;
-    } else {
-        document.getElementById('error-message-phone').textContent = '';
-    }
-
     if (!name) {
         document.getElementById('error-message-name').textContent = '이름을 입력하세요';
         return;
     } else {
         document.getElementById('error-message-name').textContent = '';
+    }
+    
+    if (!phoneNumber) {
+        document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
+        return;
+    } else {
+        document.getElementById('error-message-phone').textContent = '';
     }
 
     const phonePattern = /^\d{10,11}$/;
