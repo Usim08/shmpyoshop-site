@@ -62,7 +62,6 @@ body {
     z-index: 20;
     position: relative;
     margin-top: 1vh;
-    letter-spacing: 3px;
     opacity: 0;
     animation: h1Text 1s;
     animation-delay: 0.7s;
