@@ -103,6 +103,13 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         document.getElementById('error-message-phone').textContent = '';
     }
 
+    if (!name) {
+        document.getElementById('error-message-name').textContent = '이름을 입력하세요';
+        return;
+    } else {
+        document.getElementById('error-message-name').textContent = '';
+    }
+
     const phonePattern = /^\d{10,11}$/;
     if (!phonePattern.test(phoneNumber)) {
         document.getElementById('error-message-phone').textContent = '전화번호 형식을 다시 한번 확인해 주세요';
