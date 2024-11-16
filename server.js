@@ -265,25 +265,21 @@ app.post('/verify-code-second', async (req, res) => {
             await WebsiteVerify.deleteOne({ phoneNumber, verifyCode });
 
             // 사용자 데이터 찾기
-            const save_user_data = await user_save.findOne({ secretCode });
+            const save_user_data = await user_save.findOne({ secret: secretCode });
 
-            if (save_user_data) {
-                // 이름, 전화번호, 비밀 코드가 일치하는지 확인
-                if (save_user_data.name === name) {
-                    if (save_user_data.phoneNumber === phoneNumber) {
-                        if (save_user_data.secretCode === secretCode) {
-                            return res.json({ success: true, message: "인증이 완료되었습니다." });
-                        } else {
-                            return res.json({ success: false, message: "비밀 코드가 일치하지 않습니다." });
-                        }
+            // 이름, 전화번호, 비밀 코드가 일치하는지 확인
+            if (save_user_data.name === name) {
+                if (save_user_data.phoneNumber === phoneNumber) {
+                    if (save_user_data.secretCode === secretCode) {
+                        return res.json({ success: true, message: "인증이 완료되었습니다." });
                     } else {
-                        return res.json({ success: false, message: "전화번호가 일치하지 않습니다." });
+                        return res.json({ success: false, message: "회원 정보가 일치하지 않습니다." });
                     }
                 } else {
-                    return res.json({ success: false, message: "이름이 일치하지 않습니다." });
+                    return res.json({ success: false, message: "회원 정보가 일치하지 않습니다." });
                 }
             } else {
-                return res.json({ success: false, message: "사용자 정보를 찾을 수 없습니다." });
+                return res.json({ success: false, message: "회원 정보가 일치하지 않습니다." });
             }
         } else {
             return res.json({ success: false, message: '인증번호를 다시 한 번 확인해 주세요.' });
