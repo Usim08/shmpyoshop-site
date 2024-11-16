@@ -137,6 +137,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         if (result.success) {
             alert('인증번호가 발송되었어요. 카카오톡을 확인해 주세요');
             document.getElementById('phone_number').disabled = true;
+            document.getElementById('name').disabled = true;
             document.getElementById('verify_number').disabled = false;
 
             phoneVerifySub.style.display = 'block';

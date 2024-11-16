@@ -2,6 +2,7 @@ require('dotenv').config();
 const SecretCode = require('./models/secretCode');
 const WebsiteVerify = require('./models/website_verify');
 const user_save = require('./models/save_user_code');
+const goodscode_bool = require('./models/goodNumber');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -46,6 +47,42 @@ app.post('/register', async (req, res) => {
         res.status(200).json({
             success: true,
         });
+    } catch (error) {
+        console.error('서버 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
+
+app.post('/check_secret', async (req, res) => {
+    const { secretCode } = req.body;
+  
+    try {
+        const existingCode = await SecretCode.findOne({ secret: secretCode });
+        if (!existingCode) {
+            return res.status(404).json({ success: false, message: '상품 비밀 코드를 잘못 입력하셨거나, 존재하지 않는 비밀 코드예요.' });
+        }
+
+        const gdscode = existingCode.goodsnumber
+        const goodscode_for_bool = await goodscode_bool.findOne({ code: gdscode });
+
+        if (goodscode_for_bool.download == "T") {
+            if (existingCode.value == true) {
+                return res.status(200).json({
+                    success: true
+                });
+            } else {
+                return res.status(200).json({
+                    success: false,
+                    message: '활성화 되지 않은 코드예요. 비밀코드 활성화 페이지에서 코드 활성화를 진행해 주세요.',
+                });
+            }    
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: '해당 상품은 아직 준비중입니다.',
+            });
+        }
+        
     } catch (error) {
         console.error('서버 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
@@ -231,6 +268,36 @@ app.post('/verify-code', async (req, res) => {
     } catch (error) {
         console.error('인증번호 확인 중 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류가 발생했습니다. 다시 시도해 주세요.' });
+    }
+});
+
+const crypto = require('crypto'); // crypto 모듈을 사용하여 랜덤 값 생성
+
+
+app.post('/download-file', async (req, res) => {
+    try {
+        const { secretCode } = req.body; // 요청에서 secretCode 추출
+        const existingCode = await SecretCode.findOne({ secret: secretCode });
+
+        if (!existingCode) {
+            return res.status(404).json({ success: false, message: "Secret code not found" });
+        }
+
+        // 랜덤한 경로 생성
+        const randomPath = crypto.randomBytes(30).toString('hex'); 
+        const all = `/project/download/${secretCode}/${randomPath}`;
+
+        // 동적으로 생성된 경로에 대한 라우팅 설정
+        app.get(all, (req, res) => {
+            res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', `${existingCode.goodsnumber}.html`));
+        });
+
+        // 응답 반환 (클라이언트에서 이 URL을 사용)
+        res.json({ success: true, message: all });
+
+    } catch (error) {
+        console.error(error); // 에러 로깅
+        res.status(500).json({ success: false, message: "Internal server error" }); // 서버 에러 응답
     }
 });
 

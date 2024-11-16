@@ -10,46 +10,54 @@ window.addEventListener('scroll', function() {
 
 
 document.getElementById('registerBtn').addEventListener('click', async () => {
-
-    const secretCode = document.getElementById('secretCode').value.trim();
-    const name = document.getElementById('name').value.trim();
-    const phone_number = document.getElementById('phone_number').value.trim();
+    const secretCode = document.getElementById('secretCode').value.trim();  // 입력받은 secretCode 가져오기
 
     try {
+        // 버튼 상태 변경
         document.getElementById('registerBtn').style.opacity = 0.5;
         document.getElementById('registerBtn').disabled = true;
-        const response = await fetch('https://www.shmpyoshop.com/all-done', {
+
+        // 서버에 요청 보내기
+        const response = await fetch('https://www.shmpyoshop.com/download-file', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ secretCode, name, phone_number})
+            body: JSON.stringify({ secretCode })
         });
 
         const result = await response.json();
+
+        // 응답 처리
         if (result.success) {
             alert('비밀 코드 활성화 완료! 자세한 내용은 카카오톡에서 확인해 주세요.\n쉼표샵을 이용해주셔서 감사합니다.');
-            window.location.href = 'https://www.shmpyoshop.com/home'
+            window.location.href = result.message;
         } else {
-            alert(result.message);
+            alert(result.message);  // 실패 메시지 처리
         }
     } catch (error) {
+        // 오류 발생 시 처리
         document.getElementById('registerBtn').style.opacity = 1;
         document.getElementById('registerBtn').disabled = false;
         alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
     }
 });
 
+
+
 document.getElementById('check_secret_code').addEventListener('click', async () => {
 
     const secretCode = document.getElementById('secretCode').value.trim();
     
     if (!secretCode) {
+        document.getElementById('error-message').textContent = '비밀 코드를 입력하세요';
         return;
+    } else {
+        document.getElementById('error-message').textContent = '';
     }
 
     try {
-        const response = await fetch('http://localhost:3019/check_code_for_true_or_false', {
+        const response = await fetch('https://www.shmpyoshop.com/check_secret', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +77,7 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
             document.getElementById('two_title').style.display = 'block';
 
         } else {
-            alert(result.message);
+            document.getElementById('error-message').textContent = result.message;
         }
     } catch (error) {
         console.error('오류가 발생했습니다:', error);
@@ -84,22 +92,33 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
     const phoneNumber = document.getElementById('phone_number').value.trim();
     const name = document.getElementById('name').value.trim();
     const phoneVerifySub = document.getElementById('phone_verify_sub');
-
-    if (!phoneNumber) {
+    if (!name) {
+        document.getElementById('error-message-name').textContent = '이름을 입력하세요';
         return;
+    } else {
+        document.getElementById('error-message-name').textContent = '';
+    }
+    
+    if (!phoneNumber) {
+        document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
+        return;
+    } else {
+        document.getElementById('error-message-phone').textContent = '';
     }
 
     const phonePattern = /^\d{10,11}$/;
     if (!phonePattern.test(phoneNumber)) {
-        alert('유효한 전화번호를 입력해 주세요');
+        document.getElementById('error-message-phone').textContent = '전화번호 형식을 다시 한번 확인해 주세요';
         return;
+    } else {
+        document.getElementById('error-message-phone').textContent = '';
     }
 
     try {
         document.getElementById('verifyBtn').style.opacity = 0.5;
         document.getElementById('verifyBtn').disabled = true;
 
-        const response = await fetch('http://localhost:3019/send-verify-code', {
+        const response = await fetch('https://www.shmpyoshop.com/send-verify-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -115,6 +134,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         if (result.success) {
             alert('인증번호가 발송되었어요. 카카오톡을 확인해 주세요');
             document.getElementById('phone_number').disabled = true;
+            document.getElementById('name').disabled = true;
             document.getElementById('verify_number').disabled = false;
 
             phoneVerifySub.style.display = 'block';
@@ -157,11 +177,14 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
     const phoneNumber = document.getElementById('phone_number').value.trim();
 
     if (!verifyCode) {
+        document.getElementById('error-message-verify').textContent = '인증번호를 입력하세요';
         return;
+    } else {
+        document.getElementById('error-message-verify').textContent = '';
     }
 
     try {
-        const response = await fetch('http://localhost:3019/verify-code', {
+        const response = await fetch('https://www.shmpyoshop.com/verify-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
