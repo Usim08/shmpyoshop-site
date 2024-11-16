@@ -175,6 +175,9 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
 document.getElementById('verify_number_btn').addEventListener('click', async () => {
     const verifyCode = document.getElementById('verify_number').value.trim();
     const phoneNumber = document.getElementById('phone_number').value.trim();
+    const secretCode = document.getElementById('secretCode').value.trim();
+    const name = document.getElementById('name').value.trim();
+
 
     if (!verifyCode) {
         document.getElementById('error-message-verify').textContent = '인증번호를 입력하세요';
@@ -184,12 +187,12 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
     }
 
     try {
-        const response = await fetch('https://www.shmpyoshop.com/verify-code', {
+        const response = await fetch('https://www.shmpyoshop.com/verify-code-second', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ phoneNumber, verifyCode })
+            body: JSON.stringify({ phoneNumber, verifyCode, secretCode, name })
         });
 
         if (!response.ok) {

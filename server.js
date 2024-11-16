@@ -207,6 +207,8 @@ app.get('/project/add/goods-code', (req, res) => {
 
 
 
+
+
 app.post('/send-verify-code', async (req, res) => {
     const { phoneNumber, name } = req.body;
 
@@ -247,6 +249,43 @@ app.post('/send-verify-code', async (req, res) => {
     }
 });
 
+app.post('/verify-code-second', async (req, res) => {
+    const { phoneNumber, verifyCode, secretCode, name } = req.body;
+
+    if (!phoneNumber || !verifyCode) {
+        return res.status(400).json({ success: false, message: '전화번호와 인증번호를 모두 입력해 주세요.' });
+    }
+
+    try {
+        const result = await WebsiteVerify.findOne({ phoneNumber, verifyCode });
+
+        if (result) {
+            // 인증이 성공하면 MongoDB에서 데이터 삭제
+            await WebsiteVerify.deleteOne({ phoneNumber, verifyCode });
+
+            const save_user_data = await user_save.findOne({ secret, secretCode });
+
+            if (save_user_data.name == name) {
+                if (save_user_data.phoneNumber == phoneNumber) {
+                    if (save_user_data.secret == secretCode) {
+                        return res.json({ success: true});
+                    } else {
+                        return res.json({ success: false, message: "회원 정보가 일치하지 않습니다"});
+                    }
+                } else {
+                    return res.json({ success: false, message: "회원 정보가 일치하지 않습니다"});
+                }
+            } else {
+                return res.json({ success: false, message: "회원 정보가 일치하지 않습니다"});
+            }
+        } else {
+            res.json({ success: false, message: '인증번호를 다시 한 번 확인해 주세요.' });
+        }
+    } catch (error) {
+        console.error('인증번호 확인 중 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류가 발생했습니다. 다시 시도해 주세요.' });
+    }
+});
 
 app.post('/verify-code', async (req, res) => {
     const { phoneNumber, verifyCode } = req.body;
