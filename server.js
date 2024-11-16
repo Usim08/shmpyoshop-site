@@ -7,6 +7,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
+const fs = require('fs');
 
 const port = process.env.PORT || 3019;
 const app = express();
@@ -325,12 +326,26 @@ app.post('/download-file', async (req, res) => {
         }
 
         // 랜덤한 경로 생성
-        const randomPath = crypto.randomBytes(30).toString('hex'); 
+        const randomPath = crypto.randomBytes(90).toString('hex'); 
         const all = `/project/download/${secretCode}/${randomPath}`;
 
         // 동적으로 생성된 경로에 대한 라우팅 설정
         app.get(all, (req, res) => {
-            res.sendFile(path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', `${existingCode.goodsnumber}.html`));
+            const filePath = path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', `${existingCode.goodsnumber}.html`);
+
+            // 파일이 존재하면 보내고, 그렇지 않으면 404 반환
+            if (fs.existsSync(filePath)) {
+                res.sendFile(filePath, (err) => {
+                    if (err) {
+                        res.status(500).json({ success: false, message: "Error sending file" });
+                    }
+                });
+
+                // 파일 다운로드 후 URL을 더 이상 유효하지 않게 설정 (일회성 처리)
+                app._router.stack = app._router.stack.filter((middleware) => middleware.route?.path !== all);
+            } else {
+                res.status(404).json({ success: false, message: "File not found" });
+            }
         });
 
         // 응답 반환 (클라이언트에서 이 URL을 사용)
@@ -341,7 +356,6 @@ app.post('/download-file', async (req, res) => {
         res.status(500).json({ success: false, message: "Internal server error" }); // 서버 에러 응답
     }
 });
-
 
 
 
