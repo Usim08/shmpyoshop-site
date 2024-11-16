@@ -30,7 +30,6 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         // 응답 처리
         if (result.success) {
-            alert('비밀 코드 활성화 완료! 자세한 내용은 카카오톡에서 확인해 주세요.\n쉼표샵을 이용해주셔서 감사합니다.');
             window.location.href = result.message;
         } else {
             alert(result.message);  // 실패 메시지 처리

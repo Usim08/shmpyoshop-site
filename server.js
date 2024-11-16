@@ -267,10 +267,9 @@ app.post('/verify-code-second', async (req, res) => {
             // 사용자 데이터 찾기
             const save_user_data = await user_save.findOne({ secret: secretCode });
 
-            // 이름, 전화번호, 비밀 코드가 일치하는지 확인
             if (save_user_data.name === name) {
                 if (save_user_data.phoneNumber === phoneNumber) {
-                    if (save_user_data.secretCode === secretCode) {
+                    if (save_user_data.secret === secretCode) {
                         return res.json({ success: true, message: "인증이 완료되었습니다." });
                     } else {
                         return res.json({ success: false, message: "회원 정보가 일치하지 않습니다." });
