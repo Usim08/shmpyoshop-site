@@ -333,7 +333,6 @@ app.post('/download-file', async (req, res) => {
         app.get(all, (req, res) => {
             const filePath = path.join(__dirname, 'project', 'verified_access_for_download_shmpyo_exclusive_goods', `${existingCode.goodsnumber}.html`);
 
-            // 파일이 존재하면 보내고, 그렇지 않으면 404 반환
             if (fs.existsSync(filePath)) {
                 res.sendFile(filePath, (err) => {
                     if (err) {
