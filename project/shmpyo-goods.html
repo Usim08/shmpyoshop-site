@@ -38,27 +38,76 @@
     </header>
 
     <div class="info_1_section">
-        <h1 class="ifo_title_h1">쉼표샵 판매상품</h1>
+        <div class="find_item">
+            <h1 class="ifo_title_h1">쉼표샵 전체 상품</h1>
+            <div class="find_shmpyoshop_product_item">
+                <input type="text" class="search" placeholder="검색어를 입력하세요">
+                <button class="search_button"><svg xmlns="http://www.w3.org/2000/svg" width="25.678" height="25.601" viewBox="0 0 25.678 25.601">
+                    <path id="search_24dp_FFFFFF_FILL0_wght200_GRAD200_opsz20" d="M173.384-785.629l-9.3-9.3a8.563,8.563,0,0,1-2.729,1.341,10.473,10.473,0,0,1-2.992.466,8.736,8.736,0,0,1-6.414-2.641,8.725,8.725,0,0,1-2.642-6.409,8.744,8.744,0,0,1,2.641-6.414,8.719,8.719,0,0,1,6.409-2.646,8.742,8.742,0,0,1,6.414,2.642,8.728,8.728,0,0,1,2.646,6.414,9.984,9.984,0,0,1-.457,2.985,8.71,8.71,0,0,1-1.311,2.62l9.336,9.337Zm-15.019-9.742a6.584,6.584,0,0,0,4.85-1.953,6.584,6.584,0,0,0,1.953-4.85,6.584,6.584,0,0,0-1.953-4.85,6.585,6.585,0,0,0-4.85-1.953,6.584,6.584,0,0,0-4.85,1.953,6.584,6.584,0,0,0-1.953,4.85,6.584,6.584,0,0,0,1.953,4.85A6.583,6.583,0,0,0,158.365-795.371Z" transform="translate(-149.31 811.23)" fill="#cad2d5"/>
+                </svg></button>
+            </div>
+        </div>
     </div>
+
+    <div class="line"></div>
 
     <div class="info_2_section">
-        <h1 class="ift_title_h1">상품을 준비하는 중이에요.<br>나중에 다시 봬요!</h1>
-    </div>
-
-
-
-
-
-    <footer class="footer_design_shmpyo">
-        <div class="footer_design_shmpyo_div">
-            <p><img src="/IMG/쉼표샵 파랑.png" class="footer_design_shmpyo_logo" style="pointer-events: none;"><br>대표 : 신기하<br>사업장 주소 : 서울특별시 강남구 강남대로 112길 47, 2층 71A호(논현동)<br>© 2024 shmpyoShop. All Right Reserved.</p>
-            <p><img src="/IMG/쉼표샵 파랑.png" class="footer_design_shmpyo_logo" style="opacity: 0; pointer-events: none;"><br>사업자 등록번호 : 864-11-02693<br>대표번호  : 0507-1340-4665</p>
+        <div class="product">
+            <div class="product_item">
+                <button class="SP3019" onclick="redirectToPayment('SP3019')">
+                    <img class="product_image" src="/IMG/product_img/SP3019.png">
+                    <div class="product_title">소생시스템</div>
+                    <div class="product_price">16,900원</div>
+                </button>
+    
+                <button class="SP2537" onclick="redirectToPayment('SP2537')">
+                    <img class="product_image" src="/IMG/product_img/SP2537.png">
+                    <div class="product_title">공지시스템Pro</div>
+                    <div class="product_price">11,900원</div>
+                </button>
+            </div>
         </div>
-    </footer>
+    </div>
+    
+
+
+
+
+    <iframe 
+    src="footer.html" 
+    style="width: 100%; height: 250px; border: none;">
+    </iframe>
+
 
 
 
 
     <script src="/Js/terms.js"></script>
+
+    <script>
+        function redirectToPayment(productCode) {
+            console.log(productCode);
+            // 요청 URL을 전체 경로로 수정
+            fetch(`https://www.shmpyoshop.com/get-product-info/${productCode}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('상품 정보를 가져오는데 실패했습니다.');
+                    }
+                    return response.json();
+                })
+                .then((productInfo) => {
+                    // 결제창 URL 생성
+                    const paymentURL = `/payment?code=${productInfo.code}&name=${encodeURIComponent(productInfo.name)}&price=${productInfo.price}`;
+                    
+                    // 결제 페이지로 이동
+                    window.location.href = paymentURL;
+                })
+                .catch((error) => {
+                    console.error('결제창 이동 중 오류:', error);
+                    alert('결제창으로 이동할 수 없습니다. 다시 시도해주세요.');
+                });
+        }
+
+    </script>
 </body>
 </html>

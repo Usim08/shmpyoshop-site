@@ -9,10 +9,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@tosspayments/tosspayments-sdk": "^2.3.2",
+    "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "express-session": "^1.18.0",
+    "got": "^11.8.6",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",

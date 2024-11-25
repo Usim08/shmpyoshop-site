@@ -9,6 +9,7 @@ const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
 
+const got = require('got');
 const port = process.env.PORT || 3019;
 const app = express();
 
@@ -206,6 +207,10 @@ app.get('/project/add/goods-code', (req, res) => {
     res.sendFile(path.join(__dirname, 'project','add', 'goods-code.html'));
 });
 
+app.get('/payment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'project', 'payment', 'shmpyo_product_payment.html'));
+});
+
 
 
 
@@ -353,6 +358,95 @@ app.post('/download-file', async (req, res) => {
     } catch (error) {
         console.error(error); // 에러 로깅
         res.status(500).json({ success: false, message: "Internal server error" }); // 서버 에러 응답
+    }
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.post("/confirm", function (req, res) {
+    const { paymentKey, orderId, amount } = req.body;
+  
+    // 시크릿 키
+    const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
+    const encryptedSecretKey = "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
+  
+    // 서버에서 주문 금액과 일치하는지 확인
+    const expectedAmount = 11900; // 실제 결제 금액 (여기서는 예시로 고정 값 사용)
+  
+    if (amount !== expectedAmount) {
+      return res.status(400).json({ message: "금액이 일치하지 않습니다." });
+    }
+  
+    // 결제 승인 요청
+    got
+      .post("https://api.tosspayments.com/v1/payments/confirm", {
+        headers: {
+          Authorization: encryptedSecretKey,
+          "Content-Type": "application/json",
+        },
+        json: {
+          orderId: orderId,
+          amount: amount,
+          paymentKey: paymentKey,
+        },
+        responseType: "json",
+      })
+      .then(function (response) {
+        // 결제 성공 비즈니스 로직
+        console.log(response.body);
+        res.status(response.statusCode).json(response.body);
+      })
+      .catch(function (error) {
+        // 결제 실패 비즈니스 로직
+        console.log(error.response.body);
+        res.status(error.response.statusCode).json(error.response.body);
+      });
+  });
+  
+app.get("/product/:id", async (req, res) => {
+    try {
+        const productId = req.params.id;  // URL에서 제품 ID 가져오기
+        const product = await goodscode_bool.findOne({ code: productId });  // DB에서 제품 정보 가져오기
+
+        if (product) {
+            res.json({ price: product.price });  // 제품 가격 반환
+        } else {
+            res.status(404).json({ message: "Product not found" });  // 제품이 없을 경우 404 반환
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });  // 서버 오류 처리
+    }
+});
+
+app.use(express.static(path.join(__dirname, 'project', 'payment')));
+
+app.get('/payment', (req, res) => {
+    res.sendFile(path.join(__dirname, 'project', 'payment', 'shmpyo_product_payment.html'));
+});
+
+
+
+app.get('/get-product-info/:productCode', async (req, res) => {
+    const { productCode } = req.params;
+    console.log(productCode)
+    try {
+        // MongoDB에서 상품 정보 조회
+        const product = await goodscode_bool.findOne({ code: productCode });
+
+        if (!product) {
+            return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
+        }
+
+        // 상품 정보 반환
+        res.json({
+            code: product.code,
+            name: product.name,
+            price: product.price
+        });
+    } catch (error) {
+        console.error('상품 정보 조회 오류:', error);
+        res.status(500).json({ error: '서버 오류가 발생했습니다.' });
     }
 });
 
