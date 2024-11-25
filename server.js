@@ -450,6 +450,32 @@ app.get('/get-product-info/:productCode', async (req, res) => {
     }
 });
 
+const axios = require('axios');
+
+// 서버 측에서 토스 API 호출 예시
+app.post('/create-payment', async (req, res) => {
+    const { orderId, orderName, amount, customerName, customerPhone } = req.body;
+
+    const clientKey = "test_gck_AQ92ymxN34Yz5ZmNN71KVajRKXvd"; // 실제 사용시 비공개 환경 변수로 설정
+    const customerKey = "YQ5hsoCQ7zJXcBzFjneEW";  // 클라이언트에서 직접 사용하지 않도록 보안처리
+
+    try {
+        const response = await axios.post('https://api.tosspayments.com/v1/payments', {
+            clientKey,
+            orderId,
+            orderName,
+            amount,
+            customerName,
+            customerPhone
+        });
+
+        res.json(response.data);  // 결제 성공 시 클라이언트에 데이터 전달
+    } catch (error) {
+        res.status(500).json({ error: '결제 생성에 실패했습니다.' });
+    }
+});
+
+
 
 
 app.listen(process.env.PORT || port);
