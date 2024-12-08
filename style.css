@@ -43,11 +43,17 @@ body {
     border-radius: 0 0 5vh 5vh;
 }
 
+.main::before {
+    z-index: -1;
+    background-image: inherit;
+    filter: blur(30px);
+}
+
 .back {
     width: 90vh;
     position: absolute;
     top: 50%;
-    left: 60%;
+    left: 50%;
     transform: translate(-50%, -80%);
     z-index: 3;
     align-items: center;
@@ -57,7 +63,7 @@ body {
 .h1Text {
     font-family: 'PSemiBold';
     font-size: 7vh;
-    color: #222222;
+    color: #ffffff;
     text-align: center;
     z-index: 20;
     position: relative;
@@ -73,7 +79,7 @@ body {
     font-family: 'PLight';
     font-size: 3vh;
     text-align: center;
-    color: rgb(64, 66, 70);
+    color: rgb(252, 252, 252);
     opacity: 50%;
     z-index: 20;
     animation: h3Text 2s;

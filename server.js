@@ -364,46 +364,7 @@ app.post('/download-file', async (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/confirm", function (req, res) {
-    const { paymentKey, orderId, amount } = req.body;
-  
-    // 시크릿 키
-    const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
-    const encryptedSecretKey = "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
-  
-    // 서버에서 주문 금액과 일치하는지 확인
-    const expectedAmount = 11900; // 실제 결제 금액 (여기서는 예시로 고정 값 사용)
-  
-    if (amount !== expectedAmount) {
-      return res.status(400).json({ message: "금액이 일치하지 않습니다." });
-    }
-  
-    // 결제 승인 요청
-    got
-      .post("https://api.tosspayments.com/v1/payments/confirm", {
-        headers: {
-          Authorization: encryptedSecretKey,
-          "Content-Type": "application/json",
-        },
-        json: {
-          orderId: orderId,
-          amount: amount,
-          paymentKey: paymentKey,
-        },
-        responseType: "json",
-      })
-      .then(function (response) {
-        // 결제 성공 비즈니스 로직
-        console.log(response.body);
-        res.status(response.statusCode).json(response.body);
-      })
-      .catch(function (error) {
-        // 결제 실패 비즈니스 로직
-        console.log(error.response.body);
-        res.status(error.response.statusCode).json(error.response.body);
-      });
-  });
-  
+
 app.get("/product/:id", async (req, res) => {
     try {
         const productId = req.params.id;  // URL에서 제품 ID 가져오기
@@ -429,7 +390,7 @@ app.get('/payment', (req, res) => {
 
 app.get('/get-product-info/:productCode', async (req, res) => {
     const { productCode } = req.params;
-    console.log(productCode)
+    console.log(productCode);
     try {
         // MongoDB에서 상품 정보 조회
         const product = await goodscode_bool.findOne({ code: productCode });
@@ -450,6 +411,7 @@ app.get('/get-product-info/:productCode', async (req, res) => {
     }
 });
 
+
 const axios = require('axios');
 
 // 서버 측에서 토스 API 호출 예시
@@ -458,22 +420,150 @@ app.post('/create-payment', async (req, res) => {
 
     const clientKey = "test_gck_AQ92ymxN34Yz5ZmNN71KVajRKXvd"; // 실제 사용시 비공개 환경 변수로 설정
     const customerKey = "YQ5hsoCQ7zJXcBzFjneEW";  // 클라이언트에서 직접 사용하지 않도록 보안처리
+    const product = await goodscode_bool.findOne({ name: orderName });
+    console.log(product.price == amount)
+    if (product.price == amount) {
+        try {
+            
+            const response = await axios.post('https://api.tosspayments.com/v1/payments', {
+                clientKey,
+                orderId,
+                orderName,
+                amount,
+                customerName,
+                customerPhone
+            });
+    
+            res.json(response.data);  // 결제 성공 시 클라이언트에 데이터 전달
+        } catch (error) {
+            res.status(500).json({ error: '결제 생성에 실패했습니다.' });
+        }
+    }
 
+});
+
+
+
+app.post("/confirm", async function (req, res) {
+    const { paymentKey, orderId, amount, orderName, userName } = req.body;
+    // 시크릿 키
+    const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
+    const encryptedSecretKey = "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
+  
+    // 제품 코드에 맞는 상품을 찾는 부분 (findOne은 비동기이므로 await을 사용)
+    const product = await goodscode_bool.findOne({ code: orderName });
+
+
+    // 서버에서 주문 금액과 일치하는지 확인
+    if (amount !== product.price) {
+        return res.status(400).json({ message: "결제 중에 오류가 발생했어요. 다시 시도해 주세요." });
+    }
+  
+    // 결제 승인 요청
     try {
-        const response = await axios.post('https://api.tosspayments.com/v1/payments', {
-            clientKey,
-            orderId,
-            orderName,
-            amount,
-            customerName,
-            customerPhone
+        const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
+            headers: {
+                Authorization: encryptedSecretKey,
+                "Content-Type": "application/json",
+            },
+            json: {
+                orderId: orderId,
+                amount: amount,
+                paymentKey: paymentKey,
+            },
+            responseType: "json",
         });
 
-        res.json(response.data);  // 결제 성공 시 클라이언트에 데이터 전달
+        const paymentData = response.body;
+
+        // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
+        const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&userName=${userName}`;
+
+        // 서버가 클라이언트로 리다이렉트 정보와 함께 JSON 응답
+        res.send({
+            name: "StackOverFlow",
+            reason: "Need help!",
+            redirect_path: redirectUrl,
+        });
+
     } catch (error) {
-        res.status(500).json({ error: '결제 생성에 실패했습니다.' });
+        // 결제 실패 비즈니스 로직
+        console.log(error.response.body);
+        res.status(error.response.statusCode).json(error.response.body);
     }
 });
+
+  
+
+
+
+
+
+
+
+// app.post("/confirm", function (req, res) {
+//     const { paymentKey, orderId, amount, customerName, customerMobilePhone } = req.body;
+
+//     const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
+//     const encryptedSecretKey =
+//       "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
+
+//     // 결제 승인 요청
+//     got
+//       .post("https://api.tosspayments.com/v1/payments/confirm", {
+//         headers: {
+//           Authorization: encryptedSecretKey,
+//           "Content-Type": "application/json",
+//         },
+//         json: {
+//           orderId: orderId,
+//           amount: amount,
+//           paymentKey: paymentKey,
+//         },
+//         responseType: "json",
+//       })
+//       .then(function (response) {
+//         const paymentData = response.body;
+
+//         // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
+//         const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&customerName=${customerName}&customerMobilePhone=${customerMobilePhone}`;
+
+//         // 서버가 클라이언트로 리다이렉트 정보와 함께 JSON 응답
+//         res.send({
+//           name: "StackOverFlow",
+//           reason: "Need help!",
+//           redirect_path: redirectUrl,
+//         });
+//       })
+//       .catch(function (error) {
+//         console.error("결제 확인 오류:", error.response.body);
+
+//         // 결제 실패 시, 실패 메시지를 클라이언트로 반환
+//         res.status(error.response.statusCode || 500).json({
+//           message: "결제 확인 중 오류가 발생했습니다.",
+//           error: error.response.body,
+//         });
+//       });
+// });
+
+
+
+
+
+// // 결제 완료 페이지 (GET 요청 처리)
+// app.get("/order-success", function (req, res) {
+//     const { orderId, amount, orderName, customerName, customerMobilePhone } = req.query;
+
+//     // order-success.html 파일 경로 확인
+//     const successPagePath = path.join(__dirname, 'project', 'payment', 'order_success.html'); // 파일 경로 수정
+
+//     // HTML 파일을 전달
+//     res.sendFile(successPagePath, {
+//     headers: {
+//         'Content-Type': 'text/html'
+//     }
+//     });
+// });
 
 
 

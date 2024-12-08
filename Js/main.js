@@ -23,7 +23,7 @@ nextButton1.addEventListener('click', moveRightBox1);
 prevButton1.addEventListener('click', moveLeftBox1);
 
 const counterElement = document.getElementById('counter');
-const targetNumber = 15;
+const targetNumber = 30;
 const startScrollPosition = 3200;
 const duration = 1000;
 
@@ -37,7 +37,7 @@ window.addEventListener('scroll', () => {
 });
 
 function animateCounter() {
-  let currentNumber = 0;
+  let currentNumber = 15;
   const increment = targetNumber / (duration / 16);
 
   const counterInterval = setInterval(() => {
@@ -49,7 +49,7 @@ function animateCounter() {
     }
 
     counterElement.textContent = Math.floor(currentNumber);
-  }, 16);
+  }, 25);
 }
 
 

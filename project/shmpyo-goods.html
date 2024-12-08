@@ -88,7 +88,7 @@
         function redirectToPayment(productCode) {
             console.log(productCode);
             // 요청 URL을 전체 경로로 수정
-            fetch(`https://www.shmpyoshop.com/get-product-info/${productCode}`)
+            fetch(`http://localhost:3019/get-product-info/${productCode}`)
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error('상품 정보를 가져오는데 실패했습니다.');

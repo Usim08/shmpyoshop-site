@@ -139,114 +139,117 @@
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');  // 상품 코드
+            const name = urlParams.get('name');  // 상품 이름
             
-            const code = urlParams.get('code');
-            const name = urlParams.get('name');
-            productId = code
-            const price = urlParams.get('price');
-            all_price = Number(price)
+            fetch(`/get-product-info/${code}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
 
-            const formattedPrice = parseInt(price).toLocaleString() + '원';
+                    const { name, price } = data;
+                    const formattedPrice = parseInt(price).toLocaleString() + '원';
+                    all_price = price
 
-            document.getElementsByClassName("product_price")[0].textContent = formattedPrice;
-            document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice;
-            document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice;
+                    // 가격 및 기타 정보 업데이트
+                    document.getElementsByClassName("product_price")[0].textContent = formattedPrice;
+                    document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice;
+                    document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice;
 
-            document.querySelector('.product_title').textContent = name;
-            const imageUrl = `/IMG/product_img/${code}.png`; // 이미지 경로를 올바르게 설정
-            document.querySelector('.product_image').src = imageUrl;
-        }
+                    document.querySelector('.product_title').textContent = name;
+                    const imageUrl = `/IMG/product_img/${code}.png`;
+                    document.querySelector('.product_image').src = imageUrl;
+                })
+                .catch(error => {
+                    console.error('상품 정보 로드 오류:', error);
+                    alert('상품 정보를 불러오는 데 실패했습니다.');
+                });
+        };
 
 
-        // axios.get(`http://127.0.0.1:3019/product/${productId}`)
-        //     .then(response => {
-        //         const productPrice = response.data.price;
-        //         console.log("Fetched product price:", productPrice);
-        //         all_price = productPrice;
 
-        //         const formattedPrice = parseInt(productPrice).toLocaleString() + '원';
-
-        //         document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice;
-        //         document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice;
-        //         document.getElementsByClassName("product_price")[0].textContent = formattedPrice;
-        //     })
-        //     .catch(error => {
-        //         console.error("Error fetching product:", error);
-        //     });
 
 
 
         setTimeout(() => {
             main();
+
             async function main() {
-            const button = document.getElementById("registerBtn");
-            const clientKey = "test_gck_AQ92ymxN34Yz5ZmNN71KVajRKXvd"; // test client key
-            const tossPayments = TossPayments(clientKey);
-            const customerKey = "YQ5hsoCQ7zJXcBzFjneEW";
-            const widgets = tossPayments.widgets({
-                customerKey,
-            });
-        
-            await widgets.setAmount({
-                currency: "KRW",
-                value: all_price,
-            });
-        
-            await Promise.all([
-                widgets.renderPaymentMethods({
-                selector: "#payment-method",
-                variantKey: "DEFAULT",
-                }),
-                widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" }),
-            ]);
-        
-            button.addEventListener("click", async function () {
-                const orderId = "unique_order_id_" + Date.now();  // 서버에서 받은 고유한 주문 ID로 교체해야 함
-                const orderName = document.querySelector(".product_title").textContent;
-        
-                const customerName = document.getElementById("name").value.trim();
-                const customerMobilePhone = document.getElementById("phone").value.trim();
-        
-                if (!customerName) {
-                document.getElementById('error-message-name').textContent = '이름을 입력하세요';
-                return;
-                } else {
-                    document.getElementById('error-message-name').textContent = '';
-                }
-
-                if (!customerMobilePhone) {
-                document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
-                return;
-                } else {
-                    document.getElementById('error-message-phone').textContent = '';
-                }
-
-                const phonePattern = /^\d{10,11}$/;
-                if (!phonePattern.test(customerMobilePhone)) {
-                    document.getElementById('error-message-phone').textContent = '전화번호 형식을 다시 한번 확인해 주세요';
-                    return;
-                } else {
-                    document.getElementById('error-message-phone').textContent = '';
-                }
-
-                if (!document.getElementById("robloxName").value.trim()) {
-                document.getElementById('error-message-roblox').textContent = '로블록스 닉네임을 입력하세요';
-                return;
-                } else {
-                    document.getElementById('error-message-roblox').textContent = '';
-                }
-        
-                await widgets.requestPayment({
-                orderId: orderId,
-                orderName: orderName,
-                successUrl: window.location.origin + "/success.html",
-                failUrl: window.location.origin + "/fail.html",
-                customerName: customerName,
-                customerMobilePhone: customerMobilePhone,
+                const button = document.getElementById("registerBtn");
+                const clientKey = "test_gck_AQ92ymxN34Yz5ZmNN71KVajRKXvd"; // 테스트용 키, 실제로는 사용하지 않음
+                const tossPayments = TossPayments(clientKey);  // 클라이언트 키는 테스트용, 실제로는 서버에서만 사용
+                const customerKey = "YQ5hsoCQ7zJXcBzFjneEW"; // 실제 사용자 인증 키
+                const widgets = tossPayments.widgets({
+                    customerKey,
                 });
-            });
+
+                await widgets.setAmount({
+                    currency: "KRW",
+                    value: all_price,  // 결제할 금액
+                });
+
+                await Promise.all([
+                    widgets.renderPaymentMethods({
+                        selector: "#payment-method", 
+                        variantKey: "DEFAULT",
+                    }),
+                    widgets.renderAgreement({
+                        selector: "#agreement", 
+                        variantKey: "AGREEMENT"
+                    }),
+                ]);
+
+                button.addEventListener("click", async function () {
+                    const orderId = "-"+Date.now();
+                    const orderName = document.querySelector(".product_title").textContent;
+
+                    const customerName = document.getElementById("name").value.trim();
+                    const customerMobilePhone = document.getElementById("phone").value.trim();
+
+                    if (!customerName) {
+                        document.getElementById('error-message-name').textContent = '이름을 입력하세요';
+                        return;
+                    } else {
+                        document.getElementById('error-message-name').textContent = '';
+                    }
+
+                    if (!customerMobilePhone) {
+                        document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
+                        return;
+                    } else {
+                        document.getElementById('error-message-phone').textContent = '';
+                    }
+
+                    const phonePattern = /^\d{10,11}$/;
+                    if (!phonePattern.test(customerMobilePhone)) {
+                        document.getElementById('error-message-phone').textContent = '전화번호 형식을 다시 한번 확인해 주세요';
+                        return;
+                    } else {
+                        document.getElementById('error-message-phone').textContent = '';
+                    }
+
+                    if (!document.getElementById("robloxName").value.trim()) {
+                        document.getElementById('error-message-roblox').textContent = '로블록스 닉네임을 입력하세요';
+                        return;
+                    } else {
+                        document.getElementById('error-message-roblox').textContent = '';
+                    }
+
+                    await widgets.requestPayment({
+                        orderId: orderId,
+                        orderName: orderName,
+                        successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}`,
+                        failUrl: window.location.origin + "/fail.html",
+                        customerName: customerName,
+                        customerMobilePhone: customerMobilePhone
+                    });
+                });
             }
         }, 500);
+
         
       </script>
       
