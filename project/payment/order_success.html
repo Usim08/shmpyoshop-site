@@ -99,6 +99,7 @@
         const amount = urlParams.get("amount");
         const orderName = urlParams.get("orderName");
         const userName = urlParams.get("customerName");
+        const userphone = urlParams.get("customerPhone");
 
         async function confirm() {
             const requestData = {
@@ -106,10 +107,11 @@
                 orderId: orderId,
                 amount: amount,
                 orderName: orderName,
-                userName: userName
+                userName: userName,
+                userphone: userphone
             };
 
-            const response = await fetch("http://localhost:3019/api/confirm", {
+            const response = await fetch("/confirm", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -131,13 +133,14 @@
         confirm();
 
         const paymentKeyElement = document.getElementById("name");
-        const orderIdElement = document.getElementById("phone");
+        const orderIdElement = document.getElementById("order_id");
         const amountElement = document.getElementById("price_pro");
         const orderNameElement = document.getElementById("h1_pro");
+        const phoneElement = document.getElementById("phone");
         const formattedPrice = parseInt(amount).toLocaleString() + '원';
 
         orderIdElement.textContent = orderId;
-
+        phoneElement.textContent = userphone
         amountElement.textContent = formattedPrice;
         paymentKeyElement.textContent = userName;
         orderNameElement.textContent = orderName

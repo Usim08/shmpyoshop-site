@@ -443,24 +443,23 @@ app.post('/create-payment', async (req, res) => {
 });
 
 
-
 app.post("/confirm", async function (req, res) {
-    const { paymentKey, orderId, amount, orderName, userName } = req.body;
-    // 시크릿 키
+    const { paymentKey, orderId, amount, orderName, userName, userphone} = req.body;
+    console.log(userphone, userName);
+
     const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
     const encryptedSecretKey = "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
-  
-    // 제품 코드에 맞는 상품을 찾는 부분 (findOne은 비동기이므로 await을 사용)
-    const product = await goodscode_bool.findOne({ code: orderName });
 
-
-    // 서버에서 주문 금액과 일치하는지 확인
-    if (amount !== product.price) {
-        return res.status(400).json({ message: "결제 중에 오류가 발생했어요. 다시 시도해 주세요." });
-    }
-  
-    // 결제 승인 요청
     try {
+        // 상품 정보를 찾습니다
+        const product = await goodscode_bool.findOne({ name: orderName });
+        console.log(amount, product.price)
+        if (Number(amount) !== product.price) {
+            return res.status(400).json({ message: "결제 중에 오류가 발생했어요. 다시 시도해 주세요." });
+        }
+        
+        console.log(1); // 이 부분은 위 조건문이 통과한 후에 실행됩니다.
+        // Toss Payments API 호출
         const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
             headers: {
                 Authorization: encryptedSecretKey,
@@ -473,29 +472,86 @@ app.post("/confirm", async function (req, res) {
             },
             responseType: "json",
         });
+        console.log(2)
 
         const paymentData = response.body;
 
         // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
-        const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&userName=${userName}`;
+        const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&customerName=${userName}&customerMobilePhone=${userphone}`;
+        console.log(3)
 
-        // 서버가 클라이언트로 리다이렉트 정보와 함께 JSON 응답
-        res.send({
-            name: "StackOverFlow",
-            reason: "Need help!",
+        res.json({
             redirect_path: redirectUrl,
+        });
+        console.log(4)
+
+        const { SolapiMessageService } = require('solapi');
+        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
+    
+        await messageService.send({
+        "to": userphone,
+        "from": '01067754665',
+        "kakaoOptions": {
+            "pfId": "KA01PF241022150327686bCbW0aZDu0y",
+            "templateId": "KA01TP2411251158240185htW7lsOaXU",
+            "variables": {
+                "#{주문번호}":paymentData.orderId,
+                "#{이름}": userName,
+                "#{상품명}":orderName,
+                "#{결제금액}":parseInt(paymentData.totalAmount).toLocaleString() + '원'
+            }
+        }
         });
 
     } catch (error) {
-        // 결제 실패 비즈니스 로직
-        console.log(error.response.body);
-        res.status(error.response.statusCode).json(error.response.body);
+        console.error("Error during payment confirmation:", error);
+
+        // 결제 실패 처리
+        if (error.response) {
+            // API 요청 중 오류가 발생한 경우
+            res.status(error.response.statusCode).json(error.response.body);
+        } else {
+            // 네트워크 오류 등 다른 오류 발생 시
+            res.status(500).json({ message: "서버 오류가 발생했습니다." });
+        }
     }
 });
 
-  
 
 
+
+    // try {
+    //     const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
+    //         headers: {
+    //             Authorization: encryptedSecretKey,
+    //             "Content-Type": "application/json",
+    //         },
+    //         json: {
+    //             orderId: orderId,
+    //             amount: amount,
+    //             paymentKey: paymentKey,
+    //         },
+    //         responseType: "json",
+    //     });
+
+    //     const paymentData = response.body;
+
+    //     // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
+    //     const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&userName=${userName}`;
+
+    //     // 서버가 클라이언트로 리다이렉트 정보와 함께 JSON 응답
+    //     res.send({
+    //         name: "StackOverFlow",
+    //         reason: "Need help!",
+    //         redirect_path: redirectUrl,
+    //     });
+
+    // } catch (error) {
+    //     // 결제 실패 비즈니스 로직
+    //     console.log(error.response.body);
+    //     res.status(error.response.statusCode).json(error.response.body);
+    // }
+// });
 
 
 

@@ -203,7 +203,7 @@
                 ]);
 
                 button.addEventListener("click", async function () {
-                    const orderId = "-"+Date.now();
+                    const orderId = "SP"+Date.now();
                     const orderName = document.querySelector(".product_title").textContent;
 
                     const customerName = document.getElementById("name").value.trim();
@@ -241,7 +241,7 @@
                     await widgets.requestPayment({
                         orderId: orderId,
                         orderName: orderName,
-                        successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}`,
+                        successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}`,
                         failUrl: window.location.origin + "/fail.html",
                         customerName: customerName,
                         customerMobilePhone: customerMobilePhone
