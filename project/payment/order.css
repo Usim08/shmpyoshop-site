@@ -54,9 +54,35 @@ body {
     margin-left: 50%;
     transform: translate(-50%, 25vh);
 }
-.success_icon{
+
+.success_icon {
     margin-left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(1, 1);
+    
+    will-change: transform, opacity;
+    animation: success_icon 0.4s cubic-bezier(.39, 1.69, .61, .97) forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes success_icon {
+    0% { 
+        transform: translateX(-50%) scale(0); 
+        opacity: 0%; 
+    }
+    100% { 
+        top: 0; 
+        opacity: 100%; 
+    }
+}
+
+.h3Text {
+    font-family: 'PLight';
+    font-size: 3vh;
+    text-align: center;
+    color: rgb(252, 252, 252);
+    opacity: 50%;
+    z-index: 20;
+
 }
 
 .h1 {
@@ -66,6 +92,26 @@ body {
     text-align: center;
     margin-top: 20px;
     letter-spacing: -1px;
+
+
+    transform: translateY(20px);
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: text 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes text {
+    0% { 
+        transform: translateY(20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translateY(0); 
+        opacity: 100%; 
+    }
 }
 
 .p {
@@ -75,15 +121,53 @@ body {
     text-align: center;
     margin-top: 10px;
     letter-spacing: -1px;
+
+
+    transform: translateY(20px);
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: textTwo 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.4s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes textTwo {
+    0% { 
+        transform: translateY(20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translateY(0); 
+        opacity: 100%; 
+    }
 }
 
 .button_parent {
     margin-left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 20px);
     width: 470px;
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: but 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes but {
+    0% { 
+        transform: translate(-50%, 20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translate(-50%, 0); 
+        opacity: 100%; 
+    }
 }
 
 .button {
@@ -110,10 +194,29 @@ body {
 .flex{
     margin-top: 50px;
     margin-left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 20px);
     width:590px;
     display: flex;
     justify-content: space-between;
+
+
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: info 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.8s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes info {
+    0% { 
+        transform: translate(-50%, 20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translate(-50%, 0); 
+        opacity: 100%; 
+    }
 }
 
 .section_one {
@@ -136,7 +239,7 @@ body {
 
 .section_two {
     margin-top: -10px;
-    margin-left:-82px;
+    margin-left:-32px;
 }
 
 .flex_one {
