@@ -87,12 +87,14 @@
     
                     <div class="product_coupon">
                         <div class="product_coupon_main_title">쿠폰 적용</div>
-                        <p class="sub_title">쿠폰 번호</p>
-                        <div class="secretcode_input">
-                            <input type="text" id="secretCode" class="input_two_section">
-                            <button class="verify_button" id="check_secret_code">확인</button>
+                        <div class="flex_input">
+                            <p class="sub_title" id="one_title">쿠폰번호</p>
+                            <div class="error" id="error-message-coupon" style="color: #D58181;"></div>
                         </div>
-                        <div class="error" id="error-message" style="color: #D58181;"></div>
+                        <div class="secretcode_input">
+                            <input type="text" id="coupon_number" class="input_two_section">
+                            <button class="verify_button" id="check_coupon">확인</button>
+                        </div>
                     </div>
                 </div>
     
@@ -105,7 +107,7 @@
                         </div>
                         <div class="product_price_infomation_price_section">
                             <div class="product_price_sub_title">쿠폰 할인</div>
-                            <div class="product_price_sub_price">0원</div>
+                            <div class="product_price_sub_price" id="coupon_input">0원</div>
                         </div>
 
                         <div class="line"></div>
@@ -132,15 +134,16 @@
         style="width: 100%; height: 250px; border: none;">
     </iframe>
 
-
+    <script src="/Js/scrollTop.js"></script>
     <script>
+
         let productId;
         let all_price;
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');  // 상품 코드
-            const name = urlParams.get('name');  // 상품 이름
+            const code = urlParams.get('code');
+            const name = urlParams.get('name');
             
             fetch(`/get-product-info/${code}`)
                 .then(response => response.json())
@@ -154,7 +157,6 @@
                     const formattedPrice = parseInt(price).toLocaleString() + '원';
                     all_price = price
 
-                    // 가격 및 기타 정보 업데이트
                     document.getElementsByClassName("product_price")[0].textContent = formattedPrice;
                     document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice;
                     document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice;
@@ -170,10 +172,6 @@
         };
 
 
-
-
-
-
         setTimeout(() => {
             main();
 
@@ -186,9 +184,56 @@
                     customerKey,
                 });
 
+                const couponNbInput = document.getElementById("coupon_number");
+                const rbnameInput = document.getElementById("robloxName");
+
+                // 결제 금액을 설정
                 await widgets.setAmount({
                     currency: "KRW",
-                    value: all_price,  // 결제할 금액
+                    value: parseFloat(all_price),  // 결제할 금액
+                });
+
+                document.getElementById("check_coupon").addEventListener("click", async function () {
+                    const couponNb = couponNbInput.value.trim();
+                    const rbname = rbnameInput.value.trim();
+
+                    // 쿠폰 번호와 로블록스 닉네임 체크
+                    if (!couponNb) {
+                        document.getElementById('error-message-coupon').textContent = '쿠폰번호를 입력하세요';
+                        return;
+                    }
+                    if (!rbname) {
+                        document.getElementById('error-message-roblox').textContent = '로블록스 닉네임을 입력하세요';
+                        return;
+                    }
+
+                    // 서버 요청
+                    const response = await fetch('/check_coupon_code', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ coupon_nb: couponNb, rbname, all_price })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // 결제 금액 업데이트
+                        document.getElementsByClassName("product_but_price")[0].textContent = `${result.finalPrice}원`;
+                        document.getElementById('coupon_input').textContent = `-${result.discountAmount}원`;
+
+                        let cleanPrice = result.finalPrice.replace(/,/g, '');  // 쉼표 제거
+                        cleanPrice = parseFloat(cleanPrice);
+                        all_price = cleanPrice
+
+                        await widgets.setAmount({
+                            currency: "KRW",
+                            value:cleanPrice,
+                        });
+                    } else {
+                        document.getElementById('error-message-coupon').textContent = result.message;
+                    }
                 });
 
                 await Promise.all([
@@ -199,49 +244,26 @@
                     widgets.renderAgreement({
                         selector: "#agreement", 
                         variantKey: "AGREEMENT"
-                    }),
+                    })
                 ]);
 
                 button.addEventListener("click", async function () {
-                    const orderId = "SP"+Date.now();
+                    const orderId = "SP" + Date.now();
                     const orderName = document.querySelector(".product_title").textContent;
 
                     const customerName = document.getElementById("name").value.trim();
                     const customerMobilePhone = document.getElementById("phone").value.trim();
 
-                    if (!customerName) {
+                    if (!customerName || !customerMobilePhone || !/^\d{10,11}$/.test(customerMobilePhone)) {
                         document.getElementById('error-message-name').textContent = '이름을 입력하세요';
-                        return;
-                    } else {
-                        document.getElementById('error-message-name').textContent = '';
-                    }
-
-                    if (!customerMobilePhone) {
                         document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
                         return;
-                    } else {
-                        document.getElementById('error-message-phone').textContent = '';
-                    }
-
-                    const phonePattern = /^\d{10,11}$/;
-                    if (!phonePattern.test(customerMobilePhone)) {
-                        document.getElementById('error-message-phone').textContent = '전화번호 형식을 다시 한번 확인해 주세요';
-                        return;
-                    } else {
-                        document.getElementById('error-message-phone').textContent = '';
-                    }
-
-                    if (!document.getElementById("robloxName").value.trim()) {
-                        document.getElementById('error-message-roblox').textContent = '로블록스 닉네임을 입력하세요';
-                        return;
-                    } else {
-                        document.getElementById('error-message-roblox').textContent = '';
                     }
 
                     await widgets.requestPayment({
                         orderId: orderId,
                         orderName: orderName,
-                        successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}`,
+                        successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}&coupon=${encodeURIComponent(couponNbInput.value.trim())}&roblox=${encodeURIComponent(robloxName.value.trim())}`,
                         failUrl: window.location.origin + "/fail.html",
                         customerName: customerName,
                         customerMobilePhone: customerMobilePhone
@@ -249,7 +271,6 @@
                 });
             }
         }, 1500);
-
         
       </script>
       

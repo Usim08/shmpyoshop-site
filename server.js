@@ -3,6 +3,8 @@ const SecretCode = require('./models/secretCode');
 const WebsiteVerify = require('./models/website_verify');
 const user_save = require('./models/save_user_code');
 const goodscode_bool = require('./models/goodNumber');
+const coupon_number_data = require('./models/coupon');
+const userinfomation = require('./models/userData');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -413,6 +415,8 @@ app.get('/get-product-info/:productCode', async (req, res) => {
 
 
 const axios = require('axios');
+const { userInfo } = require('os');
+const coupon = require('./models/coupon');
 
 // 서버 측에서 토스 API 호출 예시
 app.post('/create-payment', async (req, res) => {
@@ -444,21 +448,60 @@ app.post('/create-payment', async (req, res) => {
 
 
 app.post("/confirm", async function (req, res) {
-    const { paymentKey, orderId, amount, orderName, userName, userphone} = req.body;
-    console.log(userphone, userName);
+    const { paymentKey, orderId, amount, orderName, userName, userphone, coupon, roblox } = req.body;
 
     const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
     const encryptedSecretKey = "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
 
-    try {
-        // 상품 정보를 찾습니다
-        const product = await goodscode_bool.findOne({ name: orderName });
-        console.log(amount, product.price)
-        if (Number(amount) !== product.price) {
-            return res.status(400).json({ message: "결제 중에 오류가 발생했어요. 다시 시도해 주세요." });
+    function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
-        
-        console.log(1); // 이 부분은 위 조건문이 통과한 후에 실행됩니다.
+        return result;
+    }
+
+    function calculateDiscount(originalPrice, discountPercentage) {
+        const discountAmount = originalPrice * (discountPercentage / 100);
+        const finalPrice = originalPrice - discountAmount;
+        return { finalPrice };
+    }
+
+    try {
+        const product = await goodscode_bool.findOne({ name: orderName });
+        const cp = await coupon_number_data.findOne({ couponId: coupon });
+        const discountPercentage = cp ? Number(cp.sale) : 0; // 쿠폰이 없으면 할인 0%
+        const test = calculateDiscount(Number(product.price), discountPercentage);
+
+        if (Number(amount) !== product.price) {
+            if (coupon) {
+                // 쿠폰 사용 시, 할인 후 금액을 비교
+                if (test.finalPrice !== Number(amount)) {
+                    return res.status(400).json({ message: "쿠폰 적용 후 결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
+                }
+            } else {
+                // 쿠폰이 없는 경우 금액을 비교
+                return res.status(400).json({ message: "결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
+            }
+        }
+
+        const rb = await userinfomation.findOne({ playerName: roblox });
+
+        if (rb === null) {
+            return res.status(400).json({ message: "회원가입을 진행하지 않으신 것 같아요" });
+        }
+
+        const verifyCode = generateRandomString(25);
+        const verification = new SecretCode({
+            secret: verifyCode,
+            userid: rb.discordId,
+            value: false,
+            goodsnumber: product.code,
+            goodsname: product.name,
+        });
+        await verification.save();
+
         // Toss Payments API 호출
         const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
             headers: {
@@ -472,50 +515,102 @@ app.post("/confirm", async function (req, res) {
             },
             responseType: "json",
         });
-        console.log(2)
 
         const paymentData = response.body;
 
-        // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
+        // 결제 성공 시 리다이렉트 URL
         const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&customerName=${userName}&customerMobilePhone=${userphone}`;
-        console.log(3)
-
+        
+        // 첫 번째 응답을 보냄
         res.json({
             redirect_path: redirectUrl,
         });
-        console.log(4)
 
+        // 메시지 전송
         const { SolapiMessageService } = require('solapi');
         const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
-    
+
         await messageService.send({
-        "to": userphone,
-        "from": '01067754665',
-        "kakaoOptions": {
-            "pfId": "KA01PF241022150327686bCbW0aZDu0y",
-            "templateId": "KA01TP2411251158240185htW7lsOaXU",
-            "variables": {
-                "#{주문번호}":paymentData.orderId,
-                "#{이름}": userName,
-                "#{상품명}":orderName,
-                "#{결제금액}":parseInt(paymentData.totalAmount).toLocaleString() + '원'
+            "to": userphone,
+            "from": '01067754665',
+            "kakaoOptions": {
+                "pfId": "KA01PF241022150327686bCbW0aZDu0y",
+                "templateId": "KA01TP2411251158240185htW7lsOaXU",
+                "variables": {
+                    "#{주문번호}": paymentData.orderId,
+                    "#{이름}": userName,
+                    "#{상품명}": orderName,
+                    "#{결제금액}": parseInt(paymentData.totalAmount).toLocaleString() + '원',
+                }
             }
-        }
+        });
+
+        await messageService.send({
+            "to": userphone,
+            "from": '01067754665',
+            "kakaoOptions": {
+                "pfId": "KA01PF241022150327686bCbW0aZDu0y",
+                "templateId": "KA01TP241028130858081mTI6B5Zcr9r",
+                "variables": {
+                    "#{이름}": userName,
+                    "#{상품이름}": orderName,
+                    "#{비밀코드}": verifyCode,
+                }
+            }
         });
 
     } catch (error) {
         console.error("Error during payment confirmation:", error);
 
-        // 결제 실패 처리
-        if (error.response) {
-            // API 요청 중 오류가 발생한 경우
-            res.status(error.response.statusCode).json(error.response.body);
-        } else {
-            // 네트워크 오류 등 다른 오류 발생 시
+        // 이미 응답을 보냈다면 추가 응답을 보내지 않도록 처리
+        if (!res.headersSent) {
             res.status(500).json({ message: "서버 오류가 발생했습니다." });
         }
     }
 });
+
+
+app.post('/check_coupon_code', async (req, res) => {
+    const { coupon_nb, rbname, all_price } = req.body;
+
+    function calculateDiscount(originalPrice, discountPercentage) {
+        const discountAmount = originalPrice * (discountPercentage / 100);
+        const finalPrice = originalPrice - discountAmount;
+    
+        return {
+            discountAmount: discountAmount,
+            finalPrice: finalPrice
+        };
+    }
+
+    try {
+        // 쿠폰 번호 확인
+        const existingCode = await coupon_number_data.findOne({ couponId: coupon_nb });
+        // 유저 정보 확인
+        const rbdiscord = await userinfomation.findOne({ playerName: rbname });
+
+        if (!existingCode) {
+            return res.status(404).json({ success: false, message: '쿠폰번호가 올바르지 않습니다.' });
+        }
+
+        if (rbdiscord.discordId === existingCode.playerId) {
+            // 할인 계산
+            const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
+            
+            return res.status(200).json({
+                success: true,
+                finalPrice: finalPrice.toLocaleString(), // 할인 적용된 최종 금액
+                discountAmount: discountAmount.toLocaleString() // 할인 금액
+            });
+        } else {
+            return res.status(404).json({ success: false, message: '등록된 쿠폰 이용자가 아닙니다.' });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: '서버 에러가 발생했습니다.' });
+    }
+});
+
 
 
 
