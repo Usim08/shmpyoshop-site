@@ -482,7 +482,6 @@ app.post("/confirm", async function (req, res) {
                     return res.status(400).json({ message: "쿠폰 적용 후 결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
                 }
             } else {
-                // 쿠폰이 없는 경우 금액을 비교
                 return res.status(400).json({ message: "결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
             }
         }
