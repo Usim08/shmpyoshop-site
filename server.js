@@ -488,6 +488,20 @@ app.post("/confirm", async function (req, res) {
         }
 
         const rb = await userinfomation.findOne({ playerName: roblox });
+
+        const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
+            headers: {
+                Authorization: encryptedSecretKey,
+                "Content-Type": "application/json",
+            },
+            json: {
+                orderId: orderId,
+                amount: amount,
+                paymentKey: paymentKey,
+            },
+            responseType: "json",
+        });
+        
         const paymentData = response.body;
         if (rb === null) {
             return res.status(400).json({ message: "회원가입을 진행하지 않으신 것 같아요" });
@@ -517,19 +531,6 @@ app.post("/confirm", async function (req, res) {
         });
         await web_ts.save();
 
-        // Toss Payments API 호출
-        const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
-            headers: {
-                Authorization: encryptedSecretKey,
-                "Content-Type": "application/json",
-            },
-            json: {
-                orderId: orderId,
-                amount: amount,
-                paymentKey: paymentKey,
-            },
-            responseType: "json",
-        });
 
 
         // 결제 성공 시 리다이렉트 URL
