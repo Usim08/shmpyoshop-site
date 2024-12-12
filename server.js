@@ -5,6 +5,7 @@ const user_save = require('./models/save_user_code');
 const goodscode_bool = require('./models/goodNumber');
 const coupon_number_data = require('./models/coupon');
 const userinfomation = require('./models/userData');
+const buydata = require('./models/web_toss_data');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -498,9 +499,23 @@ app.post("/confirm", async function (req, res) {
             userid: rb.discordId,
             value: false,
             goodsnumber: product.code,
-            goodsname: product.name,
+            goodsname: product.name
         });
         await verification.save();
+
+        const web_ts = new buydata({
+            phoneNumber: userphone,
+            orderId: orderId,
+            orderName: orderName,
+            paymentKey: paymentKey,
+            amount: parseInt(paymentData.totalAmount).toLocaleString() + '원',
+            customerName: userName,
+            roblox: roblox,
+            secret: verifyCode,
+            couponNumber: coupon,
+            userid: rb.discordId
+        });
+        await web_ts.save();
 
         // Toss Payments API 호출
         const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
