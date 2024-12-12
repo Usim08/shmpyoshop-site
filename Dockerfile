@@ -1,11 +1,17 @@
-FROM node:16
+FROM node:lts-alpine
 
+RUN mkdir -p /app
 WORKDIR /app
 
-COPY package.json yarn.lock ./ 
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
 
-COPY . .
+COPY src ./src
+COPY tsconfig.json ./
+
+RUN yarn build
+
+CMD [ "yarn", "start" ]
 
 EXPOSE 3019
-
-CMD ["node", "server.js"]
