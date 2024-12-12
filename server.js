@@ -535,7 +535,7 @@ app.post("/confirm", async function (req, res) {
             "from": '01067754665',
             "kakaoOptions": {
                 "pfId": "KA01PF241022150327686bCbW0aZDu0y",
-                "templateId": "KA01TP2411251158240185htW7lsOaXU",
+                "templateId": "KA01TP241211145013771qw8QjRQ28To",
                 "variables": {
                     "#{주문번호}": paymentData.orderId,
                     "#{이름}": userName,
@@ -550,7 +550,7 @@ app.post("/confirm", async function (req, res) {
             "from": '01067754665',
             "kakaoOptions": {
                 "pfId": "KA01PF241022150327686bCbW0aZDu0y",
-                "templateId": "KA01TP241028130858081mTI6B5Zcr9r",
+                "templateId": "KA01TP241211144407906VdVbIMOMntV",
                 "variables": {
                     "#{이름}": userName,
                     "#{상품이름}": orderName,
