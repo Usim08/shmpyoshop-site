@@ -10,7 +10,7 @@ const to = new mongoose.Schema({
     customerName: { type: String, required: true },
     roblox: { type: String, required: true },
     secret: { type: String, required: true },
-    couponNumber: { type: String, required: true },
+    couponNumber: { type: String, required: false },
     userid: {type: String, required: true }
 });
 
