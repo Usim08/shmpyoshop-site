@@ -11,7 +11,7 @@ COPY package.json yarn.lock* package-lock.json* ./
 RUN npm install
 
 # 프로젝트 파일을 컨테이너로 복사
-COPY . .
+COPY . . 
 
 # 앱 실행 명령어
 CMD ["npm", "start"]
