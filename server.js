@@ -488,7 +488,7 @@ app.post("/confirm", async function (req, res) {
         }
 
         const rb = await userinfomation.findOne({ playerName: roblox });
-
+        const paymentData = response.body;
         if (rb === null) {
             return res.status(400).json({ message: "회원가입을 진행하지 않으신 것 같아요" });
         }
@@ -531,7 +531,6 @@ app.post("/confirm", async function (req, res) {
             responseType: "json",
         });
 
-        const paymentData = response.body;
 
         // 결제 성공 시 리다이렉트 URL
         const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&customerName=${userName}&customerMobilePhone=${userphone}`;
