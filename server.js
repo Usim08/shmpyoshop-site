@@ -493,7 +493,7 @@ app.post("/confirm", async function (req, res) {
             return res.status(400).json({ message: "회원가입을 진행하지 않으신 것 같아요" });
         }
 
-        const verifyCode = generateRandomString(25);
+        const verifyCode = generateRandomString(12);
         const verification = new SecretCode({
             secret: verifyCode,
             userid: rb.discordId,
