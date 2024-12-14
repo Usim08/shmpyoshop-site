@@ -140,7 +140,7 @@ app.post('/all-done', async (req, res) => {
             "from": '01067754665',
             "kakaoOptions": {
                 "pfId": "KA01PF241022150327686bCbW0aZDu0y",
-                "templateId": "KA01TP241026144535317dadfKhxSXs9",
+                "templateId": "KA01TP241125120001547W6BfCUByKaP",
                 "variables": {
                     "#{이름}": name,
                     "#{비밀코드}": secretCode,
