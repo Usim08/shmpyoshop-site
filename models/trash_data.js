@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 
 const ts = new mongoose.Schema({
     userName: { type: String, required: true },
-    channelId: { type: Long, required: true },
-    mannagerId: { type: Long, required: true }
+    channelId: { type: String, required: true },
+    mannagerId: { type: String, required: true }
 });
 
 const trash_data = mongoose.model('trash_data', ts, 'trash_data');
