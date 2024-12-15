@@ -6,6 +6,7 @@ const goodscode_bool = require('./models/goodNumber');
 const coupon_number_data = require('./models/coupon');
 const userinfomation = require('./models/userData');
 const buydata = require('./models/web_toss_data');
+const discord_web = require('./models/discord_web_verify');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -120,6 +121,30 @@ app.post('/check_code_for_true_or_false', async (req, res) => {
     }
 });
 
+app.post('/check-verifycode-for-discord', async (req, res) => {
+    const { verify_code } = req.body;
+  
+    try {
+        const existingCode = await discord_web.findOne({ verifyCode: verify_code });
+  
+        if (existingCode) {
+            // 인증 번호가 존재하면 삭제 후 응답 반환
+            await discord_web.deleteOne({ verifyCode: verify_code });
+            return res.status(200).json({
+                success: true
+            });
+        } else {
+            return res.status(200).json({
+                success: false,
+                message: "인증번호를 다시 한번 확인해 주세요."
+            });
+        }
+
+    } catch (error) {
+        console.error('서버 오류:', error);
+        res.status(500).json({ success: false, message: '서버 오류' });
+    }
+});
 
 
 app.post('/all-done', async (req, res) => {
@@ -625,6 +650,20 @@ app.post('/check_coupon_code', async (req, res) => {
     }
 });
 
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // views 디렉토리 설정
+
+app.get('/verify/:num', async (req, res) => {
+    const num = req.params.num;
+    const data = await discord_web.findOne({ webCode: num });
+
+    if (data) {
+        res.render('verify-user', { username: data.userName });
+    } else {
+        res.status(404).send('존재하지 않는 페이지입니다');
+    }
+});
 
 
 
