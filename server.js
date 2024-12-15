@@ -132,7 +132,7 @@ app.post('/check-verifycode-for-discord', async (req, res) => {
             const verification = new tsdata({
                 userName: existingCode.userName,
                 channelId: existingCode.channelId,
-                mannagerId: existingCode.managerId,
+                managerId: existingCode.managerId,
             });
             await verification.save();
 
@@ -670,7 +670,7 @@ app.get('/verify/:num', async (req, res) => {
     if (data) {
         res.render('verify-user', { username: data.userName });
     } else {
-        res.status(404).send('존재하지 않는 페이지입니다');
+        res.status(404).send('만료된 페이지입니다.');
     }
 });
 
