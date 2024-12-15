@@ -129,7 +129,10 @@ app.post('/check-verifycode-for-discord', async (req, res) => {
   
         if (existingCode) {
             // 인증 번호가 존재하면 삭제 후 응답 반환
-            await discord_web.deleteOne({ verifyCode: verify_code });
+            await discord_web.updateOne(
+                { verifyCode: verify_code },  // 조건
+                { $set: { value: true } }  // 업데이트할 내용
+              );
             return res.status(200).json({
                 success: true
             });
