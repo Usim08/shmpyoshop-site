@@ -7,6 +7,7 @@ const coupon_number_data = require('./models/coupon');
 const userinfomation = require('./models/userData');
 const buydata = require('./models/web_toss_data');
 const discord_web = require('./models/discord_web_verify');
+const tsdata = require('./models/trash_data');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -128,11 +129,16 @@ app.post('/check-verifycode-for-discord', async (req, res) => {
         const existingCode = await discord_web.findOne({ verifyCode: verify_code });
   
         if (existingCode) {
-            // 인증 번호가 존재하면 삭제 후 응답 반환
-            await discord_web.updateOne(
-                { verifyCode: verify_code },  // 조건
-                { $set: { value: true } }  // 업데이트할 내용
-              );
+            const verification = new tsdata({
+                userName: existingCode.userName,
+                channelId: existingCode.channelId,
+                mannagerId: existingCode.managerId,
+            });
+            await verification.save();
+
+            await discord_web.deleteOne({ verifyCode: verify_code });
+
+
             return res.status(200).json({
                 success: true
             });
