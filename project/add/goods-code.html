@@ -37,54 +37,84 @@
         </nav>
     </header>
     
-    <div class="info_1_main">
-        <div class="info_1_section">
-            <h1 class="ifo_title_h1">비밀코드 활성화 신청</h1>
-    
+    <div class="parent">
+
+        <div class="information_main_section">
+            <div class="information_main_one_section">
+                <h1 class="in_m_t">비밀 코드 활성화 신청하기</h1>
+            </div>
+
             <div class="info_1_box_text">
                 <div class="lastinput">
-                    <p class="sub_title">상품의 비밀 코드</p>
+                    <p class="sub_title">비밀 코드를 알려주세요</p>
                     <div class="secretcode_input">
                         <input type="text" id="secretCode" class="input_one_section">
                         <button class="verify_button" id="check_secret_code">확인</button>
                     </div>
                     <div class="error" id="error-message" style="color: #D58181;"></div>
 
-                    <p class="sub_title" id="one_title" style="display: none;">이름</p>
-                    <input type="text" id="name" class="input_one_section" style="display: none;">
-                    <div class="error" id="error-message-name" style="color: #D58181;"></div>
-
-                    <p class="sub_title" id="two_title" style="display: none;">전화번호</p>
-                    <div class="phone-verification" id="one_section" style="display: none;">
-                        <input type="text" id="phone_number" class="input_one_section" placeholder="01012345678">
-                        <button class="verify_button" id="verifyBtn">인증</button>
+                    <div id="name_section" style="display: none;">
+                        <p class="sub_title" id="one_title">이름을 알려주세요</p>
+                        <input type="text" id="name" class="input_two_section">
+                        <div class="error" id="error-message-name" style="color: #D58181;"></div>
                     </div>
-                    <div class="error" id="error-message-phone" style="color: #D58181;"></div>
 
-                    <p class="sub_title" id="phone_verify_sub" style="display: none;">인증번호 (3:00)</p>
-                    <div class="phone-verifyNumber" id="two_section" style="display: none;">
-                        <input type="text" id="verify_number" class="input_one_section">
-                        <button class="verify_button" id="verify_number_btn">확인</button>  
-                    </div>  
-                    <div class="error" id="error-message-verify" style="color: #D58181;"></div>
+                    <div id="phone_section"style="display: none;">
+                        <p class="sub_title">전화번호를 알려주세요</p>
+                        <div class="secretcode_input">
+                            <input type="text" id="phone" class="input_one_section">
+                            <button class="verify_button" id="phone_verify">인증하기</button>
+                        </div>
+                        <div class="error" id="error-phone" style="color: #D58181;"></div>
+                    </div>
 
-                    <p class="sub_title" id="three_title" style="display: none;">게임 링크</p>
-                    <input type="text" id="where" class="input_one_section" style="display: none;">
-                    <div class="error" id="error-message-game" style="color: #D58181;"></div>
-                </div>
+                    <div id="verify_section"style="display: none;">
+                        <p class="sub_title" id="phone_verify_sub">인증 번호를 알려주세요 (3:00)</p>
+                        <div class="secretcode_input">
+                            <input type="text" id="verify" class="input_one_section">
+                            <button class="verify_button" id="number_verify">확인</button>
+                        </div>
+                        <div class="error" id="error-verify" style="color: #D58181;"></div>
+                    </div>
 
-                <div class="info_last_list" id = "info_last_list" style="display: none;">
-                    <div class="info_1_check_list">
-                        <li>쉼표샵 이용 규정을 준수하지 않아 비밀 코드가 비활성화된 경우, 이에 대한 책임은 지지 않습니다.</li>
-                        <li>코드를 등록한 이후에는 환불이 불가능합니다.</li>
-                        <li>한 번 등록한 코드는 재등록할 수 없습니다.</li>
-                        <li>등록한 코드는 카카오톡 또는 디스코드를 통해 확인하실 수 있습니다.</li>
-                        <li>신청하기를 누르시면, <a href="https://docs.google.com/document/d/1wai_MS0QWJxW-q_2_JOEFHYHySAHQpqjzgmlVAoKo74/edit?usp=sharing" target="_blank">쉼표샵 개인정보 처리방침</a>에 동의한 것으로 간주됩니다.</li>
+                    <div id="game_section"style="display: none;">
+                        <p class="sub_title" id="one_title">상품을 이용할 게임의 링크를 첨부해 주세요.</p>
+                        <input type="text" id="roblox-link" class="input_two_section">
+                        <div class="error" id="error-message-name" style="color: #D58181;"></div>
+                        <div class="in_m_t_t">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11.9" height="11.9" viewBox="0 0 12.9 12.9">
+                                <path id="info_24dp_FFFFFF_FILL0_wght300_GRAD0_opsz24" d="M105.941-850.325h1.018v-3.9h-1.018Zm.509-5.066a.531.531,0,0,0,.391-.158.531.531,0,0,0,.158-.391.531.531,0,0,0-.158-.391.531.531,0,0,0-.391-.158.531.531,0,0,0-.391.158.531.531,0,0,0-.158.391.531.531,0,0,0,.158.391A.531.531,0,0,0,106.45-855.391Zm0,8.291a6.284,6.284,0,0,1-2.516-.508,6.515,6.515,0,0,1-2.048-1.378,6.514,6.514,0,0,1-1.379-2.047,6.278,6.278,0,0,1-.508-2.515,6.284,6.284,0,0,1,.508-2.516,6.514,6.514,0,0,1,1.378-2.048,6.514,6.514,0,0,1,2.048-1.379,6.278,6.278,0,0,1,2.515-.508,6.284,6.284,0,0,1,2.516.508,6.515,6.515,0,0,1,2.048,1.378,6.514,6.514,0,0,1,1.379,2.047,6.278,6.278,0,0,1,.508,2.515,6.284,6.284,0,0,1-.508,2.516,6.515,6.515,0,0,1-1.378,2.048,6.515,6.515,0,0,1-2.048,1.379A6.278,6.278,0,0,1,106.451-847.1Zm0-1.018A5.242,5.242,0,0,0,110.3-849.7a5.242,5.242,0,0,0,1.579-3.853A5.242,5.242,0,0,0,110.3-857.4a5.242,5.242,0,0,0-3.853-1.579A5.242,5.242,0,0,0,102.6-857.4a5.242,5.242,0,0,0-1.579,3.853A5.242,5.242,0,0,0,102.6-849.7,5.242,5.242,0,0,0,106.45-848.118ZM106.45-853.55Z" transform="translate(-100 860)" fill="#c6c7c9"/>
+                            </svg>                              
+                            <p class="alert_third">정확히 입력하지 않을 경우 비밀 코드가 비활성화될 수 있어요. 게임 Place ID가 포함된 링크를 첨부해 주세요.</p>
+                        </div>
+                    </div>
+
+                    <div class="lastbutton" id="lastbutton"style="display: none;">
+                        <p class="alert_four">쉼표샵 개인정보 처리방침 및 쉼표샵 이용 규정에 대해 동의하신다면</p>
+                        <button class="lastbutton_finish" id="registerBtn" disabled>상품 다운로드하기</button>
                     </div>
                 </div>
-                <div class="lastbutton" id="lastbutton" style="display: none;">
-                    <button class="input_two_section" id="registerBtn">비밀 코드 활성화하기</button>
+            </div>
+        </div>
+
+        <div class="information_second_section" id="information_second_section">
+            <div class="in_m_t_o_second">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 13.2 13.2">
+                    <path id="info_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24" d="M85.94-870.1h1.32v-3.96H85.94Zm.66-5.28a.639.639,0,0,0,.47-.19.639.639,0,0,0,.19-.47.639.639,0,0,0-.19-.47.639.639,0,0,0-.47-.19.639.639,0,0,0-.47.19.639.639,0,0,0-.19.47.639.639,0,0,0,.19.47A.639.639,0,0,0,86.6-875.38Zm0,8.58a6.427,6.427,0,0,1-2.574-.52,6.666,6.666,0,0,1-2.1-1.411,6.665,6.665,0,0,1-1.411-2.1A6.427,6.427,0,0,1,80-873.4a6.427,6.427,0,0,1,.52-2.574,6.665,6.665,0,0,1,1.411-2.1,6.665,6.665,0,0,1,2.1-1.411A6.427,6.427,0,0,1,86.6-880a6.427,6.427,0,0,1,2.574.52,6.665,6.665,0,0,1,2.1,1.411,6.665,6.665,0,0,1,1.411,2.1,6.427,6.427,0,0,1,.52,2.574,6.427,6.427,0,0,1-.52,2.574,6.665,6.665,0,0,1-1.411,2.1,6.666,6.666,0,0,1-2.1,1.411A6.427,6.427,0,0,1,86.6-866.8Zm0-1.32a5.1,5.1,0,0,0,3.745-1.534A5.1,5.1,0,0,0,91.88-873.4a5.1,5.1,0,0,0-1.535-3.746A5.1,5.1,0,0,0,86.6-878.68a5.1,5.1,0,0,0-3.745,1.534A5.1,5.1,0,0,0,81.32-873.4a5.1,5.1,0,0,0,1.535,3.745A5.1,5.1,0,0,0,86.6-868.12ZM86.6-873.4Z" transform="translate(93.2 -866.8) rotate(180)" fill="#9a9ba1"/>
+                </svg>
+                <p class="alert_second">신청 전, 반드시 확인해 주세요</p>
+            </div>
+            <div class="info_last_list_second" id="info_last_list">
+                <div class="info_1_check_list_second">
+                    <li>쉼표샵에서 판매되는 모든 상품은 개인 이용권으로, 구매자 본인만 게임 내에서 사용하실 수 있습니다.</li>
+                    <li>비밀 코드 활성화 신청 시, 수집되는 개인정보는 <a href="https://docs.google.com/document/d/1wai_MS0QWJxW-q_2_JOEFHYHySAHQpqjzgmlVAoKo74/edit?usp=sharing" target="_blank">쉼표샵 개인정보 처리방침</a>에 따라 안전하게 보관되며, 수집 및 이용됩니다.</li>
+                    <li>비밀 코드가 활성화되면 환불이 불가능하니, 유의해 주세요.</li>
+                    <li>비밀 코드를 악용하거나 쉼표샵 이용 규정을 위반할 경우, 비밀 코드가 강제 비활성화되며 커뮤니티 이용에 제한이 있을 수 있습니다.</li>
                 </div>
+            </div>
+            <div class="in_m_t_o_th" id="in_m_t_o_th" style="display: none;">
+                <input type="checkbox" class="checkbox" id="checkbox">
+                <p class="checkbox_title">쉼표샵 개인정보 처리방침 및 쉼표샵 이용 규정에 대해 동의합니다</p>
             </div>
         </div>
     </div>
