@@ -167,7 +167,7 @@ app.post('/all-done', async (req, res) => {
         }
 
         const { SolapiMessageService } = require('solapi');
-        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
+        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "IVEWQULTQQLZNDYYK1OFAUZ5OBMEEBIX");
 
         await messageService.send({
             "to": phone_number,
@@ -264,7 +264,7 @@ app.post('/send-verify-code', async (req, res) => {
         await verification.save();
 
         const { SolapiMessageService } = require('solapi');
-        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
+        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "IVEWQULTQQLZNDYYK1OFAUZ5OBMEEBIX");
 
         await messageService.send({
         "to": phoneNumber,
@@ -576,7 +576,7 @@ app.post("/confirm", async function (req, res) {
 
         // 메시지 전송
         const { SolapiMessageService } = require('solapi');
-        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "L7ZWWCTC7IA46F2VTPT6EHXBXDA73LMZ");
+        const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "IVEWQULTQQLZNDYYK1OFAUZ5OBMEEBIX");
 
         await messageService.send({
             "to": userphone,
