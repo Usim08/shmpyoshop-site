@@ -30,6 +30,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(collections => {
       const collectionNames = collections.map(col => col.name);
       console.log('연결된 컬렉션들:', collectionNames.join(', '));
+      console.log(port)
   })
   .catch(err => console.error('몽고디비 연결 실패:', err));
 

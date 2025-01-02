@@ -78,42 +78,42 @@ nextButton2.addEventListener('click', moveRightBox2);
 prevButton2.addEventListener('click', moveLeftBox2);
 
 
-function handleScroll() {
-    let sections = [
-        {selector: '.information_one_section_main_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_main_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_round_one_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_round_two_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_round_three_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_one_title_image', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_one_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_one_sub_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_two_title_image', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_two_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_two_sub_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_main_sub_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_main_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_one_title_image', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_one_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_one_sub_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_two_title_image_parent', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_two_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_two_sub_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_three_section_main_sub_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_three_section_main_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_three_section_round_one_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_three_section_round_two_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_three_section_round_three_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_four_section_round_three_box_image', offset: 0.95, transform: 'translate(-50%, 0)', opacity: '100%'},
-        {selector: '.information_four_section_main_title .line1', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_four_section_main_title .line2', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.lastbutton button', offset: 0.95, transform: 'translate(-50%, 0)', opacity: '100%'},
+// function handleScroll() {
+//     let sections = [
+//         {selector: '.information_one_section_main_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_main_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_round_one_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_round_two_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_round_three_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_one_title_image', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_one_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_one_sub_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_two_title_image', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_two_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_one_section_two_sub_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_main_sub_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_main_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_one_title_image', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_one_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_one_sub_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_two_title_image_parent', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_two_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_two_section_two_sub_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_three_section_main_sub_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_three_section_main_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_three_section_round_one_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_three_section_round_two_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_three_section_round_three_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_four_section_round_three_box_image', offset: 0.95, transform: 'translate(-50%, 0)', opacity: '100%'},
+//         {selector: '.information_four_section_main_title .line1', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.information_four_section_main_title .line2', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
+//         {selector: '.lastbutton button', offset: 0.95, transform: 'translate(-50%, 0)', opacity: '100%'},
 
 
 
 
 
-    ];
+//     ];
 
     let scrollTop = window.scrollY;
     let docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -130,6 +130,6 @@ function handleScroll() {
             }
         }
     });
-}
+
 
 window.addEventListener('scroll', handleScroll);
