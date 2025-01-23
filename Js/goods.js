@@ -9,44 +9,46 @@ window.addEventListener('scroll', function() {
 });
 
 
-// document.getElementById('registerBtn').addEventListener('click', async () => {
+document.getElementById('registerBtn').addEventListener('click', async () => {
 
-//     const secretCode = document.getElementById('secretCode').value.trim();
-//     const name = document.getElementById('name').value.trim();
-//     const phone_number = document.getElementById('phone_number').value.trim();
-//     const where = document.getElementById('roblox-link').value.trim();
+    const secretCode = document.getElementById('secretCode').value.trim();
+    const name = document.getElementById('name').value.trim();
+    const phone_number = document.getElementById('phone').value.trim();
+    const where = document.getElementById('roblox-link').value.trim();
 
-//     if (!where) {
-//         document.getElementById('error-message-game').textContent = '게임 링크를 첨부하세요';
-//         return;
-//     } else {
-//         document.getElementById('error-message-game').textContent = '';
-//     }
+    if (!where) {
+        document.getElementById('error-message-game').textContent = '게임 링크를 첨부하세요';
+        return;
+    } else {
+        document.getElementById('error-message-game').textContent = '';
+    }
 
-//     try {
-//         document.getElementById('registerBtn').style.opacity = 0.5;
-//         document.getElementById('registerBtn').disabled = true;
-//         const response = await fetch('/all-done', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ secretCode, name, phone_number, where })
-//         });
+    try {
+        document.getElementById('registerBtn').style.opacity = 0.5;
+        document.getElementById('registerBtn').disabled = true;
+        const response = await fetch('/all-done', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ secretCode, name, phone_number, where })
+        });
 
-//         const result = await response.json();
-//         if (result.success) {
-//             alert('비밀 코드 활성화 완료! 자세한 내용은 카카오톡에서 확인해 주세요.\n쉼표샵을 이용해주셔서 감사합니다.');
-//             window.location.href = 'https://www.shmpyoshop.com/home'
-//         } else {
-//             alert(result.message);
-//         }
-//     } catch (error) {
-//         document.getElementById('registerBtn').style.opacity = 1;
-//         document.getElementById('registerBtn').disabled = false;
-//         alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
-//     }
-// });
+        const result = await response.json();
+        if (result.success) {
+            alert('비밀 코드 활성화 완료! 자세한 내용은 카카오톡에서 확인해 주세요.\n쉼표샵을 이용해주셔서 감사합니다.');
+            window.location.href = 'https://www.shmpyoshop.com/home'
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        document.getElementById('registerBtn').style.opacity = 1;
+        document.getElementById('registerBtn').disabled = false;
+        alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
+    }
+});
+
+
 
 document.getElementById('check_secret_code').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();

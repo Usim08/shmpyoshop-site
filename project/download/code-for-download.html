@@ -27,15 +27,7 @@
         <link rel="stylesheet" href="code-for-download.css"/>
     </head>
 <body>
-    <header class="header" id="header">
-        <a href="/home" class="logo">shmpyo</a>
-        <nav class='navbar'>
-            <a href="/home">홈</a>
-            <a href="/project/service-terms">이용규정</a>
-            <a href="https://smartstore.naver.com/shmpyo" target="_blank">전체상품</a>
-            <a href="/project/add/goods-code">비밀코드 활성화</a>
-        </nav>
-    </header>
+    <div id="header-container"></div>
     
     <div class="info_1_main">
         <div class="info_1_section">
@@ -92,5 +84,15 @@
     </iframe>
 
     <script src="/Js/download.js"></script>
+
+    <script src="./Js/scrollTop.js"></script>
+
+    <script>
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
 </body>
 </html>
