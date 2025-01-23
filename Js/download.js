@@ -56,7 +56,7 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
     }
 
     try {
-        const response = await fetch('https://www.shmpyoshop.com/check_secret', {
+        const response = await fetch('/check_secret', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ document.getElementById('verifyBtn').addEventListener('click', async () => {
         document.getElementById('verifyBtn').style.opacity = 0.5;
         document.getElementById('verifyBtn').disabled = true;
 
-        const response = await fetch('https://www.shmpyoshop.com/send-verify-code', {
+        const response = await fetch('/send-verify-code', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -186,7 +186,7 @@ document.getElementById('verify_number_btn').addEventListener('click', async () 
     }
 
     try {
-        const response = await fetch('https://www.shmpyoshop.com/verify-code-second', {
+        const response = await fetch('/verify-code-second', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

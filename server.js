@@ -41,20 +41,30 @@ app.post('/register', async (req, res) => {
     try {
         const existingCode = await SecretCode.findOne({ secret: secretCode });
         if (!existingCode) {
-            return res.status(404).json({ success: false, message: '상품 비밀 코드를 잘못 입력하셨거나, 존재하지 않는 비밀 코드예요.' });
+            return res.status(404).json({ 
+                success: false, 
+                message: '상품 비밀 코드를 잘못 입력하셨거나, 존재하지 않는 비밀 코드예요.' 
+            });
         }
-  
+    
+        if (existingCode.force_value == true) {
+            return res.status(404).json({ 
+                success: false, 
+                message: '강제 비활성화된 비밀 코드입니다. 디스코드 고객센터에 문의해 주세요.' 
+            });
+        }
+    
         if (existingCode.value == true) {
-            res.status(200).json({
+            return res.status(200).json({
                 success: false,
                 message: '이미 등록된 비밀 코드예요. 파일 다운로드 페이지에서 파일을 다운로드 받으실 수 있습니다.',
             });
         }
 
-  
         res.status(200).json({
             success: true,
         });
+
     } catch (error) {
         console.error('서버 오류:', error);
         res.status(500).json({ success: false, message: '서버 오류' });
@@ -68,6 +78,13 @@ app.post('/check_secret', async (req, res) => {
         const existingCode = await SecretCode.findOne({ secret: secretCode });
         if (!existingCode) {
             return res.status(404).json({ success: false, message: '상품 비밀 코드를 잘못 입력하셨거나, 존재하지 않는 비밀 코드예요.' });
+        }
+
+        if (existingCode.force_value == true) {
+            return res.status(404).json({ 
+                success: false, 
+                message: '강제 비활성화된 비밀 코드입니다. 디스코드 고객센터에 문의해 주세요.' 
+            });
         }
 
         const gdscode = existingCode.goodsnumber

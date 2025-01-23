@@ -5,7 +5,8 @@ const secretCodeSchema = new mongoose.Schema({
     value: { type: Boolean, required: true },
     goodsname: { type: String, required: true },
     goodsnumber: { type: String, required: true },
-    userid: { type: String, required: true }
+    userid: { type: String, required: true },
+    force_value: { type: Boolean, required: true }
 });
 
 const SecretCode = mongoose.model('SecretCode', secretCodeSchema);
