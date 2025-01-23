@@ -245,6 +245,10 @@ app.get('/project/add/goods-code', (req, res) => {
     res.sendFile(path.join(__dirname, 'project','add', 'goods-code.html'));
 });
 
+app.get('/project/download/code-for-download', (req, res) => {
+    res.sendFile(path.join(__dirname, 'project','download', 'code-for-download.html'));
+});
+
 app.get('/payment', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'payment', 'shmpyo_product_payment.html'));
 });
