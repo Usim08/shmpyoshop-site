@@ -44,6 +44,7 @@ body {
     width: 100%;
     background-color: rgb(255, 255, 255);
     overflow-x:hidden;
+    font-family: 'PSemiBold', 'PRegular', 'PLight', 'PMedium', sans-serif;
 }
 
 
