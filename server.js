@@ -211,7 +211,7 @@ app.post('/all-done', async (req, res) => {
             name: name,
             gameLink: where, // where을 gameLink로 매핑
             goodscode: existingCode.goodsnumber, // 스키마에 맞게 수정
-            goodsname: existingCode.goodsname // 스키마에 맞게 수정
+            goodsname: existingCode.goodsname
         });
         await verification.save();
 
@@ -568,7 +568,9 @@ app.post("/confirm", async function (req, res) {
             userid: rb.discordId,
             value: false,
             goodsnumber: product.code,
-            goodsname: product.name
+            goodsname: product.name,
+            force_value: false,
+            phoneNumber:userphone
         });
         await verification.save();
 
