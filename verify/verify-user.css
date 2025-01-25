@@ -143,5 +143,11 @@ body {
 
     .ifo_title_h1 {
         font-family: 'PMedium';
+        margin-bottom: 50px;
     }
+
+    .lastinput {
+        top: 50px;
+    }
+    
 }
