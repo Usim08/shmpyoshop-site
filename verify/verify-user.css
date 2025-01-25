@@ -128,3 +128,11 @@ body {
 .input_two_section:hover {
     background-color: #4b7ae7;
 }
+
+
+
+@media (max-width: 900px) {
+    .info_1_section {
+        width: 304px;
+    }
+}
