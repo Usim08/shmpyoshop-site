@@ -270,11 +270,10 @@ body {
 
 
 .if_o_s_th_i {
-    height: 150px;
-    width: 150px;
-    opacity: 74%;
+    height: 330px;
+    width: auto;
 
-    transform: translate(50%, 30px);
+    transform: translate(50%, -20px);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
                 opacity 0.5s ease;
     transition-delay: 0.4s;
@@ -337,7 +336,7 @@ body {
     color:  #607EFF;
     font-size: 23px;
     text-align: center;
-    margin-top: 124px;
+    margin-top: -20px;
     margin-bottom: -20px;
 
 

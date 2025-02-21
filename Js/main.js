@@ -12,7 +12,7 @@ function handleScroll() {
 
         {selector: '.if_o_s_th_t', offset: 0.19, transform: 'translateY(0)', opacity: '100%'},
         {selector: '.if_o_s_th_s_t', offset: 0.19, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_th_i', offset: 0.19, transform: 'translate(0, 30px)', opacity: '74%'},
+        {selector: '.if_o_s_th_i', offset: 0.19, transform: 'translate(0, -20px)'},
 
         {selector: '.information_two_section_sub_title', offset: 0.23, transform: 'translateY(0)', opacity: '100%'},
         {selector: '.information_two_section_title', offset: 0.23, transform: 'translateY(0)', opacity: '100%'},
