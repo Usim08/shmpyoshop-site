@@ -44,7 +44,7 @@ mongoose.connect(process.env.MONGO_URI)
 
   app.get('/posts', async (req, res) => {
     try {
-        const posts = await Post.find().sort({ date: -1 }); // 날짜 기준 내림차순 정렬
+        const posts = await Post.find().sort({ date: -1 });
         res.json(posts);
     } catch (err) {
         res.status(500).send("서버 오류");

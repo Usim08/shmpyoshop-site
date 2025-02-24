@@ -110,19 +110,18 @@ hr {
 }
 
 .post-button-container div {
-    margin-top: 7px;
+    margin-top: -15px;
     font-family: 'PLight';
     font-size: 15px;
     color: #c4c5c5;
 }
 
 .post-button-container svg {
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(55px);
-    width: 22px;
-    height: 22px;
+    width: 30px;
+    height: 30px;
+    transform: translateY(-8px);
+    padding-left: 95%;
+    text-align: right;
     fill: #c4c5c5;
 
     transition: 
