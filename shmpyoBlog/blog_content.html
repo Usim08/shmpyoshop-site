@@ -48,7 +48,7 @@
     const postId = window.location.pathname.split('/')[2];
 
     // 게시글 상세 정보를 가져오는 함수
-    fetch(`http://localhost:3019/post/${postId}`)
+    fetch(`/post/${postId}`)
       .then(response => response.json())  // JSON 데이터로 처리
       .then(post => {
         // 서버에서 받은 게시글 내용 적용
