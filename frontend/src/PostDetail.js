@@ -7,7 +7,7 @@ const PostDetail = () => {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    axios.get(`/posts/${id}`).then((res) => {
+    axios.get(`https://www.shmpyoshop.com/posts/${id}`).then((res) => {
       setPost(res.data);
     });
   }, [id]);
