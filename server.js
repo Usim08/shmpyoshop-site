@@ -13,6 +13,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
+const bodyParser = require("body-parser");
+
 
 const got = require('got');
 const port = process.env.PORT || 3019;
@@ -21,6 +23,8 @@ const app = express();
 app.use(cors());
 app.use(express.static(__dirname));
 app.use(express.json());
+app.use(bodyParser.json());
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
@@ -33,6 +37,10 @@ mongoose.connect(process.env.MONGO_URI)
       console.log(port)
   })
   .catch(err => console.error('몽고디비 연결 실패:', err));
+
+
+
+
 
 
 app.post('/register', async (req, res) => {
@@ -70,6 +78,9 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ success: false, message: '서버 오류' });
     }
 });
+
+
+
 
 app.post('/check_secret', async (req, res) => {
     const { secretCode } = req.body;

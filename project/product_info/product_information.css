@@ -135,8 +135,57 @@ body {
 }
 
 .youtube {
-    margin-top: 120px;
+    margin-top: 70px;
     margin-left: 50%;
     transform: translateX(-50%);
     border-radius: 20px;
+    margin-bottom: 100px;
+}
+
+.table {
+    width: 670px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-collapse: collapse;
+    margin-bottom: 80px;
+}
+
+.table td {
+    padding-bottom: 30px;
+    vertical-align: top;
+    word-wrap: break-word;
+}
+
+.bold {
+    font-size: 15.75px;
+    font-family: "PRegular";
+    color: #878b8f;
+    line-height: 23px;
+}
+
+.light {
+    font-size: 15.75px;
+    font-family: "PLight";
+    color: #959BA1;
+    line-height: 23px;
+}
+
+.table td:first-child {
+    padding-right: 25px;
+    width: 140px;
+}
+
+.table td:last-child {
+    width: 530px;
+}
+
+
+.bold_two{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 670px;
+    font-size: 20px;
+    font-family: "PSemiBold";
+    margin-bottom: 35px;
+    color: #6B6B6B;
 }
