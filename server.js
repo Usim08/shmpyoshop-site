@@ -336,6 +336,9 @@ app.get('/payment', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'payment', 'shmpyo_product_payment.html'));
 });
 
+app.get('/shmpyoBlog/blog', (req, res) => {
+    res.sendFile(path.join(__dirname, 'shmpyoBlog', 'blog.html'));
+});
 
 
 
