@@ -63,10 +63,31 @@ mongoose.connect(process.env.MONGO_URI)
       res.send(`
         <html lang="ko">
           <head>
+            <title>${post.title} | shmpyoshop</title>
+            <link rel="stylesheet" href="/shmpyoBlog/blog_content.css"/>
+
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${post.title}</title>
-            <link rel="stylesheet" href="/shmpyoBlog/blog_content.css"/> <!-- CSS 파일 추가 -->
+            <meta name="description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+            <meta name="robots" content="max-image-preview:large">
+            <link href="/IMG/파비콘.svg" rel="shortcut icon" type="image/x-icon">
+            <link rel="canonical" href="https://www.shmpyoshop.com/home">
+            <meta property="og:locale" content="ko_KR">
+            <meta property="og:site_name" content="쉼표샵 shmpyo#">
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="쉼표샵 - 공식 홈페이지">
+            <meta property="og:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+            <meta property="og:url" content="https://www.shmpyoshop.com/home">
+            <meta property="og:image" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
+            <meta property="og:image:width" content="1200">
+            <meta property="og:image:height" content="630">
+            <meta property="og:image:alt" content="쉼표샵 로고">    
+
+            <meta name="twitter:site" content="https://www.shmpyoshop.com/home">
+            <meta name="twitter:title" content="쉼표샵 - 공식 홈페이지">
+            <meta name="twitter:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
           </head>
           <body>
             <div id="header-container"></div>
