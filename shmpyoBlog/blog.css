@@ -39,7 +39,8 @@ body {
 }
 
 .information_1_section {
-    width: 1000px;
+    width: 50%;
+    max-width: 1000px;
     margin-left: 50%;
     transform: translateX(-50%);
     margin-top: 150px;
