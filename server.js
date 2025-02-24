@@ -8,6 +8,7 @@ const userinfomation = require('./models/userData');
 const buydata = require('./models/web_toss_data');
 const discord_web = require('./models/discord_web_verify');
 const tsdata = require('./models/trash_data');
+const Post = require('./models/Post');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -37,6 +38,28 @@ mongoose.connect(process.env.MONGO_URI)
       console.log(port)
   })
   .catch(err => console.error('몽고디비 연결 실패:', err));
+
+
+
+
+
+  app.get("/posts", async (req, res) => {
+    const posts = await Post.find();
+    res.json(posts);
+  });
+
+  app.get("/posts/:id", async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    res.json(post);
+  });
+
+  app.post("/posts", async (req, res) => {
+    const { title, content } = req.body;
+    const newPost = new Post({ title, content });
+    await newPost.save();
+    res.json({ message: "게시글 저장 완료!" });
+  });
+
 
 
 
