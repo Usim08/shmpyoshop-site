@@ -66,9 +66,6 @@
                 `;
                 
                 dateDiv.textContent = new Date(post.date).toLocaleDateString();
-                dateDiv.style.fontSize = '12px';
-                dateDiv.style.color = '#666';
-
                 button.appendChild(dateDiv);
                 button.onclick = () => window.location.href = `/post/${post._id}`;
 
