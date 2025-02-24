@@ -90,13 +90,13 @@ hr {
     font-size: 18px;
     font-family: "PLight";
     color: rgb(112, 112, 112);
-    margin-bottom: 350px;
+    margin-bottom: 150px;
     line-height: 30px;
 }
 
 a {
     text-decoration: none;
-    color: rgb(55, 86, 187);
+    color: rgb(101, 128, 218);
 }
 
 a:hover {
