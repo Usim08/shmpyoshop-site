@@ -7,7 +7,7 @@ const PostDetail = () => {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3019/posts/${id}`).then((res) => {
+    axios.get(`/posts/${id}`).then((res) => {
       setPost(res.data);
     });
   }, [id]);
