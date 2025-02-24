@@ -25,7 +25,6 @@ app.use(cors());
 app.use(express.static(__dirname));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 
 mongoose.connect(process.env.MONGO_URI)
@@ -39,12 +38,6 @@ mongoose.connect(process.env.MONGO_URI)
       console.log(port)
   })
   .catch(err => console.error('몽고디비 연결 실패:', err));
-
-
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-  });
 
 
   app.get("/posts", async (req, res) => {
