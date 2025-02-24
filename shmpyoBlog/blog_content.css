@@ -1,0 +1,85 @@
+@font-face {
+    font-family: 'PLight';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff'),
+    url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PSemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff2') format('woff2'),
+         url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PMedium';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff'),
+         url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PRegular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'),
+         url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+.information_1_section {
+    width: 1000px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 150px;
+}
+
+.title {
+    font-size: 37px;
+    font-family: "PSemibold";
+    color: rgb(85, 86, 92);
+    margin-bottom: 15px;
+}
+
+.image{
+    width: 33px;
+    height: 34px;
+    transform: translateY(21px);
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.date{
+    font-size: 16px;
+    font-family: "PLight";
+    color: rgb(139, 139, 141);
+    margin-bottom: 15px;
+}
+
+hr {
+    border: 1px solid #f3f3f3;
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.content{
+    margin-top: 30px;
+    font-size: 18px;
+    font-family: "PLight";
+    color: rgb(112, 112, 112);
+    margin-bottom: 350px;
+    line-height: 30px;
+}

@@ -40,25 +40,60 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error('몽고디비 연결 실패:', err));
 
 
-  app.get("/posts", async (req, res) => {
-    const posts = await Post.find();
-    res.json(posts);
+
+
+  app.get('/posts', async (req, res) => {
+    try {
+      const posts = await Post.find();
+      res.json(posts);
+    } catch (err) {
+      res.status(500).send("서버 오류");
+    }
   });
-
-  app.get("/posts/:id", async (req, res) => {
-    const post = await Post.findById(req.params.id);
-    res.json(post);
+  
+  // 게시글 상세 페이지 API
+  app.get('/post/:id', async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      if (!post) {
+        return res.status(404).send('게시글을 찾을 수 없습니다.');
+      }
+  
+      // 서버에서 HTML 콘텐츠를 생성하여 반환
+      res.send(`
+        <html lang="ko">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${post.title}</title>
+            <link rel="stylesheet" href="/shmpyoBlog/blog_content.css"/> <!-- CSS 파일 추가 -->
+          </head>
+          <body>
+            <div id="header-container"></div>
+            <div class="information_1_section">
+              <div class="flex">
+                <h1 class="title" id="post-title">${post.title}</h1>
+                <p class="date" id="date">${new Date(post.date).toLocaleDateString()}</p>
+              </div>
+              <div class="content" id="post-content">${post.content}</div>
+            </div>
+            <iframe src="/footer.html" style="width: 100%; height: 250px; border: none;"></iframe>
+          </body>
+          <script src="./Js/scrollTop.js"></script>
+          <script>
+            fetch('/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+            });
+        </script>
+        </html>
+      `);
+    } catch (err) {
+      res.status(500).send('서버 오류가 발생했습니다.');
+    }
   });
-
-  app.post("/posts", async (req, res) => {
-    const { title, content } = req.body;
-    const newPost = new Post({ title, content });
-    await newPost.save();
-    res.json({ message: "게시글 저장 완료!" });
-  });
-
-
-
+  
 
 
 

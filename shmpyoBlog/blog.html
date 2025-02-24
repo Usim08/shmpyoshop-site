@@ -1,0 +1,88 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>블로그 | shmpyoshop</title>
+    <link rel="stylesheet" href="/shmpyoBlog/blog.css"/>
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+    <meta name="robots" content="max-image-preview:large">
+    <link href="/IMG/파비콘.svg" rel="shortcut icon" type="image/x-icon">
+    <link rel="canonical" href="https://www.shmpyoshop.com/home">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="쉼표샵 shmpyo#">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="쉼표샵 - 공식 홈페이지">
+    <meta property="og:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+    <meta property="og:url" content="https://www.shmpyoshop.com/home">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="쉼표샵 로고">    
+
+    <meta name="twitter:site" content="https://www.shmpyoshop.com/home">
+    <meta name="twitter:title" content="쉼표샵 - 공식 홈페이지">
+    <meta name="twitter:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div class="information_1_section">
+        <div class="flex">
+            <img class="image" src="/IMG/벨.png">
+            <h1 class="title">쉼표 소식을 받아보세요</h1>
+        </div>
+        <hr>
+        <div id="post-list" class="post-button-container">
+        </div>
+    </div>
+
+    <iframe 
+        src="/footer.html" 
+        style="width: 100%; height: 250px; border: none;"> 
+    </iframe>
+
+<script>
+    fetch('/posts')
+        .then(response => response.json())
+        .then(posts => {
+            const postListElement = document.getElementById('post-list');
+            posts.forEach(post => {
+                const button = document.createElement('button');
+                const dateDiv = document.createElement('div');
+
+                button.textContent = post.title;
+                dateDiv.textContent = new Date(post.date).toLocaleDateString();
+
+                button.innerHTML = `
+                ${post.title} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" style="margin-right: 8px;">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                </svg>`;
+                button.appendChild(dateDiv);
+
+
+                button.onclick = () => {
+                    window.location.href = `/post/${post._id}`;
+                };
+                postListElement.appendChild(button);
+            });
+        })
+        .catch(err => console.error("게시글을 가져오는 데 오류가 발생했습니다.", err));
+</script>
+
+<script src="/Js/scrollTop.js"></script>
+<script>
+    fetch('/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+        });
+</script>
+  
+</body>
+</html>
