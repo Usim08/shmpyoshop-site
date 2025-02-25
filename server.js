@@ -101,7 +101,7 @@ mongoose.connect(process.env.MONGO_URI)
             </div>
             <iframe src="/footer.html" style="width: 100%; height: 250px; border: none;"></iframe>
           </body>
-          <script src="./Js/scrollTop.js"></script>
+          <script src="/Js/scrollTop.js"></script>
           <script>
             fetch('/header.html')
                 .then(response => response.text())
