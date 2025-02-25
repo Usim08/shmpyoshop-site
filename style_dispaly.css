@@ -305,7 +305,9 @@
         font-size: 20px;
     }
 
-
+    .if_f_s_o_i {
+        margin-bottom: 20px;
+    }
 
     .information_four_section_one {
         margin-top: -35px;
@@ -315,6 +317,11 @@
         padding: 30px;
         justify-content:center;
         margin-bottom: -100px;
+    }
+
+    .information_five_section_round_three_box_image {
+        width: 5rs0px;
+        height: 150px;
     }
 
     .if_f_s_o_t {
