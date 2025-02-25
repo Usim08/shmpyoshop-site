@@ -52,6 +52,7 @@
 
 ol {
     line-height: 30px;
+    margin-bottom: 40px;
 }
 
 ul {
@@ -73,10 +74,10 @@ span {
 }
 
 p {
-    font-size: 20px;
+    font-size: 23px;
     font-family: "PSemiBold";
     color: rgb(80, 81, 85);
-    margin-top: 15px;
+    margin-top: 20px;
     margin-bottom: 7px;
 }
 
