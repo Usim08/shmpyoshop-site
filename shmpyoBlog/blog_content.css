@@ -64,10 +64,11 @@ li {
 
 
 span {
-    font-size: 26px;
+    font-size: 27.75px;
     font-family: "PSemiBold";
     color: rgb(71, 72, 77);
     margin-bottom: 7px;
+    display: inline-block;
 }
 
 p {
