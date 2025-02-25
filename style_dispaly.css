@@ -1,7 +1,12 @@
 @media screen and (max-width: 880px) {
-    body {
+    
+    html,body {
         overflow-x: hidden;
     }
+    * {
+        box-sizing: border-box;
+      }
+
     .information_one_section_title {
         word-break: keep-all;
         font-size: 30px;
