@@ -46,18 +46,27 @@
 .title {
     font-size: 37px;
     font-family: "PSemibold";
-    color: rgb(85, 86, 92);
+    color: rgb(71, 72, 77);
     margin-bottom: 15px;
 }
 
 ol {
-    line-height: 40px;
+    line-height: 30px;
 }
+
+ul {
+    line-height: 23px;
+}
+
+li {
+    margin-bottom: 13px;
+}
+
 
 h2 {
     font-size: 26px;
     font-family: "PSemiBold";
-    color: rgb(101, 102, 109);
+    color: rgb(71, 72, 77);
     margin-bottom: 7px;
 }
 
