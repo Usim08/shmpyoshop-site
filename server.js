@@ -94,7 +94,7 @@ mongoose.connect(process.env.MONGO_URI)
             <div id="header-container"></div>
             <div class="information_1_section">
               <div class="flex">
-                <h1 class="title" id="post-title">${post.title}</h1>
+                <div class="title" id="post-title">${post.title}</div>
                 <p class="date" id="date">${post.date}</p>
               </div>
               <div class="content" id="post-content">${post.content}</div>
