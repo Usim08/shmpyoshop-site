@@ -52,7 +52,7 @@
         .then(response => response.json())
         .then(posts => {
             const postListElement = document.getElementById('post-list');
-            postListElement.innerHTML = ''; // 기존 목록 초기화
+            postListElement.innerHTML = '';
 
             posts.forEach(post => {
                 const button = document.createElement('button');
@@ -65,7 +65,7 @@
                     </svg>
                 `;
                 
-                dateDiv.textContent = new Date(post.date).toLocaleDateString();
+                dateDiv.textContent = post.date
 
                 button.appendChild(dateDiv);
                 button.onclick = () => window.location.href = `/post/${post._id}`;

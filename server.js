@@ -95,7 +95,7 @@ mongoose.connect(process.env.MONGO_URI)
             <div class="information_1_section">
               <div class="flex">
                 <h1 class="title" id="post-title">${post.title}</h1>
-                <p class="date" id="date">${new Date(post.date).toLocaleDateString()}</p>
+                <p class="date" id="date">${post.date}</p>
               </div>
               <div class="content" id="post-content">${post.content}</div>
             </div>
