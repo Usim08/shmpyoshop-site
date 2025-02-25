@@ -125,6 +125,11 @@ a:hover {
 }
 
 @media screen and (max-width: 1000px) {
+    .information_1_section {
+        width: 90%;
+    }
+
+
     .flex {
         display: block;
     }
