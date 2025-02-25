@@ -69,6 +69,7 @@ span {
     color: rgb(71, 72, 77);
     margin-bottom: 7px;
     display: inline-block;
+    line-height: 38px;
 }
 
 p {
@@ -111,7 +112,7 @@ hr {
     font-family: "PLight";
     color: rgb(112, 112, 112);
     margin-bottom: 150px;
-    line-height: 30px;
+    line-height: 26px;
 }
 
 a {
@@ -121,4 +122,10 @@ a {
 
 a:hover {
     text-decoration:underline;
+}
+
+@media screen and (max-width: 1000px) {
+    .flex {
+        display: block;
+    }
 }
