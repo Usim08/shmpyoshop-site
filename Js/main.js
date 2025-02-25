@@ -49,15 +49,6 @@ function handleScroll() {
         {selector: '.if_f_s_o_s_t', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
 
 
-        {selector: '#section_one', offset: 0.78, opacity: '100%'},
-        {selector: '#section_two', offset: 0.78, opacity: '100%'},
-        {selector: '#section_three', offset: 0.78, opacity: '100%'},
-        {selector: '#section_four', offset: 0.78, opacity: '100%'},
-        {selector: '#section_five', offset: 0.78, opacity: '100%'},
-        {selector: '#section_six', offset: 0.78, opacity: '100%'},
-        {selector: '#section_seven', offset: 0.78, opacity: '100%'},
-        {selector: '#section_eight', offset: 0.78, opacity: '100%'},
-
         {selector: '.if_f_s_t_t', offset: 0.85, transform: 'translateY(-140px)', opacity: '100%'},
 
         {selector: '.if_f_section_one', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},

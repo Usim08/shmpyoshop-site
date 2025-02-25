@@ -1,4 +1,4 @@
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 880px) {
     body {
         overflow-x: hidden;
     }
@@ -119,11 +119,19 @@
 
 
     .information_two_section_p {
-        width: 80%;
+        width: 70%;
     }
 
     .if_t_s_t {
         display: block;
+    }
+
+    .if_t_s_t_o_title {
+        font-size: 20px;
+    }
+
+    .sub {
+        font-size: 10px;
     }
 
 
