@@ -52,16 +52,30 @@ mongoose.connect(process.env.MONGO_URI)
 });
 
   
-  // 게시글 상세 페이지 API
-  app.get('/post/:id', async (req, res) => {
+// 게시글 상세 페이지 API
+app.get('/post/:id', async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
-      if (!post) {
-        return res.status(404).send('게시글을 찾을 수 없습니다.');
-      }
-  
-      // 서버에서 HTML 콘텐츠를 생성하여 반환
-      res.send(`
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).send('게시글을 찾을 수 없습니다.');
+        }
+
+        // 현재 보고 있는 게시물을 제외하고 최신 4개의 게시물 가져오기
+        const recommendedPosts = await Post.find({ _id: { $ne: req.params.id } })
+                                           .sort({ date: -1 }) // 최신순 정렬
+                                           .limit(4); // 최대 4개
+
+        // 추천 게시물 목록 HTML 생성
+        let recommendedHTML = recommendedPosts.map(rp => `
+            <div class="recommended-item"> 
+                <button class="side_post" onclick="location.href='/post/${rp._id}'">
+                    <span class="post-title">${rp.title}</span>
+                    <span class="date">${rp.date}</span>
+                </button>
+            </div>
+        `).join('');
+
+        res.send(`
         <html lang="ko">
           <head>
             <title>${post.title} | shmpyoshop</title>
@@ -69,6 +83,7 @@ mongoose.connect(process.env.MONGO_URI)
 
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
             <meta name="description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
             <meta name="robots" content="max-image-preview:large">
             <link href="/IMG/파비콘.svg" rel="shortcut icon" type="image/x-icon">
@@ -89,33 +104,66 @@ mongoose.connect(process.env.MONGO_URI)
             <meta name="twitter:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
             <meta name="twitter:card" content="summary_large_image">
             <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
-          </head>
-          <body>
-            <div id="header-container"></div>
-            <div class="information_1_section">
-              <div class="flex">
-                <div class="title" id="post-title">${post.title}</div>
-                <p class="date" id="date">${post.date}</p>
-              </div>
-              <div class="content" id="post-content">${post.content}</div>
+        </head>
+        <body>
+        <div id="header-container"></div>
+        <div class="information_1_section">
+            <p class="date_title" id="date">${post.date}</p>
+            <div class="title" id="post-title">${post.title}</div>
+            <div class="information_1_flex">
+            <div class="box">
+        
+                <div class="content" id="post-content">
+                    <hr>
+                    ${post.content}
+                </div>
             </div>
-            <iframe src="/footer.html" style="width: 100%; height: 250px; border: none;"></iframe>
-          </body>
-          <script src="/Js/scrollTop.js"></script>
-          <script>
+            <div class="recommended-container">
+                <p class="title_box">📣 최근 게시글</p>
+                ${recommendedHTML}
+            </div>
+            </div>
+        </div>
+
+
+        <iframe src="/footer.html" style="width: 100%; height: 250px; border: none;"></iframe>
+        </body>
+        <script src="/Js/scrollTop.js"></script>
+        <script>
             fetch('/header.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('header-container').innerHTML = data;
             });
         </script>
+
+        <script src="./Js/scrollTop.js"></script>
+        <script>
+            fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+        </script>
+
+
+        </body>
+        <script src="/Js/scrollTop.js"></script>
+        <script>
+            fetch('/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                });
+        </script>
         </html>
+
       `);
     } catch (err) {
-      res.status(500).send('서버 오류가 발생했습니다.');
+        res.status(500).send('서버 오류가 발생했습니다.');
     }
-  });
-  
+});
+
 
 
 
