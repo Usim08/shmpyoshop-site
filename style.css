@@ -81,10 +81,9 @@ body {
     z-index: 20;
     position: relative;
     margin-top: 1vh;
-    opacity: 0; /* 초기값 */
-    top: 3vh; /* 초기 위치 */
+    opacity: 0;
+    top: 3vh;
     will-change: transform, opacity;
-    /* 두 개의 애니메이션을 별도로 정의 */
     animation: 
         h1TextMove 1s cubic-bezier(.07, .73, .42, 1) 0.7s forwards,
         h1TextOpacity 1.5s ease 0.7s forwards;
@@ -135,7 +134,8 @@ body {
 }
 
 .if {
-    width: 820px;
+    width: 70%;
+    max-width: 1000px;
     margin-left: 50%;
     transform: translateX(-50%);
 }
@@ -154,11 +154,12 @@ body {
 }
 
 .information_one_section_title {
-    font-family: 'PRegular';
     color:  #5F686F;
     font-size: 36px;
     text-align: center;
     margin-bottom: 135px;
+    margin-top: 30px;
+    font-family: 'PsemiBold';
 
     transform: translateY(50%);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
@@ -181,7 +182,7 @@ body {
 
 .information_one_section_one {
     display: flex;
-    width: 820px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -229,7 +230,7 @@ body {
 
 .information_one_section_two {
     display: flex;
-    width: 820px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -279,7 +280,7 @@ body {
 
 .information_one_section_three {
     display: flex;
-    width: 820px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -344,11 +345,12 @@ body {
 }
 
 .information_two_section_title {
-    font-family: 'PRegular';
     color:  #5F686F;
     font-size: 36px;
     text-align: center;
     margin-bottom: 135px;
+    margin-top: 30px;
+    font-family: 'PSemiBold';
 
     transform: translateY(50%);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
@@ -448,13 +450,6 @@ body {
     margin-bottom: -20px;
 }
 
-.information_two_section_title {
-    font-family: 'PRegular';
-    color:  #5F686F;
-    font-size: 36px;
-    text-align: center;
-    margin-bottom: 135px;
-}
 
 .if_t_s_o_i {
     height: 164px;
@@ -580,11 +575,12 @@ body {
 
 
 .information_three_section_title {
-    font-family: 'PRegular';
     color:  #5F686F;
     font-size: 36px;
     text-align: center;
     margin-bottom: 135px;
+    margin-top: 155px;
+    font-family: 'PsemiBold';
 
     transform: translateY(50%);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
@@ -787,11 +783,12 @@ body {
 }
 
 .information_four_section_title {
-    font-family: 'PRegular';
     color:  #5F686F;
     font-size: 36px;
     text-align: center;
     margin-bottom: 100px;
+    margin-top: 155px;
+    font-family: 'PsemiBold';
 
     transform: translateY(50%);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
@@ -1077,9 +1074,4 @@ body {
 
     margin-left: 50%;
     transform: translate(-50%, 0);
-}
-
-
-@media screen {
-    
 }
