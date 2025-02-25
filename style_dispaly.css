@@ -124,7 +124,7 @@
 
 
     .information_two_section_p {
-        width: 70%;
+        width: 80%;
     }
 
     .if_t_s_t {
@@ -133,10 +133,15 @@
 
     .if_t_s_t_o_title {
         font-size: 20px;
+        margin-bottom: 10px;
     }
 
     .sub {
         font-size: 10px;
+    }
+
+    .if_t_s_t_o_o {
+        display: flex;
     }
 
 
