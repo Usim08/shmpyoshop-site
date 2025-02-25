@@ -49,9 +49,10 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+      height: auto;
+      overflow-X: hidden;
     }
     .footer_design_shmpyo_div {
-    overflow: hidden;
       width: 100%;
       max-width: 1300px;
       margin-left: 50%;
@@ -77,6 +78,14 @@
       height: 35px;
       width: auto;
       opacity: 0.6;
+    }
+
+    @media screen and (max-width: 580px) {
+      .footer_design_shmpyo_div {
+        width: 90%;
+        display: inline-block;
+        transform: translate(-50%, 0);
+      }
     }
   </style>
 </head>
