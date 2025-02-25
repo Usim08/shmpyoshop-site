@@ -1,4 +1,7 @@
 @media screen and (max-width: 1000px) {
+    body {
+        overflow: hidden;
+    }
     .information_one_section_title {
         word-break: keep-all;
         font-size: 30px;
