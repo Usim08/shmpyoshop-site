@@ -47,7 +47,7 @@ body {
 }
 
 .title {
-    font-size: 32px;
+    font-size: 34px;
     font-family: "PSemibold";
     color: rgb(85, 86, 92);
 }
@@ -55,10 +55,10 @@ body {
 .image{
     width: 33px;
     height: 34px;
-    transform: translateY(21px);
 }
 
 .flex {
+    align-items: center;
     display: flex;
     gap: 20px;
 }
@@ -129,7 +129,7 @@ hr {
 }
 
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 580px) {
     .information_1_section {
         width: 85%;
         word-break: keep-all;

@@ -1057,6 +1057,11 @@ body {
 
 }
 
+.flex_re {
+    display: flex;
+    margin-top: -10px;
+}
+
 .information_five_section_main_title .line1 {
     margin-bottom: -20px;
 

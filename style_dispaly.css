@@ -1,4 +1,4 @@
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 580px) {
     
     html,body {
         overflow-x: hidden;
@@ -141,9 +141,17 @@
     }
 
     .if_t_s_t_o_o {
+        display: inline-block;
+    }
+
+    .flex_re {
+        margin-top: -5px;
         display: flex;
     }
 
+    .star {
+        margin-top: -30px;
+    }
 
     .if_t_s_t_img{
         margin-left: 50%;
