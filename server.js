@@ -119,7 +119,7 @@ app.get('/post/:id', async (req, res) => {
                 </div>
             </div>
             <div class="recommended-container">
-                <p class="title_box">📣 최근 게시글</p>
+                <p class="title_box">📣 새로운 소식</p>
                 ${recommendedHTML}
             </div>
             </div>
