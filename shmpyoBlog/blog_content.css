@@ -131,6 +131,7 @@ a:hover {
 
     .title {
         word-break: keep-all;
+        font-size: 37px;
     }
 
     span {
