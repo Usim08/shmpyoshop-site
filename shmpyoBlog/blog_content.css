@@ -128,4 +128,16 @@ a:hover {
     .flex {
         display: block;
     }
+
+    .title {
+        word-break: keep-all;
+    }
+
+    span {
+        word-break: keep-all;
+    }
+
+    .content{
+        word-break: keep-all;
+    }
 }
