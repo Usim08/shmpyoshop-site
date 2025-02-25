@@ -138,5 +138,22 @@ hr {
 
     .information_1_section button {
         word-break: keep-all;
+        font-size: 20px;
+    }
+
+    .post-button-container div {
+        font-size: 15px;
+    }
+
+    .title {
+        font-size: 26px;
+        font-family: "PSemibold";
+        color: rgb(85, 86, 92);
+    }
+
+    .image{
+        width: 33px;
+        height: 34px;
+        transform: translateY(8px);
     }
 }
