@@ -157,7 +157,7 @@ body {
     font-family: 'PsemiBold';
     margin-left: 50%;
 
-    transform: translateY(50%);
+    transform: translate(-50%, 50%);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
                 opacity 0.5s ease;
     transition-delay: 0.2s;
