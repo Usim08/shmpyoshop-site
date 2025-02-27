@@ -175,6 +175,7 @@ body {
     transition-delay: 0.4s;
     opacity: 0;
 }
+
 .information_one_section_one {
     display: flex;
     margin-left: 50%;

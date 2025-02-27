@@ -379,7 +379,7 @@ app.get('/project/verified_access_for_download_shmpyo_exclusive_goods/:secretCod
 });
 
 app.get('/', (req, res) => {
-    res.redirect('/home');
+    res.sendFile(path.join(__dirname, 'home.html'));
 });
 
 app.get('/home', (req, res) => {
