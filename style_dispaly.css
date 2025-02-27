@@ -25,6 +25,7 @@
         font-size: 30px;
         width: 50%;
         margin-left: 50%;
+        transform: translate(-50%, 50%);
     }
 
     .information_one_section_sub_title {
@@ -206,7 +207,7 @@
 
     .if_t_s_o_t {
         width: 80%;
-        margin-left: 25px;
+        margin: 0 auto;
         text-align: center;
         font-size: 25px;
         word-break: keep-all;
@@ -215,6 +216,8 @@
     }
 
     .if_t_s_o_s_t{
+        width: 100%;
+        margin: 0 auto;
         font-size: 17px;
         word-break: keep-all;
         text-align: center;
