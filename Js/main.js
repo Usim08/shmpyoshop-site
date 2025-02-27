@@ -25,10 +25,6 @@ function handleScroll() {
         {selector: '.if_t_s_o_s_t', offset: 0.43, transform: 'translateY(0)', opacity: '100%'},
         {selector: '.if_t_s_o_i ', offset: 0.43, transform: 'translate(0, 20px)', opacity: '74%'},
 
-        {selector: '.if_t_s_th_t', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_t_s_th_s_t', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_t_s_th_i ', offset: 0.47, transform: 'translate(0, 30px)', opacity: '74%'},
-
         {selector: '.information_three_section_sub_title', offset: 0.55, transform: 'translateY(0)', opacity: '100%'},
         {selector: '.information_three_section_title', offset: 0.55, transform: 'translateY(0)', opacity: '100%'},
 

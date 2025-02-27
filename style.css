@@ -510,7 +510,7 @@ body {
     font-size: 21px;
     text-align: left;
     line-height: 28px;
-    margin-bottom: 207px;
+    margin-bottom: 257px;
 
     transform: translateY(50%);
     transition: transform 1s cubic-bezier(.07, .73, .42, 1), 
@@ -1106,6 +1106,7 @@ body {
 
 .lastbutton button {
     color: rgb(255, 255, 255);
+    background-color: #607EFF;
     font-family: 'PLight';
     font-size: 18px;
     padding: 18px 15.5px;
