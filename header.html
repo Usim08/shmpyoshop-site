@@ -86,6 +86,35 @@
         .logo:hover {
             opacity: 1;
         }
+
+
+
+        @media screen and (max-width: 580px) {
+    
+            .secret{
+                display: none;
+            }
+
+            .download{
+                display: none;
+            }
+
+            .logo{
+                display: none;
+            }
+
+            .navbar {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+
+            .navbar a {
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+        }
 </style>
 </head>
 <body>
@@ -95,8 +124,8 @@
             <a href="/home">홈</a>
             <a href="/shmpyoBlog/blog">블로그</a>
             <a href="https://smartstore.naver.com/shmpyo" target="_blank">전체상품</a>
-            <a href="/project/add/goods-code">비밀 코드 활성화</a>
-            <a href="/project/download/code-for-download">상품 다운로드</a>
+            <a href="/project/add/goods-code" class="secret">비밀 코드 활성화</a>
+            <a href="/project/download/code-for-download" class="download">상품 다운로드</a>
         </nav>
     </header>
 </body>

@@ -1,7 +1,7 @@
 function handleScroll() {
     let sections = [
         {selector: '.information_one_section_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_title', offset: 0.05, transform: 'translate(-50%, 0)', opacity: '100%'},
         {selector: '.if_o_s_o_t', offset: 0.1, transform: 'translateY(0)', opacity: '100%'},
         {selector: '.if_o_s_o_s_t', offset: 0.1, transform: 'translateY(0)', opacity: '100%'},
         {selector: '.if_o_s_o_i', offset: 0.1, transform: 'translate(0, 20px)', opacity: '74%'},
