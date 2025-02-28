@@ -38,10 +38,12 @@
         <div class="find_item">
             <h1 class="ifo_title_h1">쉼표샵 전체 상품</h1>
             <div class="find_shmpyoshop_product_item">
-                <input type="text" class="search" placeholder="검색어를 입력하세요">
-                <button class="search_button"><svg xmlns="http://www.w3.org/2000/svg" width="25.678" height="25.601" viewBox="0 0 25.678 25.601">
-                    <path id="search_24dp_FFFFFF_FILL0_wght200_GRAD200_opsz20" d="M173.384-785.629l-9.3-9.3a8.563,8.563,0,0,1-2.729,1.341,10.473,10.473,0,0,1-2.992.466,8.736,8.736,0,0,1-6.414-2.641,8.725,8.725,0,0,1-2.642-6.409,8.744,8.744,0,0,1,2.641-6.414,8.719,8.719,0,0,1,6.409-2.646,8.742,8.742,0,0,1,6.414,2.642,8.728,8.728,0,0,1,2.646,6.414,9.984,9.984,0,0,1-.457,2.985,8.71,8.71,0,0,1-1.311,2.62l9.336,9.337Zm-15.019-9.742a6.584,6.584,0,0,0,4.85-1.953,6.584,6.584,0,0,0,1.953-4.85,6.584,6.584,0,0,0-1.953-4.85,6.585,6.585,0,0,0-4.85-1.953,6.584,6.584,0,0,0-4.85,1.953,6.584,6.584,0,0,0-1.953,4.85,6.584,6.584,0,0,0,1.953,4.85A6.583,6.583,0,0,0,158.365-795.371Z" transform="translate(-149.31 811.23)" fill="#cad2d5"/>
-                </svg></button>
+                <input type="text" class="search" id="searchInput" placeholder="검색어를 입력하세요" onkeyup="filterProducts()">
+                <button class="search_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25.678" height="25.601" viewBox="0 0 25.678 25.601">
+                        <path id="search_24dp_FFFFFF_FILL0_wght200_GRAD200_opsz20" d="M173.384-785.629l-9.3-9.3a8.563,8.563,0,0,1-2.729,1.341,10.473,10.473,0,0,1-2.992.466,8.736,8.736,0,0,1-6.414-2.641,8.725,8.725,0,0,1-2.642-6.409,8.744,8.744,0,0,1,2.641-6.414,8.719,8.719,0,0,1,6.409-2.646,8.742,8.742,0,0,1,6.414,2.642,8.728,8.728,0,0,1,2.646,6.414,9.984,9.984,0,0,1-.457,2.985,8.71,8.71,0,0,1-1.311,2.62l9.336,9.337Zm-15.019-9.742a6.584,6.584,0,0,0,4.85-1.953,6.584,6.584,0,0,0,1.953-4.85,6.584,6.584,0,0,0-1.953-4.85,6.585,6.585,0,0,0-4.85-1.953,6.584,6.584,0,0,0-4.85,1.953,6.584,6.584,0,0,0-1.953,4.85,6.584,6.584,0,0,0,1.953,4.85A6.583,6.583,0,0,0,158.365-795.371Z" transform="translate(-149.31 811.23)" fill="#cad2d5"/>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
@@ -51,13 +53,13 @@
     <div class="info_2_section">
         <div class="product">
             <div class="product_item">
-                <button class="SP3019" onclick="redirectToProductPage('SP3019')">
+                <button class="SP3019" onclick="redirectToProductPage('SP3019')" data-name="소생시스템">
                     <img class="product_image" src="/IMG/product_img/SP3019.png">
                     <div class="product_title">소생시스템</div>
                     <div class="product_price">16,900원</div>
                 </button>
-    
-                <button class="SP2537" onclick="redirectToProductPage('SP2537')">
+        
+                <button class="SP2537" onclick="redirectToProductPage('SP2537')" data-name="공지시스템Pro">
                     <img class="product_image" src="/IMG/product_img/SP2537.png">
                     <div class="product_title">공지시스템Pro</div>
                     <div class="product_price">13,900원</div>
@@ -65,7 +67,6 @@
             </div>
         </div>
     </div>
-    
 
 
 
@@ -82,6 +83,22 @@
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
             });
+    </script>
+
+    <script>
+        function filterProducts() {
+            let searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            let products = document.querySelectorAll('[data-name]'); // data-name 속성이 있는 모든 버튼 선택
+            
+            products.forEach(function(product) {
+                let productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(searchQuery)) {
+                    product.style.display = ''; // 검색어가 포함되면 표시
+                } else {
+                    product.style.display = 'none'; // 검색어가 포함되지 않으면 숨김
+                }
+            });
+        }
     </script>
 
 
