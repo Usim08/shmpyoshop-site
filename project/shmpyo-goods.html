@@ -51,16 +51,16 @@
     <div class="info_2_section">
         <div class="product">
             <div class="product_item">
-                <button class="SP3019" onclick="redirectToPayment('SP3019')">
+                <button class="SP3019" onclick="redirectToProductPage('SP3019')">
                     <img class="product_image" src="/IMG/product_img/SP3019.png">
                     <div class="product_title">소생시스템</div>
                     <div class="product_price">16,900원</div>
                 </button>
     
-                <button class="SP2537" onclick="redirectToPayment('SP2537')">
+                <button class="SP2537" onclick="redirectToProductPage('SP2537')">
                     <img class="product_image" src="/IMG/product_img/SP2537.png">
                     <div class="product_title">공지시스템Pro</div>
-                    <div class="product_price">11,900원</div>
+                    <div class="product_price">13,900원</div>
                 </button>
             </div>
         </div>
@@ -71,9 +71,6 @@
 
 
     <iframe src="/footer.html" style="width: 100%; height: 250px; max-height: 250px; border: none; overflow: hidden;"></iframe>
-
-
-
 
 
 
@@ -89,27 +86,8 @@
 
 
     <script>
-        function redirectToPayment(productCode) {
-            console.log(productCode);
-            // 요청 URL을 전체 경로로 수정
-            fetch(`https://www.shmpyoshop.com/get-product-info/${productCode}`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('상품 정보를 가져오는데 실패했습니다.');
-                    }
-                    return response.json();
-                })
-                .then((productInfo) => {
-                    // 결제창 URL 생성
-                    const paymentURL = `/payment?code=${productInfo.code}&name=${encodeURIComponent(productInfo.name)}&price=${productInfo.price}`;
-                    
-                    // 결제 페이지로 이동
-                    window.location.href = paymentURL;
-                })
-                .catch((error) => {
-                    console.error('결제창 이동 중 오류:', error);
-                    alert('결제창으로 이동할 수 없습니다. 다시 시도해주세요.');
-                });
+        function redirectToProductPage(productCode) {
+            window.location.href = `/project/product_info/${productCode}.html`;
         }
 
     </script>
