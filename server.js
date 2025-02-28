@@ -41,15 +41,21 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 
-
-  app.get('/posts', async (req, res) => {
+app.get('/posts', async (req, res) => {
     try {
-        const posts = await Post.find().sort({ date: -1 });
+        const { tag } = req.query;
+        let posts;
+        if (tag) {
+            posts = await Post.find({ tag: tag }).sort({ date: -1 });
+        } else {
+            posts = await Post.find().sort({ date: -1 });
+        }
         res.json(posts);
     } catch (err) {
         res.status(500).send("서버 오류");
     }
 });
+
 
   
 // 게시글 상세 페이지 API
@@ -89,7 +95,7 @@ app.get('/post/:id', async (req, res) => {
             <link href="/IMG/파비콘.svg" rel="shortcut icon" type="image/x-icon">
             <link rel="canonical" href="https://www.shmpyoshop.com/home">
             <meta property="og:locale" content="ko_KR">
-            <meta property="og:site_name" content="쉼표샵 shmpyo#">
+            <meta property="og:site_name" content="# ${post.tag} - 쉼표샵">
             <meta property="og:type" content="website">
             <meta property="og:title" content="${post.title} - 쉼표샵">
             <meta property="og:description" content="${post.date}에 올라온 새로운 소식을 확인해 보세요.">
@@ -108,7 +114,7 @@ app.get('/post/:id', async (req, res) => {
         <body>
         <div id="header-container"></div>
         <div class="information_1_section">
-            <p class="date_title" id="date">${post.date}</p>
+            <p class="date_title" id="date"># ${post.tag}, ${post.date}</p>
             <div class="title" id="post-title">${post.title}</div>
             <div class="information_1_flex">
             <div class="box">
