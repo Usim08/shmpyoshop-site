@@ -584,7 +584,6 @@ app.get('/payment', (req, res) => {
 
 app.get('/get-product-info/:productCode', async (req, res) => {
     const { productCode } = req.params;
-    console.log(productCode);
     try {
         // MongoDB에서 상품 정보 조회
         const product = await goodscode_bool.findOne({ code: productCode });
@@ -615,14 +614,11 @@ app.post('/create-payment', async (req, res) => {
     const { orderId, orderName, amount, customerName, customerPhone } = req.body;
 
     const clientKey = "test_gck_AQ92ymxN34Yz5ZmNN71KVajRKXvd"; // 실제 사용시 비공개 환경 변수로 설정
-    const customerKey = "YQ5hsoCQ7zJXcBzFjneEW";  // 클라이언트에서 직접 사용하지 않도록 보안처리
     const product = await goodscode_bool.findOne({ name: orderName });
-    console.log(product.price == amount)
     if (product.price == amount) {
         try {
             
             const response = await axios.post('https://api.tosspayments.com/v1/payments', {
-                clientKey,
                 orderId,
                 orderName,
                 amount,
