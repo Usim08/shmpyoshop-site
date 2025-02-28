@@ -386,8 +386,8 @@ app.get('/project/service-terms', (req, res) => {
     res.sendFile(path.join(__dirname, 'project', 'service-terms.html'));
 });
 
-app.get('/project/shmpyo-goods', (req, res) => {
-    res.sendFile(path.join(__dirname, 'project', 'shmpyo-goods.html'));
+app.get('/project/shmpyo-products', (req, res) => {
+    res.sendFile(path.join(__dirname, 'project', 'shmpyo-products.html'));
 });
 
 app.get('/project/add/goods-code', (req, res) => {

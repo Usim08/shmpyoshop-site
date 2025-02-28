@@ -125,7 +125,8 @@
 
     <script>
 
-        let productId;
+
+let productId;
         let all_price;
 
         window.onload = function() {
@@ -212,25 +213,55 @@
                         document.getElementById('coupon_input').textContent = `-${result.discountAmount}원`;
 
                         let cleanPrice = result.finalPrice.replace(/,/g, '');  // 쉼표 제거
-                        cleanPrice = parseFloat(cleanPrice) + 100; // 결제처리하고
+                        cleanPrice = parseFloat(cleanPrice);
+                        all_price = cleanPrice
 
-                        button.addEventListener("click", async function() {
-                            await widgets.setAmount({
-                                currency: "KRW",
-                                value: cleanPrice,
-                            });
-                            
-                            await widgets.showPaymentDialog({
-                                amount: cleanPrice,  
-                            });
+                        await widgets.setAmount({
+                            currency: "KRW",
+                            value:cleanPrice,
                         });
+                    } else {
+                        document.getElementById('error-message-coupon').textContent = result.message;
                     }
-                    else {
-                        alert(result.error);
+                });
+
+                await Promise.all([
+                    widgets.renderPaymentMethods({
+                        selector: "#payment-method", 
+                        variantKey: "DEFAULT",
+                    }),
+                    widgets.renderAgreement({
+                        selector: "#agreement", 
+                        variantKey: "AGREEMENT"
+                    })
+                ]);
+
+                button.addEventListener("click", async function () {
+                    const orderId = "SP" + Date.now();
+                    const orderName = document.querySelector(".product_title").textContent;
+
+                    const customerName = document.getElementById("name").value.trim();
+                    const customerMobilePhone = document.getElementById("phone").value.trim();
+
+                    if (!customerName || !customerMobilePhone || !/^\d{10,11}$/.test(customerMobilePhone)) {
+                        document.getElementById('error-message-name').textContent = '이름을 입력하세요';
+                        document.getElementById('error-message-phone').textContent = '전화번호를 입력하세요';
+                        return;
                     }
+
+                    await widgets.requestPayment({
+                        orderId: orderId,
+                        orderName: orderName,
+                        successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}&coupon=${encodeURIComponent(couponNbInput.value.trim())}&roblox=${encodeURIComponent(robloxName.value.trim())}`,
+                        failUrl: window.location.origin + "/fail.html",
+                        customerName: customerName,
+                        customerMobilePhone: customerMobilePhone
+                    });
                 });
             }
         }, 1500);
+        
+      
     </script>
 </body>
 </html>
