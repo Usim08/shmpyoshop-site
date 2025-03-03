@@ -40,7 +40,6 @@ body {
 
 
 .info_1_section {
-    height: 1000px;
     width: 404px;
     margin-top: 200px;
     margin-left: 50%;
@@ -138,12 +137,26 @@ body {
     }
 
     .lastinput input {
+        margin-top: 25px;
         width: 280px;
     }
 
     .ifo_title_h1 {
-        font-family: 'PMedium';
-        margin-bottom: 50px;
+        font-family: 'PSemiBold';
+        margin-top: 20px;
     }
-    
+
+
+    .lastbutton button  {
+        transform: translateY(-40px);
+    }
+
+    .sub_title {
+        margin-top: 30px;
+        transform: translateY(30px);
+    }
+
+    .error {
+        transform: translateY(-35px);
+    }
 }
