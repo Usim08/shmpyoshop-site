@@ -137,7 +137,6 @@ body {
     }
 
     .lastinput input {
-        margin-top: 25px;
         width: 280px;
     }
 
@@ -153,7 +152,6 @@ body {
 
     .sub_title {
         margin-top: 30px;
-        transform: translateY(30px);
     }
 
     .error {
