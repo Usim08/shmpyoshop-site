@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'PLight';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PSemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PMedium';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PRegular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.Main_Image {
+    width: 100px;
+    height: auto;
+    margin-left: 50%;
+    margin-top: 100px;
+    opacity: 0;
+    animation: img 1s cubic-bezier(.07, .73, .42, 1) forwards;
+}
+
+@keyframes img {
+    0% { transform: translate(-50%, 50px); opacity: 0; }
+    100% { transform: translate(-50%, 0px); opacity: 1; }
+}
+
+.info_1_section {
+    width: 404px;
+    margin-top: 200px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.ifo_title_h1 {
+    margin-top: 20px;
+    transform: translateY(35px);
+    font-family: 'PSemiBold';
+    font-size: 30px;
+    color: #525764;
+    text-align: center;
+}
+
+
+
+.pp {
+    font-size: 22px;
+    color: #b9bcc0;
+    font-family: 'PLight';
+    text-align: center;
+    margin-top: 50px;
+    letter-spacing: 0px;
+    line-height: 30px;
+    margin-bottom: 300px;
+}
+
+
+
+
+@media (max-width: 900px) {
+    .info_1_section {
+        width: 280px;
+        margin-top: 130px;
+    }
+
+    .lastinput input {
+        width: 280px;
+    }
+
+    .ifo_title_h1 {
+        font-family: 'PSemiBold';
+        margin-top: 20px;
+    }
+
+
+    .lastbutton button  {
+        transform: translateY(-40px);
+    }
+
+    .pp {
+        word-break: keep-all;
+    }
+
+    .Main_Image {
+        width: 80px;
+        margin-top: 120px;
+    }
+}

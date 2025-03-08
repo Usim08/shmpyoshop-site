@@ -864,10 +864,11 @@ app.get('/verify/:num/:uniq', async (req, res) => {
     const dataaa = await discord_web.findOne({ unique_id: uniq });
 
     if (data && dataaa) {
+        res.render('fast-verify', { username: data.userName });
         const verification = new tsdata({
-            userName: existingCode.userName,
-            channelId: existingCode.channelId,
-            managerId: existingCode.managerId,
+            userName: data.userName,
+            channelId: data.channelId,
+            managerId: data.managerId,
         });
         await verification.save();
 
