@@ -81,7 +81,6 @@
 
                 const result = await response.json();
 
-                // 응답 처리
                 if (result.success) {
                     alert('인증이 완료되었어요.\n디스코드로 이동하여 상담을 진행해 주세요.');
                     window.location.href = "https://www.shmpyoshop.com";
@@ -89,7 +88,6 @@
                     alert(result.message);
                 }
             } catch (error) {
-                // 오류 발생 시 처리
                 document.getElementById('registerBtn').style.opacity = 1;
                 document.getElementById('registerBtn').disabled = false;
                 alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');

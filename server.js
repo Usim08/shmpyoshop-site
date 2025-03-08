@@ -620,11 +620,21 @@ const axios = require('axios');
 const { userInfo } = require('os');
 const coupon = require('./models/coupon');
 
+
+const TOSS_CLIENT_KEY = 'live_gck_vZnjEJeQVxnW7YzN6moz8PmOoBN0';  // 테스트용 키, 실제로는 비밀
+const TOSS_SECRET_KEY = 'live_gsk_ZLKGPx4M3M9JQGXGgj5w3BaWypv1';  // 실제 비밀키는 안전하게 관리해야 합니다.
+
+app.get('/get-client-key', (req, res) => {
+    // 실제 운영에서는 클라이언트 키를 안전하게 관리해야 합니다.
+    const clientKey = TOSS_CLIENT_KEY;  // 서버에서 클라이언트 키를 전달
+    res.json({ clientKey });
+});
+
 // 서버 측에서 토스 API 호출 예시
 app.post('/create-payment', async (req, res) => {
     const { orderId, orderName, amount, customerName, customerPhone } = req.body;
 
-    const clientKey = "test_gck_AQ92ymxN34Yz5ZmNN71KVajRKXvd"; // 실제 사용시 비공개 환경 변수로 설정
+    const clientKey = TOSS_CLIENT_KEY; // 실제 사용시 비공개 환경 변수로 설정
     const product = await goodscode_bool.findOne({ name: orderName });
     if (product.price == amount) {
         try {
@@ -649,7 +659,7 @@ app.post('/create-payment', async (req, res) => {
 app.post("/confirm", async function (req, res) {
     const { paymentKey, orderId, amount, orderName, userName, userphone, coupon, roblox } = req.body;
 
-    const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
+    const widgetSecretKey = TOSS_SECRET_KEY;
     const encryptedSecretKey = "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
 
     function generateRandomString(length) {
@@ -701,8 +711,12 @@ app.post("/confirm", async function (req, res) {
         
         const paymentData = response.body;
         if (rb === null) {
-            return res.status(400).json({ message: "회원가입을 진행하지 않으신 것 같아요" });
+            return res.status(200).json({
+                confirm: true, // confirm 창을 띄워야 한다는 신호
+                message: "회원가입을 진행하지 않으신 것 같은데 이대로 구매할까요?"
+            });
         }
+        
 
         const verifyCode = generateRandomString(12);
         const verification = new SecretCode({
@@ -740,7 +754,6 @@ app.post("/confirm", async function (req, res) {
             redirect_path: redirectUrl,
         });
 
-        // 메시지 전송
         const { SolapiMessageService } = require('solapi');
         const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "IVEWQULTQQLZNDYYK1OFAUZ5OBMEEBIX");
 
@@ -829,6 +842,7 @@ app.post('/check_coupon_code', async (req, res) => {
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // views 디렉토리 설정
 
+// 첫 번째 라우트: 인증 코드 페이지
 app.get('/verify/:num', async (req, res) => {
     const num = req.params.num;
     const data = await discord_web.findOne({ webCode: num });
@@ -839,6 +853,32 @@ app.get('/verify/:num', async (req, res) => {
         res.status(404).send('만료된 페이지입니다.');
     }
 });
+
+// 두 번째 라우트: 인증 코드 입력 후 바로 인증 페이지
+app.get('/verify/:num/:uniq', async (req, res) => {
+    const num = req.params.num;
+    const uniq = req.params.uniq;
+
+    // 웹 코드와 유니크 아이디로 데이터 조회
+    const data = await discord_web.findOne({ webCode: num });
+    const dataaa = await discord_web.findOne({ unique_id: uniq });
+
+    if (data && dataaa) {
+        const verification = new tsdata({
+            userName: existingCode.userName,
+            channelId: existingCode.channelId,
+            managerId: existingCode.managerId,
+        });
+        await verification.save();
+
+        await discord_web.deleteOne({ verifyCode: verify_code });
+    } else {
+        res.status(404).send('만료된 페이지입니다.');
+    }
+});
+
+
+
 
 
 

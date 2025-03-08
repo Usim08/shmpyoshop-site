@@ -36,7 +36,6 @@ body {
 }
 
 .info_1_section {
-    height: 100vh;
     width: 1160px;
     margin-left: 50%;
     transform: translate(-50%, 25vh);
@@ -61,10 +60,10 @@ body {
     border-radius: 50%;
     background: inherit;
     transform: rotate(0deg) translate(150%);
-    animation: l22 1s infinite;
+    animation: l22 1.5s infinite;
   }
   .loader:after {
-    animation-delay: -.5s
+    animation-delay: 0.7s
   }
   @keyframes l22-0 {
     100% {transform: rotate(1turn)}
@@ -83,94 +82,11 @@ body {
 }
 
 .p {
-    font-size: 24px;
-    color: #77808B;
+    font-size: 22px;
+    color: #b9bcc0;
     font-family: 'PRegular';
     text-align: center;
-    margin-top: 10px;
-    letter-spacing: -1px;
-}
-
-.button_parent {
-    margin-left: 50%;
-    transform: translateX(-50%);
-    width: 470px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.button {
-    padding: 16px 30px;
-    border: none;
-    border-radius: 13px;
-    font-size: 17px;
-    color: #77808B;
-    cursor: pointer;
-}
-
-.button svg {
-    margin-right: 10px;
-    transform: translateY(2.3px);
-}
-
-
-.img_pro {
-    height: 68px;
-    width: 68px;
-    border-radius: 10px;
-}
-
-.flex{
-    margin-top: 50px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    width: 490px;
-    display: flex;
-}
-
-.section_one {
-    display: flex;
-    gap: 15px;
-    margin-right: 52px;
-}
-
-.h1_pro {
-    font-family: "PMedium";
-    font-size: 20px;
-    color: #37404B;
-}
-
-.price_pro {
-    font-family: "PRegular";
-    font-size: 17px;
-    color: #91979F;
-}
-
-.section_two {
-    margin-top: -10px;
-    margin-left:52px;
-}
-
-.flex_one {
-    gap: 25px;
-    display: flex;
-    margin-bottom: 7px;
-}
-
-.p_pro_one {
-    font-size: 17px;
-    font-family: "PRegular";
-    text-align: left;
-    color: #91979F;
-    margin-bottom: 9px;
-}
-
-.p_pro_two {
-    font-size: 17px;
-    font-family: "PMedium";
-    text-align: right;
-    color: #53575B;
-    width: 100px;
-    margin-bottom: 9px;
+    margin-top: 15px;
+    letter-spacing: 0px;
+    line-height: 29px
 }

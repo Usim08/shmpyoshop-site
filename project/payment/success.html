@@ -35,21 +35,10 @@
         <div>
             <div class="loader"></div>
             <div class="h1">결제 진행 중이에요</div>
-            <div class="p">결제 진행은 최대 1~2분 소요될 수 있어요</div>
+            <div class="p">안전하게 결제를 진행하고 있어요.<br>결제는 최대 1분 소요될 수 있어요.</div>
         </div>
     </div>
 
-    <iframe src="/footer.html" style="width: 100%; height: 250px; max-height: 250px; border: none; overflow: hidden;"></iframe>
-
-    <script src="./Js/scrollTop.js"></script>
-
-    <script>
-        fetch('/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            });
-    </script>
     
     <script>
         const urlParams = new URLSearchParams(window.location.search);

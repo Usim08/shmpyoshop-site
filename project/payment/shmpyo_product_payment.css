@@ -347,14 +347,15 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 .product_sub_title {
     font-size: 17px;
-    font-family: "PRegular";
+    font-family: "PLight";
     color: #BBBCBE;
     padding-bottom: 5px;
 }
 
 .product_price {
     text-align: left;
-    font-size: 23px;
-    font-family: "PSemiBold";
+    font-size: 22px;
+    font-family: "PMedium";
+    margin-top: 10px;
     color: #676C72;
 }
