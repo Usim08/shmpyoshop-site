@@ -872,7 +872,7 @@ app.get('/verify/:num/:uniq', async (req, res) => {
         });
         await verification.save();
 
-        await discord_web.deleteOne({ verifyCode: verify_code });
+        await discord_web.deleteOne({ webCode: num });
     } else {
         res.status(404).send('만료된 페이지입니다.');
     }
