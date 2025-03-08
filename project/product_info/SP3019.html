@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>소생시스템 | shmpyoshop</title>
+    <title>상품 정보 페이지 | shmpyoshop</title>
     <link rel="stylesheet" href="/project/product_info/product_information.css"/>
 
 
@@ -36,7 +36,10 @@
         <div class="info_1_flex_1">
             <img class="product_image" src="/IMG/product_img/SP3019.png">
             <div class="info_1_product_info">
-                <img class="product_tag_image" src="/IMG/인기.png">
+                <div class="flex_tag">
+                    <img class="product_tag" id="product_tag" src="/IMG/인기.png">
+                    <img class="product_discount" id="product_discount">
+                </div>
                 <h1 class="product_title" id="product_title">소생시스템</h1>
                 <div class="info_1_flex_2">
                     <p class="gray">판매가(부가세 포함)</p>
@@ -44,17 +47,17 @@
                 </div>
                 <div class="info_1_flex_2">
                     <p class="gray">배송방법</p>
-                    <p class="black" id="product_price">카카오톡 알림톡</p>
+                    <p class="black">카카오톡 알림톡</p>
                 </div>
                 <div class="info_1_flex_2">
                     <p class="gray">배송기간</p>
-                    <p class="black" id="product_price">1일</p>
+                    <p class="black">1일</p>
                 </div>
                 <div class="info_1_flex_3">
                     <p class="gray">배송비</p>
-                    <p class="black" id="product_price">무료 배송</p>
+                    <p class="black">무료 배송</p>
                 </div>
-                <button class="buy_button" onclick="redirectToPayment('SP3019')">이 상품 구매하기</button>
+                <button class="buy_button" onclick="redirectToPayment('SP2537')">이 상품 구매하기</button>
 
             </div>
         </div>
@@ -91,7 +94,7 @@
             <br>단 하나의 게임에만 적용할 수 있다는 점, 구매에 참고 부탁드립니다.</p>
     </div>
 
-    <iframe class="youtube" width="670" height="376.875" src="https://www.youtube.com/embed/-t66ZNdmS6c?si=em6-r_6niSuVsamf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <iframe class="youtube" width="670" height="376.875" src="https://www.youtube.com/embed/Vt5Yzm-TI7o?si=kMCKfaiK9Iy9042k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
     <table class="table">
         <h1 class="bold_two">상품 정보 제공 고시</h1>
@@ -128,10 +131,46 @@
     </table>
     <iframe src="/footer.html" style="width: 100%; height: 250px; max-height: 250px; border: none; overflow: hidden;"></iframe>
     <script src="/Js/scrollTop.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const pathSegments = window.location.pathname.split("/");
+    const productCode = pathSegments[pathSegments.length - 1].replace(".html", "");
+
+    if (!productCode) {
+        console.error("상품 코드가 없습니다.");
+        return;
+    }
+
+        fetch(`/get-product/${productCode}`)
+            .then(response => response.json())
+            .then(product => {
+                if (!product || product.error) {
+                    console.log("상품 정보를 찾을 수 없습니다.");
+                    return;
+                }
+
+                const discountPrice = product.price * (1 - (product.discount || 0) / 100);
+
+                if (product.discount == "0") {
+                    document.getElementById("product_price").innerText = `${product.price.toLocaleString()}원`;
+                } else {
+                    document.getElementById("product_price").innerText = `${product.price.toLocaleString()}원 (-${product.discount}%)`; // 가격과 할인율 표시
+                    document.getElementById("product_discount").src = `/IMG/할인상품.png`;
+                }
+
+                document.getElementById("product_title").innerText = product.name;
+                document.getElementById("product_tag").src = `/IMG/${product.tag}.png`;
+            })
+            .catch(error => {
+                console.error("상품 데이터를 불러오는 중 오류 발생:", error);
+            });
+        });
+
+    </script>
+    
     <script>
         function redirectToPayment(productCode) {
-            console.log(productCode);
-            // 요청 URL을 전체 경로로 수정
             fetch(`/get-product-info/${productCode}`)
                 .then((response) => {
                     if (!response.ok) {
@@ -140,10 +179,8 @@
                     return response.json();
                 })
                 .then((productInfo) => {
-                    // 결제창 URL 생성
                     const paymentURL = `/payment?code=${productInfo.code}&name=${encodeURIComponent(productInfo.name)}&price=${productInfo.price}`;
                     
-                    // 결제 페이지로 이동
                     window.location.href = paymentURL;
                 })
                 .catch((error) => {

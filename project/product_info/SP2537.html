@@ -142,30 +142,30 @@
         return;
     }
 
-    fetch(`/get-product/${productCode}`)
-        .then(response => response.json())
-        .then(product => {
-            if (!product || product.error) {
-                console.log("상품 정보를 찾을 수 없습니다.");
-                return;
-            }
+        fetch(`/get-product/${productCode}`)
+            .then(response => response.json())
+            .then(product => {
+                if (!product || product.error) {
+                    console.log("상품 정보를 찾을 수 없습니다.");
+                    return;
+                }
 
-            const discountPrice = product.price * (1 - (product.discount || 0) / 100);
+                const discountPrice = product.price * (1 - (product.discount || 0) / 100);
 
-            if (product.discount == "0") {
-                document.getElementById("product_price").innerText = `${product.price.toLocaleString()}원`;
-            } else {
-                document.getElementById("product_price").innerText = `${product.price.toLocaleString()}원 (-${product.discount}%)`; // 가격과 할인율 표시
-                document.getElementById("product_discount").src = `/IMG/할인상품.png`;
-            }
+                if (product.discount == "0") {
+                    document.getElementById("product_price").innerText = `${product.price.toLocaleString()}원`;
+                } else {
+                    document.getElementById("product_price").innerText = `${product.price.toLocaleString()}원 (-${product.discount}%)`; // 가격과 할인율 표시
+                    document.getElementById("product_discount").src = `/IMG/할인상품.png`;
+                }
 
-            document.getElementById("product_title").innerText = product.name;
-            document.getElementById("product_tag").src = `/IMG/${product.tag}.png`;
-        })
-        .catch(error => {
-            console.error("상품 데이터를 불러오는 중 오류 발생:", error);
+                document.getElementById("product_title").innerText = product.name;
+                document.getElementById("product_tag").src = `/IMG/${product.tag}.png`;
+            })
+            .catch(error => {
+                console.error("상품 데이터를 불러오는 중 오류 발생:", error);
+            });
         });
-});
 
     </script>
     
