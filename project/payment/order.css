@@ -117,31 +117,37 @@ body {
 
 
 
-
-
-
-/* 기본 상태에서는 모든 요소들이 숨겨져 있음 */
-.success_icon,
-.h1,
-.p,
-.button_parent,
-.flex {
+.h1, .success_icon, .h3Text, .p, .button_parent, .flex {
     opacity: 0;
 }
 
-/* success 클래스가 붙을 때 애니메이션 실행 */
-.success_icon.success,
-.h1.success,
-.p.success,
-.button_parent.success,
-.flex.success {
-    opacity: 1;
-}
-
-/* success_icon 애니메이션 */
 .success_icon.success {
     animation: success_icon 0.4s cubic-bezier(.39, 1.69, .61, .97) forwards;
 }
+
+.h1.success {
+    animation: text 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.2s;
+}
+
+.p.success {
+    animation: textTwo 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.4s;
+}
+
+.button_parent.success {
+    animation: but 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.6s;
+}
+
+.flex.success {
+    animation: info 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.8s;
+}
+
+
+
+
 
 @keyframes success_icon {
     0% { 
@@ -154,11 +160,6 @@ body {
     }
 }
 
-/* h1 애니메이션 (text 애니메이션) */
-.h1.success {
-    animation: text 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.2s;
-}
 
 @keyframes text {
     0% { 
@@ -171,11 +172,6 @@ body {
     }
 }
 
-/* p 애니메이션 (textTwo 애니메이션) */
-.p.success {
-    animation: textTwo 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.4s;
-}
 
 @keyframes textTwo {
     0% { 
@@ -186,12 +182,6 @@ body {
         transform: translateY(0); 
         opacity: 100%; 
     }
-}
-
-/* button_parent 애니메이션 */
-.button_parent.success {
-    animation: but 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.6s;
 }
 
 @keyframes but {
@@ -205,12 +195,6 @@ body {
     }
 }
 
-/* flex 애니메이션 */
-.flex.success {
-    animation: info 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.8s;
-}
-
 @keyframes info {
     0% { 
         transform: translate(-50%, 20px); 
@@ -222,12 +206,20 @@ body {
     }
 }
 
-/* 섹션 스타일 */
+
+
+
 .info_1_section {
     height: 100vh;
     width: 1160px;
     margin-left: 50%;
     transform: translate(-50%, 25vh);
+}
+
+.success_icon {
+    margin-left: 50%;
+    transform: translateX(-50%) scale(1, 1);
+    will-change: transform, opacity;
 }
 
 .h3Text {
@@ -237,9 +229,55 @@ body {
     color: rgb(252, 252, 252);
     opacity: 50%;
     z-index: 20;
+
 }
 
-/* 버튼 스타일 */
+.h1 {
+    font-size: 35px;
+    color: #37404B;
+    font-family: 'PSemiBold';
+    text-align: center;
+    margin-top: 20px;
+    letter-spacing: -1px;
+
+
+    transform: translateY(20px);
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+
+.p {
+    font-size: 24px;
+    color: #77808B;
+    font-family: 'PRegular';
+    text-align: center;
+    margin-top: 10px;
+    letter-spacing: -1px;
+
+
+    transform: translateY(20px);
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+
+.button_parent {
+    margin-left: 50%;
+    transform: translate(-50%, 20px);
+    width: 470px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+
 .button {
     padding: 16px 30px;
     border: none;
@@ -254,7 +292,7 @@ body {
     transform: translateY(2.3px);
 }
 
-/* 이미지 프로필 */
+
 .img_pro {
     height: 68px;
     width: 68px;
@@ -268,9 +306,14 @@ body {
     width:590px;
     display: flex;
     justify-content: space-between;
+
+
+    animation: h3Text 2s;
+    opacity: 0;
+    will-change: transform, opacity;
 }
 
-/* 세부 스타일 */
+
 .section_one {
     display: flex;
     gap: 15px;

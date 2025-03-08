@@ -37,7 +37,7 @@
 
     <div class="info_1_section">
         <div class="find_item">
-            <h1 class="ifo_title_h1">쉼표샵 전체 상품</h1>
+            <p class="ifo_title_h1">쉼표샵 전체 상품</p>
             <div class="find_shmpyoshop_product_item">
                 <input type="text" class="search" id="searchInput" placeholder="검색어를 입력하세요" onkeyup="filterProducts()">
                 <button class="search_button">
@@ -55,12 +55,20 @@
         <div class="product">
             <div class="product_item">
                 <button class="SP3019" onclick="redirectToProductPage('SP3019')" data-name="소생시스템">
+                    <div class="flex_tag">
+                        <img class="product_tag" src="/IMG/인기.png">
+                        <img class="product_discount">
+                    </div>
                     <img class="product_image" src="/IMG/product_img/SP3019.png">
                     <div class="product_title">소생시스템</div>
                     <div class="product_price">16,900원</div>
                 </button>
         
                 <button class="SP2537" onclick="redirectToProductPage('SP2537')" data-name="공지시스템Pro">
+                    <div class="flex_tag">
+                        <img class="product_tag" src="/IMG/인기.png">
+                        <img class="product_discount">
+                    </div>
                     <img class="product_image" src="/IMG/product_img/SP2537.png">
                     <div class="product_title">공지시스템Pro</div>
                     <div class="product_price">13,900원</div>
@@ -87,19 +95,79 @@
     </script>
 
     <script>
+        fetch('/products')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(product => {
+                    if (product.download === 'T') {
+                        const productButton = document.querySelector(`button.${product.code}`);
+                        
+                        if (productButton) {
+                            const productPrice = productButton.querySelector('.product_price');
+                            const productImage = productButton.querySelector('.product_image');
+                            const productTag = productButton.querySelector('.product_tag');
+                            const productDis = productButton.querySelector('.product_discount');
+                            
+                            if (productPrice) {
+                                const price = product.discountPrice || product.price;
+
+                                if (product.discount == "0") {
+                                    productPrice.textContent = `${price.toLocaleString()}원`;
+                                } else {
+                                    productPrice.textContent = `${price.toLocaleString()}원 (-${product.discount}%)`; // 가격과 할인율 표시
+                                    productDis.src = `/IMG/할인상품.png`;
+                                }
+                            }
+
+                            if (productImage) {
+                                productImage.src = `/IMG/product_img/${product.code}.png`;
+                            }
+
+                            if (productTag) {
+                                productTag.src = `/IMG/${product.tag}.png`;
+                            }
+
+
+                        }
+                    } else {
+                        // 'download'가 'F'인 상품은 숨깁니다.
+                        const productButton = document.querySelector(`button.${product.code}`);
+                        if (productButton) {
+                            productButton.style.display = 'none'; // 숨기기
+                        }
+                    }
+                });
+            })
+            .catch(err => {
+                console.error('Error fetching product data:', err);
+                alert('서버에서 데이터를 가져오는 데 실패했습니다.');
+            });
+
+        function redirectToProductPage(productCode) {
+            window.location.href = `/project/product_info/${productCode}.html`;
+        }
+
+
+        // 필터링 함수
         function filterProducts() {
             let searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            let products = document.querySelectorAll('[data-name]'); // data-name 속성이 있는 모든 버튼 선택
+            let products = document.querySelectorAll('[data-name]');
             
             products.forEach(function(product) {
                 let productName = product.getAttribute('data-name').toLowerCase();
                 if (productName.includes(searchQuery)) {
-                    product.style.display = ''; // 검색어가 포함되면 표시
+                    product.style.display = '';
                 } else {
-                    product.style.display = 'none'; // 검색어가 포함되지 않으면 숨김
+                    product.style.display = 'none';
                 }
             });
         }
+
+        // 상품 페이지 리디렉션
+        function redirectToProductPage(productCode) {
+            window.location.href = `/project/product_info/${productCode}.html`;
+        }
+
     </script>
 
 

@@ -109,6 +109,22 @@ body {
     cursor: pointer;
 }
 
+.flex_tag {
+    display: flex;
+    position: absolute;
+    padding: 13px;
+    gap: 5px;
+}
+
+.product_discount {
+    width: auto;
+    height: 22px;
+}
+
+.product_tag {
+    width: auto;
+    height: 22px;
+}
 
 .product_image {
     width: auto;
@@ -117,17 +133,17 @@ body {
 }
 
 .product_title {
-    padding-top: 5px;
+    padding-top: 8px;
     text-align: left;
     font-size: 22px;
     font-family: "PMedium";
-    color: #37404B;
+    color: #5b5f63;
 }
 
 .product_price {
-    padding-top: 3px;
+    padding-top: 5px;
     text-align: left;
     font-size: 17px;
-    font-family: "PMedium";
+    font-family: "PRegular";
     color: #AAB2BC;
 }

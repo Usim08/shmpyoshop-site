@@ -58,6 +58,60 @@ app.get('/posts', async (req, res) => {
 });
 
 
+app.get('/products', async (req, res) => {
+    try {
+        // 상품 데이터 가져오기
+        const products = await goodscode_bool.find({});
+
+        // 상품 데이터를 업데이트
+        const updatedProducts = products.map((product) => {
+            const { _doc } = product;
+
+            // 할인율에 따른 가격 계산
+            const discountPrice = _doc.price - (_doc.price * (_doc.discount / 100));
+
+            // 태그에 맞는 이미지 경로 설정
+            let tagImage = '';
+            if (_doc.tag === '인기') {
+                tagImage = '/IMG/인기.png';
+            } else if (_doc.tag === '추천') {
+                tagImage = '/IMG/쉼표추천.png';
+            } else if (_doc.tag === '새로나온') {
+                tagImage = '/IMG/new_tag.png';
+            }
+
+            // 수정된 상품 정보 반환
+            return {
+                ..._doc,
+                discountPrice,  // 할인된 가격 추가
+                tagImage,       // 태그 이미지 추가
+            };
+        });
+
+        res.json(updatedProducts); 
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('서버 오류');
+    }
+});
+
+app.get("/get-product/:code", async (req, res) => {
+    try {
+        const productCode = req.params.code; // URL에서 상품 코드 가져오기
+        const product = await goodscode_bool.findOne({ code: productCode });
+
+        if (!product) {
+            return res.status(404).json({ error: "상품을 찾을 수 없습니다." });
+        }
+
+        res.json(product);
+    } catch (error) {
+        console.error("상품 정보 조회 오류:", error);
+        res.status(500).json({ error: "서버 오류가 발생했습니다." });
+    }
+});
+
+
   
 // 게시글 상세 페이지 API
 app.get('/post/:id', async (req, res) => {
@@ -451,7 +505,6 @@ app.post('/send-verify-code', async (req, res) => {
 
         setTimeout(async () => {
             await WebsiteVerify.deleteOne({ phoneNumber, verifyCode });
-            console.log(`인증번호가 만료되어 삭제되었습니다: ${phoneNumber}`);
         }, 180000);  // 3분 = 180,000ms
 
     } catch (error) {
@@ -603,22 +656,25 @@ app.get('/get-product-info/:productCode', async (req, res) => {
             return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
         }
 
-        // 상품 정보 반환
+
         res.json({
             code: product.code,
             name: product.name,
-            price: product.price
+            price: product.price, // 가격을 string으로 변환하여 보내기
+            discount: product.discount  // 할인도 string으로 변환하여 보내기
         });
     } catch (error) {
         console.error('상품 정보 조회 오류:', error);
-        res.status(500).json({ error: '서버 오류가 발생했습니다.' });
+        res.status(500).json({ error: '서버 오류가 발생했습니다.', details: error.message });
     }
 });
+
 
 
 const axios = require('axios');
 const { userInfo } = require('os');
 const coupon = require('./models/coupon');
+const goodNumber = require('./models/goodNumber');
 
 
 const TOSS_CLIENT_KEY = 'live_gck_vZnjEJeQVxnW7YzN6moz8PmOoBN0';  // 테스트용 키, 실제로는 비밀
@@ -680,21 +736,29 @@ app.post("/confirm", async function (req, res) {
     try {
         const product = await goodscode_bool.findOne({ name: orderName });
         const cp = await coupon_number_data.findOne({ couponId: coupon });
-        const discountPercentage = cp ? Number(cp.sale) : 0; // 쿠폰이 없으면 할인 0%
-        const test = calculateDiscount(Number(product.price), discountPercentage);
-
-        if (Number(amount) !== product.price) {
-            if (coupon) {
-                // 쿠폰 사용 시, 할인 후 금액을 비교
-                if (test.finalPrice !== Number(amount)) {
-                    return res.status(400).json({ message: "쿠폰 적용 후 결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
-                }
-            } else {
-                return res.status(400).json({ message: "결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
-            }
+        
+        // 상품 자체의 할인율과 쿠폰 할인율 계산
+        const productDiscount = product.discount || 0;  // 상품의 자체 할인율
+        const couponDiscount = cp ? Number(cp.sale) : 0;  // 쿠폰 할인율
+        
+        // 할인율 적용된 가격 계산
+        const productDiscountedPrice = product.price * (1 - productDiscount / 100); // 상품 가격에서 할인 적용
+        const finalPriceAfterCoupon = productDiscountedPrice * (1 - couponDiscount / 100); // 쿠폰 할인 적용
+        
+        // 금액 비교 (부동소수점 오류 방지)
+        const tolerance = 0.01; // 허용 오차
+        const parsedAmount = parseFloat(amount);
+        
+        if (Math.abs(parsedAmount - finalPriceAfterCoupon) > tolerance) {
+            return res.status(400).json({ message: "쿠폰 적용 후 결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
         }
 
-        const rb = await userinfomation.findOne({ playerName: roblox });
+        let rb;
+        if (roblox) {
+            rb = await userinfomation.findOne({ playerName: roblox });
+        }
+
+        const discordId = rb ? rb.discordId : "123456";  // 로블록스 닉네임을 찾을 수 없으면 123456으로 설정
 
         const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
             headers: {
@@ -708,25 +772,18 @@ app.post("/confirm", async function (req, res) {
             },
             responseType: "json",
         });
-        
+
         const paymentData = response.body;
-        if (rb === null) {
-            return res.status(200).json({
-                confirm: true, // confirm 창을 띄워야 한다는 신호
-                message: "회원가입을 진행하지 않으신 것 같은데 이대로 구매할까요?"
-            });
-        }
-        
 
         const verifyCode = generateRandomString(12);
         const verification = new SecretCode({
             secret: verifyCode,
-            userid: rb.discordId,
+            userid: discordId,
             value: false,
             goodsnumber: product.code,
             goodsname: product.name,
             force_value: false,
-            phoneNumber:userphone
+            phoneNumber: userphone
         });
         await verification.save();
 
@@ -740,19 +797,22 @@ app.post("/confirm", async function (req, res) {
             roblox: roblox,
             secret: verifyCode,
             couponNumber: coupon,
-            userid: rb.discordId
+            userid: discordId
         });
         await web_ts.save();
 
-
-
-        // 결제 성공 시 리다이렉트 URL
-        const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&customerName=${userName}&customerMobilePhone=${userphone}`;
+        const productId = await goodNumber.findOne({ name: orderName });
         
+        const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&productId=${productId.code}&customerName=${userName}&customerMobilePhone=${userphone}`;
+
         // 첫 번째 응답을 보냄
         res.json({
             redirect_path: redirectUrl,
         });
+
+        if (coupon) {
+            await coupon_number_data.deleteOne({ couponId: coupon });
+        }
 
         const { SolapiMessageService } = require('solapi');
         const messageService = new SolapiMessageService("NCSXGE8BBCEZMTS7", "IVEWQULTQQLZNDYYK1OFAUZ5OBMEEBIX");
@@ -797,6 +857,32 @@ app.post("/confirm", async function (req, res) {
 });
 
 
+app.post('/check_roblox_name', async (req, res) => { // 쉼표 추가
+    const { rbname } = req.body;
+
+    try {
+        const rbdiscord = await userinfomation.findOne({ playerName: rbname });
+
+        if (rbdiscord) {
+            return res.status(200).json({
+                success: true
+            });
+        } else {
+            return res.status(200).json({
+                message: "쉼표샵 회원가입 시, 다양한 혜택을 제공해 드리고 있습니다. 회원가입 후 구매하시면 더 많은 혜택을 누리실 수 있으니 회원가입을 권장드립니다. (쉼표샵 디스코드 커뮤니티에서 가입하실 수 있어요.)\n\n쉼표샵 디스코드 커뮤니티로 이동하시려면 '확인'을,  비회원으로 구매를 계속 진행하시려면 '취소'를 눌러주세요.",
+                success: true
+            });
+        }
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: '서버 에러가 발생했습니다.' });
+    }
+});
+
+
+
+
 app.post('/check_coupon_code', async (req, res) => {
     const { coupon_nb, rbname, all_price } = req.body;
 
@@ -821,14 +907,24 @@ app.post('/check_coupon_code', async (req, res) => {
         }
 
         if (rbdiscord.discordId === existingCode.playerId) {
-            // 할인 계산
-            const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
-            
-            return res.status(200).json({
-                success: true,
-                finalPrice: finalPrice.toLocaleString(), // 할인 적용된 최종 금액
-                discountAmount: discountAmount.toLocaleString() // 할인 금액
-            });
+            if (rbdiscord) {
+                const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
+                
+                return res.status(200).json({
+                    success: true,
+                    finalPrice: finalPrice.toLocaleString(), // 할인 적용된 최종 금액
+                    discountAmount: discountAmount.toLocaleString() // 할인 금액
+                });
+            } else {
+                const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
+                
+                return res.status(200).json({
+                    message: "쉼표샵 회원가입을 진행하지 않은 것 같아요. (회원가입은 쉼표샵 디스코드에서 진행할 수 있어요.)\n비회원으로 구매를 계속하시려면 '확인'을 눌러주세요.",
+                    success: true,
+                    finalPrice: finalPrice.toLocaleString(), // 할인 적용된 최종 금액
+                    discountAmount: discountAmount.toLocaleString() // 할인 금액
+                });
+            }
         } else {
             return res.status(404).json({ success: false, message: '등록된 쿠폰 이용자가 아닙니다.' });
         }

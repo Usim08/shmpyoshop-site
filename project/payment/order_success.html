@@ -63,7 +63,7 @@
 
             <div class="flex">
                 <div class="section_one">
-                    <img class="img_pro" src="/IMG/product_img/SP2537.png">
+                    <img class="img_pro" id="image" src="/IMG/product_img/상품준비.png">
                     <div class="inline">
                         <div id="h1_pro" class="h1_pro"></div>
                         <div id="price_pro" class="price_pro"></div>
@@ -97,6 +97,7 @@
         const orderId = urlParams.get("orderId");
         const amount = urlParams.get("amount");
         const orderName = urlParams.get("orderName");
+        const productId = urlParams.get("productId");
         const userName = urlParams.get("customerName");
         const userphone = urlParams.get("customerPhone");
         const coupon = urlParams.get("coupon");
@@ -108,6 +109,7 @@
                 orderId: orderId,
                 amount: amount,
                 orderName: orderName,
+                productId: productId,
                 userName: userName,
                 userphone: userphone,
                 coupon: coupon,
@@ -145,6 +147,7 @@
         const orderIdElement = document.getElementById("order_id");
         const amountElement = document.getElementById("price_pro");
         const orderNameElement = document.getElementById("h1_pro");
+        const imageElement = document.getElementById("image");
         const phoneElement = document.getElementById("phone");
         const formattedPrice = parseInt(amount).toLocaleString() + '원';
 
@@ -153,9 +156,10 @@
         amountElement.textContent = formattedPrice;
         paymentKeyElement.textContent = userName;
         orderNameElement.textContent = orderName
+        imageElement.src = `/IMG/product_img/${productId}.png`;
     </script>
     
-    <script src="./Js/scrollTop.js"></script>
+    <script src="/Js/scrollTop.js"></script>
 
     <script>
         fetch('/header.html')

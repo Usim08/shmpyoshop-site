@@ -64,7 +64,7 @@
                         <input type="text" id="phone" class="input_one_section">
     
                         <div class="flex_input">
-                            <p class="sub_title" id="one_title">로블록스 닉네임</p>
+                            <p class="sub_title" id="one_title">(선택) 로블록스 닉네임</p>
                             <div class="error" id="error-message-roblox" style="color: #D58181;"></div>
                         </div>
                         <input type="text" id="robloxName" class="input_one_section">
@@ -122,10 +122,17 @@
     </div>
 
     <iframe src="/footer.html" style="width: 100%; height: 250px; max-height: 250px; border: none; overflow: hidden;"></iframe>
-    <script src="./Js/scrollTop.js"></script>
+    <script src="/Js/scrollTop.js"></script>
     <script>
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+        });
+
         let productId = null;
         let all_price = null;
+        let imagelink = null
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -145,23 +152,44 @@
         async function loadProductInfo(code) {
             const response = await fetch(`/get-product-info/${code}`);
             const data = await response.json();
+            console.log(data);
             
             if (data.error) {
                 throw new Error(data.error);
             }
 
-            const { name, price } = data;
-            const formattedPrice = parseInt(price).toLocaleString() + '원';
-            all_price = price;
+            const { name, price, discount } = data;
+            console.log(name, price, discount);
 
-            document.getElementsByClassName("product_price")[0].textContent = formattedPrice;
-            document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice;
-            document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice;
+            // 할인율이 있을 경우 할인 적용
+            let formattedPrice;
+            if (discount && discount !== "0") {
+                // 할인율이 존재하면 가격에서 할인액을 빼기
+                const discountedPrice = price - (price * (parseInt(discount) / 100));
+                formattedPrice = discountedPrice;
+            } else {
+                formattedPrice = price;
+            }
 
+            all_price = formattedPrice;
+
+            // 가격 표시
+            document.getElementsByClassName("product_price")[0].textContent = formattedPrice.toLocaleString() + '원';
+            if (discount !== "0") {
+                document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice.toLocaleString() + '원 (-' + discount + '%)';
+            } else {
+                document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice.toLocaleString() + '원';
+            }
+            document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice.toLocaleString() + '원';
+
+            // 상품 제목과 이미지 업데이트
             document.querySelector('.product_title').textContent = name;
             const imageUrl = `/IMG/product_img/${code}.png`;
+            imagelink = code;
             document.querySelector('.product_image').src = imageUrl;
         }
+
+
 
         async function main() {
             const button = document.getElementById("registerBtn");
@@ -197,6 +225,7 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ coupon_nb: couponNb, rbname, all_price })
+                    
                 });
 
                 const result = await response.json();
@@ -242,20 +271,31 @@
                 return;
             }
 
-            // 회원가입 여부 확인을 위한 fetch 요청
             const rbname = rbnameInput.value.trim();
+            const response = await fetch('/check_roblox_name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ rbname })
+            });
 
-            if (result.memberExists === false) {
-                const proceed = confirm("회원가입을 진행하지 않으신 것 같은데 이대로 구매할까요?");
-                if (!proceed) {
-                    return; // 취소를 누르면 결제를 진행하지 않음
+            const result = await response.json();
+            if (result.success) {
+                if (result.message) {
+                    const userConfirmed = confirm(result.message);
+                    if (userConfirmed) {
+                        window.location.href = 'https://discord.gg/V4T4MKerGj', '_blank';
+                        return
+                    }
                 }
             }
+
 
             await widgets.requestPayment({
                 orderId: orderId,
                 orderName: orderName,
-                successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}&coupon=${encodeURIComponent(couponNbInput.value.trim())}&roblox=${encodeURIComponent(robloxName.value.trim())}`,
+                successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&productId=${encodeURIComponent(imagelink)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}&coupon=${encodeURIComponent(couponNbInput.value.trim())}&roblox=${encodeURIComponent(robloxName.value.trim())}`,
                 failUrl: window.location.origin + "/fail.html",
                 customerName: customerName,
                 customerMobilePhone: customerMobilePhone
@@ -264,17 +304,6 @@
 
         }
 
-    </script>
-    
-        
-      
-    </script>
-    <script>
-        fetch('/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            });
     </script>
 </body>
 </html>
