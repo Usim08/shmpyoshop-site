@@ -72,6 +72,46 @@
     width: 100%;
 }
 
+.table {
+    margin-top: 10px;
+    border-collapse: collapse; /* 테두리 합침 */
+    width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-collapse: collapse;
+}
+
+.table td {
+    border: 1px solid rgb(228, 228, 228); /* 검은색 실선 테두리 */
+    padding: 10px;
+    vertical-align: top;
+    word-wrap: break-word;
+}
+
+.bold {
+    font-size: 18px;
+    font-family: "PLight";
+    color: rgb(112, 112, 112);
+    line-height: 26px;
+    word-break: keep-all;
+}
+
+.light {
+    font-size: 18px;
+    font-family: "PLight";
+    color: rgb(112, 112, 112);
+    line-height: 26px;
+    word-break: keep-all;
+}
+
+.table td:first-child {
+    background-color: rgb(247, 247, 247);
+}
+
+.table td:last-child {
+    background-color: rgb(255, 255, 255);
+}
+
 .post-title {
     font-size: 22px;
     font-family: "PSemibold";
