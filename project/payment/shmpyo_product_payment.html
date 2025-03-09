@@ -161,10 +161,8 @@
             const { name, price, discount } = data;
             console.log(name, price, discount);
 
-            // 할인율이 있을 경우 할인 적용
             let formattedPrice;
             if (discount && discount !== "0") {
-                // 할인율이 존재하면 가격에서 할인액을 빼기
                 const discountedPrice = price - (price * (parseInt(discount) / 100));
                 formattedPrice = discountedPrice;
             } else {
@@ -173,7 +171,6 @@
 
             all_price = formattedPrice;
 
-            // 가격 표시
             document.getElementsByClassName("product_price")[0].textContent = formattedPrice.toLocaleString() + '원';
             if (discount !== "0") {
                 document.getElementsByClassName("product_price_sub_price")[0].textContent = formattedPrice.toLocaleString() + '원 (-' + discount + '%)';
@@ -182,7 +179,6 @@
             }
             document.getElementsByClassName("product_but_price")[0].textContent = formattedPrice.toLocaleString() + '원';
 
-            // 상품 제목과 이미지 업데이트
             document.querySelector('.product_title').textContent = name;
             const imageUrl = `/IMG/product_img/${code}.png`;
             imagelink = code;

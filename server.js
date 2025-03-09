@@ -656,13 +656,16 @@ app.get('/get-product-info/:productCode', async (req, res) => {
             return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
         }
 
-
-        res.json({
-            code: product.code,
-            name: product.name,
-            price: product.price, // 가격을 string으로 변환하여 보내기
-            discount: product.discount  // 할인도 string으로 변환하여 보내기
-        });
+        if (product.download === "T") {
+            res.json({
+                code: product.code,
+                name: product.name,
+                price: product.price, // 가격을 string으로 변환하여 보내기
+                discount: product.discount  // 할인도 string으로 변환하여 보내기
+            });
+        } else {
+            res.status(500).json({ error: '판매하지 않는 상품입니다.', details: error.message });
+        }
     } catch (error) {
         console.error('상품 정보 조회 오류:', error);
         res.status(500).json({ error: '서버 오류가 발생했습니다.', details: error.message });
