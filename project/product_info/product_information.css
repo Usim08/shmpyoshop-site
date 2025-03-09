@@ -37,7 +37,8 @@ body {
     margin-left: 50%;
     margin-top: 160px;
     transform: translateX(-50%);
-    width: 670px;
+    width: 70%;
+    max-width: 670px;
 }
 
 
@@ -68,7 +69,8 @@ body {
 
 .info_1_flex_1 {
     display: flex;
-    gap: 100px;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .info_1_flex_2 {
@@ -127,7 +129,8 @@ body {
 .info_2_section {
     margin-left: 50%;
     transform: translateX(-50%);
-    width: 670px;
+    width: 70%;
+    max-width: 670px;
 }
 
 .nof_title {
@@ -156,7 +159,8 @@ body {
 }
 
 .table {
-    width: 670px;
+    width: 70%;
+    max-width: 670px;
     margin-left: 50%;
     transform: translateX(-50%);
     border-collapse: collapse;
@@ -196,9 +200,59 @@ body {
 .bold_two{
     margin-left: 50%;
     transform: translateX(-50%);
-    width: 670px;
+    width: 70%;
+    max-width: 670px;
     font-size: 20px;
     font-family: "PSemiBold";
     margin-bottom: 35px;
     color: #6B6B6B;
+}
+
+
+
+@media screen and (max-width: 900px) {
+
+    html,body {
+        overflow-x: hidden;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    .info_1_flex_1 {
+        display: inline-block;
+    }
+
+    .product_image{
+        width: 100%;
+        height: auto;
+    }
+
+    .info_1_product_info{
+        margin-top: 30px;
+    }
+
+    .flex_tag{
+        margin-bottom: 10px;
+    }
+
+    .nof_sub {
+        word-break:keep-all
+    }
+
+    .youtube {
+        width: 70%;
+        height: 20.8vh;
+        border-radius: 10px;
+    }
+
+    .info_1_flex_2 {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .info_1_flex_3 {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
