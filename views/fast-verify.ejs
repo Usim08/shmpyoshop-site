@@ -32,8 +32,7 @@
     
     </head>
 <body>
-    <div id="header-container"></div>
-    
+
     <div class="info_1_main">
         <div class="info_1_section">
             <img src="/IMG/핏클 파랑.png" class="Main_Image">
@@ -43,19 +42,9 @@
         </div>
     </div>
 
-    <script src="/Js/scrollTop.js"></script>
-
     <script>
         const username = "<%= username %>";
         document.getElementById("p").innerText = `${username}님의 상담 진행을 위한 인증이 완료되었습니다.\n쉼표샵 디스코드 고객센터로 돌아가 상담을 계속 진행해 주세요.`;
-    </script>
-
-    <script>
-        fetch('/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            });
     </script>
 </body>
 </html>
