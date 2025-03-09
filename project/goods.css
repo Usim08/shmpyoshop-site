@@ -189,7 +189,7 @@ body {
         display:flex;
         flex-wrap: wrap;
         justify-content: start;
-        gap: 20px;
+        gap: 12px;
         width: 80%;
         overflow: hidden;
     }
@@ -232,5 +232,15 @@ body {
         width: auto;
         height: 165px;
         border-radius: 10px;
+    }
+
+    .product_discount {
+        width: auto;
+        height: 15px;
+    }
+    
+    .product_tag {
+        width: auto;
+        height: 15px;
     }
 }
