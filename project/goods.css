@@ -170,7 +170,7 @@ body {
     }
 
     .info_1_section {
-        width: 80%;
+        width: 90%;
         margin-left: 50%;
         transform: translateX(-50%);
     }
@@ -190,7 +190,7 @@ body {
         flex-wrap: wrap;
         justify-content: start;
         gap: 12px;
-        width: 80%;
+        width: 90%;
         overflow: hidden;
     }
 
