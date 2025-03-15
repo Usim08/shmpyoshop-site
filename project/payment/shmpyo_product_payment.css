@@ -36,7 +36,8 @@ body {
 
 .info_1_section {
     height: 1660px;
-    width: 1160px;
+    width: 70%;
+    max-width: 1100px;
     margin-left: 50%;
     transform: translate(-50%, 110px);
 }
@@ -48,6 +49,12 @@ body {
     text-align: left;
     color: #525764;
     margin-bottom: 40px;
+}
+
+.flexx {
+    justify-content: space-between;
+    display: flex;
+    gap: 18.7px;
 }
 
 .flex {
@@ -151,7 +158,7 @@ body {
 .product_infomation {
     border: solid 1px #D9DBDE;
     border-radius: 16px;
-    width: 667px;
+    max-width: 667px;
 
     padding-top: 25px;
     padding-bottom: 25px;
