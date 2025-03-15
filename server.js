@@ -995,7 +995,7 @@ const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/135032734509708093
 
 app.post("/send-webhook", async (req, res) => {
     try {
-        const { serverTitle, field1, field2, field3, field4 } = req.body;
+        const { serverTitle, field1, field2, field3, field4, name } = req.body;
     
 
         const payload = {
@@ -1030,7 +1030,7 @@ app.post("/send-webhook", async (req, res) => {
         };
 
         await axios.post(DISCORD_WEBHOOK_URL, payload);
-
+        await yangsik.deleteOne({ serverName: name });
         res.json({ success: true, message: "웹훅 전송 성공!" });
     } catch (error) {
         console.error("웹훅 전송 오류:", error);
