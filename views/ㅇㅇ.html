@@ -92,32 +92,68 @@
 
 
         document.getElementById("check_verify_code").addEventListener("click", function () {
-            const field1 = document.getElementById("serverName").value;
-            const field2 = document.getElementById("serverRole").value;
-            const field3 = document.getElementById("serverLink").value;
-            const field4 = document.getElementById("Reason").value;
+        const input1 = document.getElementById("serverName");
+        const input2 = document.getElementById("serverRole");
+        const input3 = document.getElementById("serverLink");
+        const input4 = document.getElementById("Reason");
 
+        const title1 = document.getElementById("title1");
+        const title2 = document.getElementById("title2");
+        const title3 = document.getElementById("title3");
+        const title4 = document.getElementById("title4");
+
+        function checkField(input, title) {
+            if (input.value.trim() === "") {
+                input.classList.add("input_error");
+                if (title) title.classList.add("error");
+            } else {
+                input.classList.remove("input_error");
+                if (title) title.classList.remove("error");
+            }
+        }
+        checkField(input1, title1);
+        checkField(input2, title2);
+        checkField(input3, title3);
+        checkField(input4, title4);
+
+        if (input1.value.trim() && input2.value.trim() && input3.value.trim() && input4.value.trim()) {
             fetch("/send-webhook", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ serverTitle, field1, field2, field3, field4 })
+                body: JSON.stringify({ 
+                    serverTitle, 
+                    field1: input1.value, 
+                    field2: input2.value, 
+                    field3: input3.value, 
+                    field4: input4.value 
+                })
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     alert("파트너 신청 접수가 완료되었어요. 3일 내로 심사 결과를 알려드릴게요.\n\n파트너 신청이 완료되었으므로 기존에 열려있던 문의 티켓은 자동으로 종료됩니다.\n추가 문의사항이 있으시면 고객센터를 방문해 주세요.");
-                    window.location.href = 'https://www.shmpyoshop.com/home'
-                } else {
-                    alert("전송 실패! 서버 로그를 확인하세요.");
+                    window.location.href = 'https://www.shmpyoshop.com/home';
                 }
             })
             .catch(error => {
                 console.error("오류 발생:", error);
-                alert("오류가 발생했습니다. 콘솔을 확인하세요.");
+                alert("오류가 발생했습니다. 고객센터로 문의해 주세요.");
+            });
+            }
+        });
+
+        document.querySelectorAll(".input_one_section").forEach(input => {
+            input.addEventListener("focus", function () {
+                this.classList.remove("input_error");
+                const title = this.previousElementSibling;
+                if (title && title.classList.contains("sub_title")) {
+                    title.classList.remove("error");
+                }
             });
         });
+
     </script>
 
     <script>
