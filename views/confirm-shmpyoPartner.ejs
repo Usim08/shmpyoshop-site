@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>파트너 등록 | shmpyoshop</title>
-        <link rel="stylesheet" href="/public/verify/confirm-shmpyoPartner.css"/>
+        <title>본인인증 | shmpyoshop</title>
+        <link rel="stylesheet" href="/public/verify/verify-user.css"/>
     
     
     
@@ -45,7 +45,7 @@
                     <div class="error" id="error-message-verify_code" style="color: #D58181;"></div>
                 </div>
                 <div class="lastbutton" id="lastbutton">
-                    <button class="input_two_section" id="check_verify_code">제출하기</button>
+                    <button class="input_two_section" id="check_verify_code">인증 완료하기</button>
                 </div>
             </div>
         </div>
@@ -61,8 +61,8 @@
     <script src="/Js/scrollTop.js"></script>
 
     <script>
-        const serverTitle = "<%= serverTitle %>";
-        document.getElementById("title").innerText = `${serverTitle} 서버의 파트너 체결을 위한 양식 작성을 완료해 주세요`;
+        const username = "<%= username %>";
+        document.getElementById("title").innerText = `${username}님의 상담 진행을 위한 본인인증을 완료해 주세요`;
 
 
 
