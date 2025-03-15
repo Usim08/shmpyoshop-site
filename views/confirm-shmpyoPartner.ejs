@@ -135,7 +135,7 @@
             .then(data => {
                 if (data.success) {
                     alert("파트너 신청 접수가 완료되었어요. 3일 내로 심사 결과를 알려드릴게요.\n\n파트너 신청이 완료되었으므로 기존에 열려있던 문의 티켓은 자동으로 종료됩니다.\n추가 문의사항이 있으시면 고객센터를 방문해 주세요.");
-                    window.location.href = 'https://www.shmpyoshop.com/home';
+                    window.close();
                 }
             })
             .catch(error => {
