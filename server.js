@@ -7,6 +7,7 @@ const coupon_number_data = require('./models/coupon');
 const userinfomation = require('./models/userData');
 const buydata = require('./models/web_toss_data');
 const discord_web = require('./models/discord_web_verify');
+const yangsik = require('./models/partner_yang');
 const tsdata = require('./models/trash_data');
 const Post = require('./models/Post');
 const express = require('express');
@@ -660,8 +661,8 @@ app.get('/get-product-info/:productCode', async (req, res) => {
             res.json({
                 code: product.code,
                 name: product.name,
-                price: product.price, // 가격을 string으로 변환하여 보내기
-                discount: product.discount  // 할인도 string으로 변환하여 보내기
+                price: product.price,
+                discount: product.discount
             });
         } else {
             res.status(500).json({ error: '판매하지 않는 상품입니다.', details: error.message });
@@ -978,111 +979,64 @@ app.get('/verify/:num/:uniq', async (req, res) => {
 });
 
 
+app.get('/partner-request/:num', async (req, res) => {
+    const num = req.params.num;
+    const data = await yangsik.findOne({ webCode: num });
+
+    if (data) {
+        res.render('confirm-shmpyoPartner', { serverTitle: data.serverName });
+    } else {
+        res.status(404).send('만료된 페이지입니다.');
+    }
+});
 
 
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1350327345097080933/as1fB1L8pxxzjJUWYvAgZr4hhdBMfGMveh8iH0CTKPWr8hVuHIHssl7D6CRsJLWKJZfO"; // 디스코드 웹훅 URL
 
+app.post("/send-webhook", async (req, res) => {
+    try {
+        const { serverTitle, field1, field2, field3, field4 } = req.body;
+    
 
+        const payload = {
+            embeds: [
+                {
+                    title: serverTitle,
+                    color: 0x2C4BCE,
+                    fields: [
+                        {
+                            name: "배너에 표시될 서버 이름을 알려주세요",
+                            value: field1 || "값 없음",
+                            inline: false
+                        },
+                        {
+                            name: "신청하신 서버에서 본인의 직책을 알려주세요",
+                            value: field2 || "값 없음",
+                            inline: false
+                        },
+                        {
+                            name: "신청하신 서버의 영구 링크를 첨부해 주세요",
+                            value: field3 || "값 없음",
+                            inline: false
+                        },
+                        {
+                            name: "파트너십을 맺으면 쉼표샵에 어떤 이점을 가져올 수 있을지 알려주세요",
+                            value: field4 || "값 없음",
+                            inline: false
+                        }
+                    ]
+                }
+            ]
+        };
 
-    // try {
-    //     const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
-    //         headers: {
-    //             Authorization: encryptedSecretKey,
-    //             "Content-Type": "application/json",
-    //         },
-    //         json: {
-    //             orderId: orderId,
-    //             amount: amount,
-    //             paymentKey: paymentKey,
-    //         },
-    //         responseType: "json",
-    //     });
+        await axios.post(DISCORD_WEBHOOK_URL, payload);
 
-    //     const paymentData = response.body;
-
-    //     // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
-    //     const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&userName=${userName}`;
-
-    //     // 서버가 클라이언트로 리다이렉트 정보와 함께 JSON 응답
-    //     res.send({
-    //         name: "StackOverFlow",
-    //         reason: "Need help!",
-    //         redirect_path: redirectUrl,
-    //     });
-
-    // } catch (error) {
-    //     // 결제 실패 비즈니스 로직
-    //     console.log(error.response.body);
-    //     res.status(error.response.statusCode).json(error.response.body);
-    // }
-// });
-
-
-
-
-
-// app.post("/confirm", function (req, res) {
-//     const { paymentKey, orderId, amount, customerName, customerMobilePhone } = req.body;
-
-//     const widgetSecretKey = "test_gsk_DpexMgkW36bjoRJDwNg93GbR5ozO";
-//     const encryptedSecretKey =
-//       "Basic " + Buffer.from(widgetSecretKey + ":").toString("base64");
-
-//     // 결제 승인 요청
-//     got
-//       .post("https://api.tosspayments.com/v1/payments/confirm", {
-//         headers: {
-//           Authorization: encryptedSecretKey,
-//           "Content-Type": "application/json",
-//         },
-//         json: {
-//           orderId: orderId,
-//           amount: amount,
-//           paymentKey: paymentKey,
-//         },
-//         responseType: "json",
-//       })
-//       .then(function (response) {
-//         const paymentData = response.body;
-
-//         // 결제 성공 시, 리다이렉트 URL을 JSON 형식으로 응답
-//         const redirectUrl = `/order-success?orderId=${paymentData.orderId}&amount=${paymentData.totalAmount}&orderName=${paymentData.orderName}&customerName=${customerName}&customerMobilePhone=${customerMobilePhone}`;
-
-//         // 서버가 클라이언트로 리다이렉트 정보와 함께 JSON 응답
-//         res.send({
-//           name: "StackOverFlow",
-//           reason: "Need help!",
-//           redirect_path: redirectUrl,
-//         });
-//       })
-//       .catch(function (error) {
-//         console.error("결제 확인 오류:", error.response.body);
-
-//         // 결제 실패 시, 실패 메시지를 클라이언트로 반환
-//         res.status(error.response.statusCode || 500).json({
-//           message: "결제 확인 중 오류가 발생했습니다.",
-//           error: error.response.body,
-//         });
-//       });
-// });
-
-
-
-
-
-// // 결제 완료 페이지 (GET 요청 처리)
-// app.get("/order-success", function (req, res) {
-//     const { orderId, amount, orderName, customerName, customerMobilePhone } = req.query;
-
-//     // order-success.html 파일 경로 확인
-//     const successPagePath = path.join(__dirname, 'project', 'payment', 'order_success.html'); // 파일 경로 수정
-
-//     // HTML 파일을 전달
-//     res.sendFile(successPagePath, {
-//     headers: {
-//         'Content-Type': 'text/html'
-//     }
-//     });
-// });
+        res.json({ success: true, message: "웹훅 전송 성공!" });
+    } catch (error) {
+        console.error("웹훅 전송 오류:", error);
+        res.status(500).json({ error: "웹훅 전송 중 오류 발생!" });
+    }
+});
 
 
 
