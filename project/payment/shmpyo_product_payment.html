@@ -299,7 +299,14 @@
                 value: parseFloat(all_price),
             });
 
+            let isCouponApplied = false;
+
             document.getElementById("check_coupon").addEventListener("click", async function () {
+                if (isCouponApplied) {
+                    document.getElementById('error-message-coupon').textContent = '한 가지 쿠폰만 적용할 수 있어요';
+                    return;
+                }
+
                 const couponNb = couponNbInput.value.trim();
                 const rbname = rbnameInput.value.trim();
 
@@ -312,7 +319,6 @@
 
                 if (!rbname) {
                     document.getElementById('error-message-coupon').textContent = '로블록스 닉네임을 입력하세요';
-
                     document.getElementById("robloxName").classList.add("input_error");
                     if (document.getElementById("one_title")) document.getElementById("one_title").classList.add("error_title");
                     return;
@@ -324,13 +330,12 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ coupon_nb: couponNb, rbname, all_price })
-                    
                 });
 
                 const result = await response.json();
 
                 if (result.success) {
-                    document.getElementsByClassName("product_but_price")[0].textContent = `${result.finalPrice}원`;
+                    document.getElementsByClassName("product_but_price")[0].textContent = `${result.finalPrice}`;
                     document.getElementById('coupon_input').textContent = `-${result.discountAmount}원`;
 
                     let cleanPrice = result.finalPrice.replace(/,/g, '');
@@ -341,10 +346,13 @@
                         currency: "KRW",
                         value: cleanPrice,
                     });
+
+                    isCouponApplied = true;
                 } else {
                     document.getElementById('error-message-coupon').textContent = result.message;
                 }
             });
+
 
             await Promise.all([
                 widgets.renderPaymentMethods({
