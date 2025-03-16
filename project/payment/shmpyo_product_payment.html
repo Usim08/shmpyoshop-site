@@ -247,14 +247,12 @@
         async function loadProductInfo(code) {
             const response = await fetch(`/get-product-info/${code}`);
             const data = await response.json();
-            console.log(data);
             
             if (data.error) {
                 throw new Error(data.error);
             }
 
             const { name, price, discount } = data;
-            console.log(name, price, discount);
 
             let formattedPrice;
             if (discount && discount !== "0") {
