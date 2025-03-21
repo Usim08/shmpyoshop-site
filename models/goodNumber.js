@@ -7,7 +7,9 @@ const website_verifySchema = new mongoose.Schema({
     download: { type: String, required: true },
     price: { type: Number, required: true },
     discount: { type: String, required: false },
-    tag: { type: String, required: false }
+    tag: { type: String, required: true },
+    res: { type: String, required: false },
+    pus: { type: String, required: false }
 });
 
 const goodNumber = mongoose.model('goodNumber', website_verifySchema, 'goodNumber');

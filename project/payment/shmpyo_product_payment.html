@@ -227,7 +227,7 @@
 
         let productId = null;
         let all_price = null;
-        let imagelink = null
+        let imagelink = null;
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -252,8 +252,8 @@
                 throw new Error(data.error);
             }
 
-            const { name, price, discount } = data;
-
+            const { name, price, discount, tag, res, pus } = data;
+            console.log(name, price, discount, tag, res, pus)
             let formattedPrice;
             if (discount && discount !== "0") {
                 const discountedPrice = price - (price * (parseInt(discount) / 100));

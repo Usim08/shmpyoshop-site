@@ -78,7 +78,7 @@ app.get('/products', async (req, res) => {
             } else if (_doc.tag === '추천') {
                 tagImage = '/IMG/쉼표추천.png';
             } else if (_doc.tag === '새로나온') {
-                tagImage = '/IMG/new_tag.png';
+                tagImage = '/IMG/새로나온.png';
             }
 
             // 수정된 상품 정보 반환
@@ -650,19 +650,21 @@ app.get('/payment', (req, res) => {
 app.get('/get-product-info/:productCode', async (req, res) => {
     const { productCode } = req.params;
     try {
-        // MongoDB에서 상품 정보 조회
         const product = await goodscode_bool.findOne({ code: productCode });
 
         if (!product) {
             return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
         }
 
-        if (product.download === "T") {
+        if (product.pus === "T") {
             res.json({
                 code: product.code,
                 name: product.name,
                 price: product.price,
-                discount: product.discount
+                discount: product.discount,
+                tag: product.tag,
+                res: product.res,
+                pus: product.pus
             });
         } else {
             res.status(500).json({ error: '판매하지 않는 상품입니다.', details: error.message });

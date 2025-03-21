@@ -58,6 +58,12 @@ body {
     height: 18px;
 }
 
+.product_res {
+    width: auto;
+    height: 18px;
+}
+
+
 
 .product_title {
     font-size: 24px;
