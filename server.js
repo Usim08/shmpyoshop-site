@@ -280,7 +280,7 @@ app.post('/check_secret', async (req, res) => {
         const now = Date.now();
         const lastTime = recentRequests.get(ip) || 0;
     
-        if (now - lastTime < 160 ) {
+        if (now - lastTime < 130 ) {
             return res.status(429).json({
                 success: false,
                 message: '요청이 너무 빠릅니다. 잠시 후 다시 시도해 주세요!'
@@ -319,7 +319,7 @@ app.post('/check_secret', async (req, res) => {
 
                 const verification = new coupon_number_data({
                     couponId: verifyCode,
-                    sale: "30"
+                    sale: "40"
                 });
                 await verification.save();
 
