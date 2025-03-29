@@ -305,7 +305,7 @@ app.post('/check_secret', async (req, res) => {
         
             const luckyChance = Math.random();
         
-            if (luckyChance < 0.001) {
+            if (luckyChance < 0.0007) {
                 function generateRandomString(length) {
                     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
                     let result = '';
