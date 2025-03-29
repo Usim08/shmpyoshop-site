@@ -13,11 +13,9 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
     const secretCode = document.getElementById('secretCode').value.trim();  // 입력받은 secretCode 가져오기
 
     try {
-        // 버튼 상태 변경
         document.getElementById('registerBtn').style.opacity = 0.5;
         document.getElementById('registerBtn').disabled = true;
 
-        // 서버에 요청 보내기
         const response = await fetch('https://www.shmpyoshop.com/download-file', {
             method: 'POST',
             headers: {
@@ -28,14 +26,12 @@ document.getElementById('registerBtn').addEventListener('click', async () => {
 
         const result = await response.json();
 
-        // 응답 처리
         if (result.success) {
             window.location.href = result.message;
         } else {
-            alert(result.message);  // 실패 메시지 처리
+            alert(result.message)
         }
     } catch (error) {
-        // 오류 발생 시 처리
         document.getElementById('registerBtn').style.opacity = 1;
         document.getElementById('registerBtn').disabled = false;
         alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
@@ -63,6 +59,18 @@ document.getElementById('check_secret_code').addEventListener('click', async () 
             },
             body: JSON.stringify({ secretCode })
         });
+
+        if (response.status === 418) {
+            const result = await response.json();
+            alert(`[할인 쿠폰 당첨 🎉]\n와우! 축하드려요 👏\n0.001% 확률을 뚫고 30% 할인 쿠폰에 당첨되셨어요.\n창을 닫아버리면 쿠폰은 소멸됩니다.. 당장 메모지에 적어두세요!\n\n쿠폰 번호: ${result.message}`);
+            return;
+        }
+        
+
+        if (response.status === 429) {
+            alert("설마 지금 오토 쓰고 계신 건 아니겠죠..? 아니라면 이건 손가락 장인 인증입니다. 브라보! 👏");
+            return;
+        }
 
         const result = await response.json();
         if (result.success) {

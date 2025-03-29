@@ -253,7 +253,6 @@
             }
 
             const { name, price, discount, tag, res, pus } = data;
-            console.log(name, price, discount, tag, res, pus)
             let formattedPrice;
             if (discount && discount !== "0") {
                 const discountedPrice = price - (price * (parseInt(discount) / 100));

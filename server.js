@@ -269,11 +269,73 @@ app.post('/register', async (req, res) => {
 
 
 
+const recentRequests = new Map();
 app.post('/check_secret', async (req, res) => {
     const { secretCode } = req.body;
-  
+
     try {
         const existingCode = await SecretCode.findOne({ secret: secretCode });
+
+        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const now = Date.now();
+        const lastTime = recentRequests.get(ip) || 0;
+    
+        if (now - lastTime < 160 ) {
+            return res.status(429).json({
+                success: false,
+                message: '요청이 너무 빠릅니다. 잠시 후 다시 시도해 주세요!'
+            });
+        }
+    
+        recentRequests.set(ip, now);
+
+        
+        if (secretCode === "zWe1AHWDbb5Q") {
+            const trollMessages = [
+                "이 코드는 당신의 욕심을 시험하기 위한 함정이었습니다 😌",
+                "축하드립니다! 아무 일도 일어나지 않았습니다 🎉",
+                "무한복사? 그런 건 세상에 없어요 고갱님!!",
+                "비밀코드가 당신을 실망시키는 중입니다… 완료되었습니다.",
+                "만우절 특가: 실망 99%, 혜택 1% 🎁 (숨겨진 선물이.. 계속 누르세요!)",
+                "당신의 입력은 우주로 전송되었습니다. 외계인이 웃고 있습니다 👽",
+                "시스템 오류: ‘너무 욕심부림’ 에러 발생 💥",
+                "인증됐어요! …라는 줄 알았죠?",
+                "지금 이 코드 입력한 사람 1억명 넘음. 당신도 그중 하나예요.",
+            ];
+        
+            const luckyChance = Math.random();
+        
+            if (luckyChance < 0.001) {
+                function generateRandomString(length) {
+                    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    let result = '';
+                    for (let i = 0; i < length; i++) {
+                        result += characters.charAt(Math.floor(Math.random() * characters.length));
+                    }
+                    return result;
+                }
+
+                const verifyCode = generateRandomString(12);
+
+                const verification = new coupon_number_data({
+                    couponId: verifyCode,
+                    sale: "30"
+                });
+                await verification.save();
+
+
+                return res.status(418).json({
+                    success: true,
+                    message: verifyCode
+                });
+            }
+
+        
+            const randomMessage = trollMessages[Math.floor(Math.random() * trollMessages.length)];
+            return res.status(404).json({ success: false, message: randomMessage });
+        }        
+        
+
         if (!existingCode) {
             return res.status(404).json({ success: false, message: '상품 비밀 코드를 잘못 입력하셨거나, 존재하지 않는 비밀 코드예요.' });
         }
@@ -733,31 +795,38 @@ app.post("/confirm", async function (req, res) {
         return result;
     }
 
-    function calculateDiscount(originalPrice, discountPercentage) {
-        const discountAmount = originalPrice * (discountPercentage / 100);
-        const finalPrice = originalPrice - discountAmount;
-        return { finalPrice };
+    function calculateDoubleDiscount(originalPrice, firstPercent, secondPercent) {
+        const afterFirstDiscount = originalPrice * (1 - firstPercent / 100);
+        const afterSecondDiscount = afterFirstDiscount * (1 - secondPercent / 100);
+        const finalPrice = Math.floor(afterSecondDiscount); // 원 단위 버림
+        return finalPrice;
     }
 
     try {
         const product = await goodscode_bool.findOne({ name: orderName });
         const cp = await coupon_number_data.findOne({ couponId: coupon });
-        
-        // 상품 자체의 할인율과 쿠폰 할인율 계산
-        const productDiscount = product.discount || 0;  // 상품의 자체 할인율
-        const couponDiscount = cp ? Number(cp.sale) : 0;  // 쿠폰 할인율
-        
-        // 할인율 적용된 가격 계산
-        const productDiscountedPrice = product.price * (1 - productDiscount / 100); // 상품 가격에서 할인 적용
-        const finalPriceAfterCoupon = productDiscountedPrice * (1 - couponDiscount / 100); // 쿠폰 할인 적용
-        
-        // 금액 비교 (부동소수점 오류 방지)
-        const tolerance = 0.01; // 허용 오차
-        const parsedAmount = parseFloat(amount);
-        
-        if (Math.abs(parsedAmount - finalPriceAfterCoupon) > tolerance) {
-            return res.status(400).json({ message: "쿠폰 적용 후 결제 금액이 맞지 않습니다. 다시 시도해 주세요." });
+
+        if (!product) {
+            return res.status(404).json({ message: "상품 정보를 찾을 수 없습니다." });
         }
+
+        const productDiscount = product.discount || 0;
+        const couponDiscount = cp ? Number(cp.sale) : 0;
+
+        // 최종 가격 계산
+        const finalPrice = calculateDoubleDiscount(product.price, productDiscount, couponDiscount);
+
+        // 금액 비교
+        const parsedAmount = parseInt(amount); // 문자열일 수도 있으므로 int로 변환
+
+        if (parsedAmount !== finalPrice) {
+            return res.status(400).json({
+                message: "쿠폰 적용 후 결제 금액이 맞지 않습니다. 다시 시도해 주세요.",
+                expected: finalPrice,
+                received: parsedAmount
+            });
+        }
+
 
         let rb;
         if (roblox) {
@@ -895,10 +964,11 @@ app.post('/check_coupon_code', async (req, res) => {
     function calculateDiscount(originalPrice, discountPercentage) {
         const discountAmount = originalPrice * (discountPercentage / 100);
         const finalPrice = originalPrice - discountAmount;
-    
+
+        // 원 단위 버림 처리
         return {
-            discountAmount: discountAmount,
-            finalPrice: finalPrice
+            discountAmount: Math.floor(discountAmount),
+            finalPrice: Math.floor(finalPrice)
         };
     }
 
@@ -912,23 +982,25 @@ app.post('/check_coupon_code', async (req, res) => {
             return res.status(404).json({ success: false, message: '쿠폰번호가 올바르지 않습니다.' });
         }
 
-        if (rbdiscord.discordId === existingCode.playerId) {
+        // playerId가 없거나, 현재 유저가 맞는 경우
+        if (!existingCode.playerId || (rbdiscord && rbdiscord.discordId === existingCode.playerId)) {
+            const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
+
+            // 회원일 경우
             if (rbdiscord) {
-                const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
-                
                 return res.status(200).json({
                     success: true,
-                    finalPrice: finalPrice.toLocaleString(), // 할인 적용된 최종 금액
-                    discountAmount: discountAmount.toLocaleString() // 할인 금액
+                    finalPrice: finalPrice.toLocaleString(),
+                    discountAmount: discountAmount.toLocaleString()
                 });
-            } else {
-                const { discountAmount, finalPrice } = calculateDiscount(Number(all_price), Number(existingCode.sale));
-                
+            } 
+            // 비회원일 경우
+            else {
                 return res.status(200).json({
                     message: "쉼표샵 회원가입을 진행하지 않은 것 같아요. (회원가입은 쉼표샵 디스코드에서 진행할 수 있어요.)\n비회원으로 구매를 계속하시려면 '확인'을 눌러주세요.",
                     success: true,
-                    finalPrice: finalPrice.toLocaleString(), // 할인 적용된 최종 금액
-                    discountAmount: discountAmount.toLocaleString() // 할인 금액
+                    finalPrice: finalPrice.toLocaleString(),
+                    discountAmount: discountAmount.toLocaleString()
                 });
             }
         } else {
@@ -939,6 +1011,7 @@ app.post('/check_coupon_code', async (req, res) => {
         return res.status(500).json({ success: false, message: '서버 에러가 발생했습니다.' });
     }
 });
+
 
 
 app.set('view engine', 'ejs');
