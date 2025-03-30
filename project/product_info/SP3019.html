@@ -59,7 +59,7 @@
                 </div>
 
                 <button class="buy_button" id="canbuy" onclick="redirectToPayment('SP3019')" style="display:none">이 상품 구매하기</button>
-                <button class="buy_button not" id="cantbuy">구매 불가 상품이에요</button>
+                <button class="buy_button not" id="cantbuy">상품 정보 불러오는 중</button>
 
             </div>
         </div>
@@ -160,6 +160,7 @@
 
                 if (product.pus === "F") {
                     document.getElementById("cantbuy").style.display = "block";
+                    document.getElementById("cantbuy").innerText = "구매 불가 상품이에요";
                     document.getElementById("canbuy").remove();
                 } else {
                     document.getElementById("cantbuy").remove();
