@@ -123,6 +123,19 @@ body {
     width: 100%;
 }
 
+.buy_button.not {
+    display: block;
+    color: rgb(255, 255, 255);
+    font-family: 'PLight';
+    font-size: 14.75px;
+    padding: 14px;
+    background-color: rgb(196, 199, 201);
+    border-radius: 8px;
+    cursor:not-allowed;
+    width: 100%;
+}
+
+
 .info_2_flex_1 {
     display: flex;
     justify-content: space-between;

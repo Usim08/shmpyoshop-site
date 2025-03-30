@@ -112,7 +112,7 @@
             .then(response => response.json())
             .then(data => {
                 data.forEach(product => {
-                    if (product.pus === 'T') {
+                    if (product.vis === 'T') {
                         const productButton = document.querySelector(`button.${product.code}`);
                         
                         if (productButton) {
@@ -157,7 +157,6 @@
             })
             .catch(err => {
                 console.error('Error fetching product data:', err);
-                alert('서버에서 데이터를 가져오는 데 실패했습니다.');
             });
 
         function redirectToProductPage(productCode) {

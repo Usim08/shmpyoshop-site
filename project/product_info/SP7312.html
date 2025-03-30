@@ -58,7 +58,8 @@
                     <p class="gray">배송비</p>
                     <p class="black">무료 배송</p>
                 </div>
-                <button class="buy_button" onclick="redirectToPayment('SP7312')">이 상품 구매하기</button>
+                <button class="buy_button" id="canbuy" onclick="redirectToPayment('SP7312')">이 상품 구매하기</button>
+                <button class="buy_button not" id="cantbuy"style="display:none">구매 불가 상품이에요</button>
 
             </div>
         </div>
@@ -151,6 +152,17 @@
                     return;
                 }
 
+                if (product.vis === "F") {
+                    alert("현재는 판매되지 않는 상품이에요. 구매하시려는 상품을 다시 한번 확인해 주세요.")
+                    history.back();
+                    return;
+                }
+
+                if (product.pus === "F") {
+                    document.getElementById("cantbuy").style.display = "block";
+                    document.getElementById("canbuy").remove();
+                }
+
                 const discountPrice = product.price * (1 - (product.discount || 0) / 100);
 
                 if (product.discount == "0") {
@@ -190,7 +202,7 @@
                 })
                 .catch((error) => {
                     console.error('결제창 이동 중 오류:', error);
-                    alert('결제창으로 이동할 수 없습니다. 다시 시도해주세요.');
+                    alert('현재는 판매되지 않는 상품이에요. 구매하시려는 상품을 다시 한번 확인해 주세요.');
                 });
         }
     </script>

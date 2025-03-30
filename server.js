@@ -718,7 +718,7 @@ app.get('/get-product-info/:productCode', async (req, res) => {
             return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
         }
 
-        if (product.pus === "T") {
+        if (product.vis === "T") {
             res.json({
                 code: product.code,
                 name: product.name,
@@ -726,7 +726,8 @@ app.get('/get-product-info/:productCode', async (req, res) => {
                 discount: product.discount,
                 tag: product.tag,
                 res: product.res,
-                pus: product.pus
+                pus: product.pus,
+                vis: product.vis
             });
         } else {
             res.status(500).json({ error: '판매하지 않는 상품입니다.', details: error.message });
