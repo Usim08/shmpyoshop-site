@@ -252,7 +252,13 @@
                 throw new Error(data.error);
             }
 
-            const { name, price, discount, tag, res, pus } = data;
+            const { name, price, discount, tag, res, pus, vis } = data;
+            if (pus === "F") {
+                alert("현재는 판매되지 않는 상품이에요. 구매하시려는 상품을 다시 한번 확인해 주세요.")
+                history.back();
+                return;
+            }
+
             let formattedPrice;
             if (discount && discount !== "0") {
                 const discountedPrice = price - (price * (parseInt(discount) / 100));
