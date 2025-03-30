@@ -58,8 +58,8 @@
                     <p class="gray">배송비</p>
                     <p class="black">무료 배송</p>
                 </div>
-                <button class="buy_button" id="canbuy" onclick="redirectToPayment('SP7312')">이 상품 구매하기</button>
-                <button class="buy_button not" id="cantbuy"style="display:none">구매 불가 상품이에요</button>
+                <button class="buy_button" id="canbuy" onclick="redirectToPayment('SP7312')" style="display:none">이 상품 구매하기</button>
+                <button class="buy_button not" id="cantbuy">구매 불가 상품이에요</button>
 
             </div>
         </div>
@@ -161,6 +161,9 @@
                 if (product.pus === "F") {
                     document.getElementById("cantbuy").style.display = "block";
                     document.getElementById("canbuy").remove();
+                } else {
+                    document.getElementById("cantbuy").remove();
+                    document.getElementById("canbuy").style.display = "block";
                 }
 
                 const discountPrice = product.price * (1 - (product.discount || 0) / 100);
