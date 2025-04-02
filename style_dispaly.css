@@ -1,0 +1,370 @@
+@media screen and (max-width: 580px) {
+    
+    html,body {
+        overflow-x: hidden;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    .back {
+        width: 100%;
+    }
+
+
+    .h3Text {
+        font-size: 20px;
+    }
+
+    .h1Text {
+        font-size: 50px;
+    }
+    
+    .information_one_section_title {
+        word-break: keep-all;
+        font-size: 30px;
+        width: 50%;
+        margin-left: 50%;
+        transform: translate(-50%, 50%);
+    }
+
+    .information_one_section_sub_title {
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .if {
+        width: 100%;
+    }
+
+    .information_one_section_one {
+        margin-top: -70px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+    }
+
+    .if_o_s_o_i{
+        display: none;
+    }
+
+    .if_o_s_o_t {
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+    .if_o_s_o_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+
+    .information_one_section_two {
+        margin-top: -120px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+    }
+
+    .if_o_s_t_i{
+        display: none;
+    }
+
+    .if_o_s_t_t {
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+
+    }
+
+    .if_o_s_t_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+
+
+
+
+
+    .information_one_section_three {
+        margin-top: -120px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+        margin-bottom: 120px;
+    }
+
+    .if_o_s_th_i{
+        display: none;
+    }
+
+    .if_o_s_th_t {
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+    .if_o_s_th_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+
+
+
+
+
+    .information_two_section_title {
+        word-break: keep-all;
+        font-size: 30px;
+    }
+
+    .information_two_section_sub_title {
+        font-size: 20px;
+    }
+
+
+
+    .information_two_section_p {
+        width: 68%;
+    }
+
+    .if_t_s_t {
+        display: block;
+    }
+
+    .if_t_s_t_o_title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .sub {
+        font-size: 10px;
+    }
+
+    .if_t_s_t_o_o {
+        display: inline-block;
+    }
+
+    .flex_re {
+        margin-top: -5px;
+        display: flex;
+    }
+
+    .star {
+        margin-top: -30px;
+    }
+
+    .if_t_s_t_img{
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        height: 95%;
+        margin-bottom: 30px;
+    }
+
+    #tag {
+        margin-top: 5px;
+    }
+
+    .sub{
+        font-size: 17px;
+        font-family: 'Plight';
+    }
+
+
+
+
+
+
+
+    .information_two_section_one {
+        margin-top: -120px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+    }
+
+    .if_t_s_o_i{
+        display: none;
+    }
+
+    .if_t_s_o_t {
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+
+    }
+
+    .if_t_s_o_s_t{
+        width: 100%;
+        margin: 0 auto;
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+        margin-bottom: 200px;
+    }
+
+
+
+
+
+    .if_t_s_th_i{
+        display: none;
+    }
+
+    .if_t_s_th_t {
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+
+    }
+
+    .if_t_s_th_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+
+    .information_three_section_title {
+        word-break: keep-all;
+        font-size: 30px;
+    }
+
+    .information_three_section_sub_title {
+        font-size: 20px;
+    }
+
+
+
+
+    .information_three_section_one {
+        margin-top: -120px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+    }
+
+    .if_th_s_o_i{
+        display: none;
+    }
+
+    .if_th_s_o_t {
+        margin-top: 60px;
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+
+    }
+
+    .if_th_s_o_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+
+    .information_three_section_two {
+        margin-top: -120px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+        margin-bottom: -100px;
+    }
+
+    .if_th_s_t_i{
+        display: none;
+    }
+
+    .if_th_s_t_t {
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+
+    }
+
+    .if_th_s_t_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+
+
+    .information_four_section_title {
+        word-break: keep-all;
+        font-size: 30px;
+    }
+
+    .information_four_section_sub_title {
+        font-size: 20px;
+        word-break: keep-all;
+
+    }
+
+    .if_f_s_o_i {
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .information_four_section_one {
+        margin-top: -35px;
+        width: 100%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        padding: 30px;
+        justify-content:center;
+        margin-bottom: -100px;
+    }
+
+    .information_five_section_round_three_box_image {
+        width: 50px;
+        height: 150px;
+    }
+
+    .if_f_s_o_t {
+        font-size: 25px;
+        word-break: keep-all;
+        text-align: center;
+
+    }
+
+    .if_f_s_o_s_t{
+        font-size: 17px;
+        word-break: keep-all;
+        text-align: center;
+    }
+
+
+    .information_four_section_two {
+        display: none;
+    }
+
+}

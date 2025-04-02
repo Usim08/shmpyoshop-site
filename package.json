@@ -1,31 +1,40 @@
 {
-  "name": "server.js",
+  "name": "server",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "@tosspayments/tosspayments-sdk": "^2.3.2",
+    "@tosspayments/tosspayments-sdk": "^2.3.4",
     "axios": "^1.7.7",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.21.0",
+    "express": "^4.21.2",
     "express-session": "^1.18.0",
     "git": "^0.1.5",
     "got": "^11.8.6",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
+<<<<<<< HEAD
     "mongoose": "^8.7.0",
     "nodemon": "^3.1.9",
+=======
+    "mongoose": "^8.10.1",
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.7",
+>>>>>>> faeba41adf2240d46ed569c0071bdd0ed0e5b7fc
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
+    "react-loading-skeleton": "^3.5.0",
     "solapi": "^5.3.1"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }

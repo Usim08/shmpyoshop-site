@@ -1,45 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title>본인인증 | shmpyoshop</title>
+        <link rel="stylesheet" href="/public/verify/verify-user.css"/>
+    
+    
+    
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="여기를 눌러 상담 진행을 위한 인증을 완료해 주세요.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
         <meta name="robots" content="max-image-preview:large">
-        <title>본인인증 | shmpyo#</title>
-        <link href="/IMG/쉼표샵로고.png" rel="shortcut icon" type="image/x-icon">
+        <link href="/IMG/파비콘.svg" rel="shortcut icon" type="image/x-icon">
+        <link rel="icon" href="/IMG/파비콘.svg" type="image/x-icon">
         <link rel="canonical" href="https://www.shmpyoshop.com/home">
         <meta property="og:locale" content="ko_KR">
         <meta property="og:site_name" content="쉼표샵 shmpyo#">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="본인인증 - 쉼표샵  공식 홈페이지">
-        <meta property="og:description" content="여기를 눌러 상담 진행을 위한 인증을 완료해 주세요.">
+        <meta property="og:title" content="쉼표샵 - 공식 홈페이지">
+        <meta property="og:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
         <meta property="og:url" content="https://www.shmpyoshop.com/home">
-        <meta property="og:image" content="https://media.discordapp.net/attachments/1193969295881933010/1284363066175131701/660510020f1c7f4d.png?ex=66e65bd1&is=66e50a51&hm=e3ae295b17cdcd2a3a707a1c37cb568b5f9308580cfa8d37a639a2c43e2fc61a&=&format=webp&quality=lossless">
+        <meta property="og:image" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
         <meta property="og:image:alt" content="쉼표샵 로고">    
     
         <meta name="twitter:site" content="https://www.shmpyoshop.com/home">
-        <meta name="twitter:title" content="본인인증 - 쉼표샵  공식 홈페이지">
-        <meta name="twitter:description" content="여기를 눌러 상담 진행을 위한 인증을 완료해 주세요.">
+        <meta name="twitter:title" content="쉼표샵 - 공식 홈페이지">
+        <meta name="twitter:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1193969295881933010/1284363066175131701/660510020f1c7f4d.png?ex=66e65bd1&is=66e50a51&hm=e3ae295b17cdcd2a3a707a1c37cb568b5f9308580cfa8d37a639a2c43e2fc61a&=&format=webp&quality=lossless">
-        <link rel="stylesheet" href="/verify/verify-user.css"/>
+        <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
+    
     </head>
 <body>
-    <header class="header" id="header">
-        <a href="/home" class="logo">shmpyo</a>
-        <nav class='navbar'>
-            <a href="/home">홈</a>
-            <a href="/project/service-terms">이용규정</a>
-            <a href="https://smartstore.naver.com/shmpyo" target="_blank">전체상품</a>
-            <a href="/project/add/goods-code">비밀코드 활성화</a>
-        </nav>
-    </header>
+    <div id="header-container"></div>
     
     <div class="info_1_main">
         <div class="info_1_section">
-            <h1 class="ifo_title_h1" id="title"></h1>
+            <p class="ifo_title_h1" id="title"></p>
     
             <div class="info_1_box_text">
                 <div class="lastinput">
@@ -84,7 +81,6 @@
 
                 const result = await response.json();
 
-                // 응답 처리
                 if (result.success) {
                     alert('인증이 완료되었어요.\n디스코드로 이동하여 상담을 진행해 주세요.');
                     window.location.href = "https://www.shmpyoshop.com";
@@ -92,13 +88,20 @@
                     alert(result.message);
                 }
             } catch (error) {
-                // 오류 발생 시 처리
                 document.getElementById('registerBtn').style.opacity = 1;
                 document.getElementById('registerBtn').disabled = false;
                 alert('오류가 발생했어요. 쉼표샵 디스코드로 문의해 주세요. 이용에 불편을 끼쳐드려 죄송합니다.');
             }
         });
 
+    </script>
+
+    <script>
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
     </script>
 </body>
 </html>

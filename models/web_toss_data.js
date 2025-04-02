@@ -8,7 +8,7 @@ const to = new mongoose.Schema({
     paymentKey: { type: String, required: true },
     amount: { type: String, required: true },
     customerName: { type: String, required: true },
-    roblox: { type: String, required: true },
+    roblox: { type: String, required: false },
     secret: { type: String, required: true },
     couponNumber: { type: String, required: false },
     userid: {type: String, required: true }

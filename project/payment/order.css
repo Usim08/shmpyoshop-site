@@ -1,52 +1,213 @@
 @font-face {
-    font-family: 'TossFaceFontWeb';
-    src: url('https://static.toss.im/tossface-font/TossFaceFontWeb.otf') format('truetype');
-    font-weight: 500;
-}
-
-@font-face {
-    font-family: 'PRegular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-family: 'PLight';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+
 
 @font-face {
     font-family: 'PSemiBold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-SemiBold.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'PBold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Bold.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'PLight';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Light.woff2') format('woff2');
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'PMedium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Medium.woff2') format('woff2');
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PRegular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 
 
-.header { position: fixed; top: 0; left: 0; width: 100%; height: 55px; padding: 10px 5px; background: transparent; transition: background-color 0.3s ease; display: flex; justify-content: space-between; align-items: center; z-index: 100; } .header.scrolled { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); border-color: rgb(241, 241, 241); border-width: 0 0 2px 0; border-style: solid; } .logo { font-family: 'PRegular'; font-size: 25px; color: rgb(66, 66, 66); text-decoration: none; opacity: 0.6; margin-left: 30px; transition: opacity 0.5s, color 0.5s; } .navbar a { font-family: 'PRegular'; font-size: 22px; color: rgb(66, 66, 66); text-decoration: none; margin-right: 55px; opacity: 0.6; transition: opacity 0.5s, color 0.5s; } .header.scrolled .navbar a { color: rgb(66, 66, 66); } .header.scrolled .logo { opacity: 1; color: #2c4bce; } .navbar a:hover { opacity: 1; } .logo:hover { opacity: 1; } .footer_design_shmpyo { font-family: 'PLight'; color: rgb(170, 173, 177); height: 250px; font-size: 17px; background-color: #ffffff; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } .footer_design_shmpyo_div { width: 1300px; margin-left: 50%; display: flex; gap: 90px; transform: translate(-50%, 20%); line-height: 30px; } .footer_design_shmpyo_logo { opacity: 80%; margin-bottom: 10px; height: 40px; width: auto; }
-
-
 body {
     margin: 0;
     padding: 0;
 }
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-container {
+    background-color: white;
+    height: 600px;
+    width: 600px;
+    padding: 20px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.loader {
+    margin-bottom: 90px;
+    margin-left: 48%;
+    width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #2c4bce;
+    display: grid;
+    animation: l22-0 50s infinite linear;
+  }
+  .loader:before,
+  .loader:after {
+    content: "";
+    grid-area: 1/1;
+    margin: 15%;
+    border-radius: 50%;
+    background: inherit;
+    transform: rotate(0deg) translate(150%);
+    animation: l22 1.5s infinite;
+  }
+  .loader:after {
+    animation-delay: 0.7s
+  }
+  @keyframes l22-0 {
+    100% {transform: rotate(1turn)}
+  }
+  @keyframes l22 {
+    100% {transform: rotate(1turn) translate(150%)}
+  }
+
+.h11 {
+    font-size: 27px;
+    color: #5e6164;
+    font-family: 'PSemiBold';
+    text-align: center;
+    margin-top: 20px;
+    letter-spacing: -1px;
+}
+
+.pp {
+    font-size: 18px;
+    color: #b9bcc0;
+    font-family: 'PLight';
+    text-align: center;
+    margin-top: 10px;
+    letter-spacing: 0px;
+    line-height: 23px
+}
+
+
+
+
+
+
+
+
+
+
+
+.h1, .success_icon, .h3Text, .p, .button_parent, .flex {
+    opacity: 0;
+}
+
+.success_icon.success {
+    animation: success_icon 0.4s cubic-bezier(.39, 1.69, .61, .97) forwards;
+}
+
+.h1.success {
+    animation: text 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.2s;
+}
+
+.p.success {
+    animation: textTwo 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.4s;
+}
+
+.button_parent.success {
+    animation: but 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.6s;
+}
+
+.flex.success {
+    animation: info 1s cubic-bezier(.07,.73,.42,1) forwards;
+    animation-delay: 0.8s;
+}
+
+
+
+
+
+@keyframes success_icon {
+    0% { 
+        transform: translateX(-50%) scale(0); 
+        opacity: 0%; 
+    }
+    100% { 
+        top: 0; 
+        opacity: 100%; 
+    }
+}
+
+
+@keyframes text {
+    0% { 
+        transform: translateY(20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translateY(0); 
+        opacity: 100%; 
+    }
+}
+
+
+@keyframes textTwo {
+    0% { 
+        transform: translateY(20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translateY(0); 
+        opacity: 100%; 
+    }
+}
+
+@keyframes but {
+    0% { 
+        transform: translate(-50%, 20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translate(-50%, 0); 
+        opacity: 100%; 
+    }
+}
+
+@keyframes info {
+    0% { 
+        transform: translate(-50%, 20px); 
+        opacity: 0%; 
+    }
+    100% { 
+        transform: translate(-50%, 0); 
+        opacity: 100%; 
+    }
+}
+
+
+
 
 .info_1_section {
     height: 100vh;
@@ -58,21 +219,7 @@ body {
 .success_icon {
     margin-left: 50%;
     transform: translateX(-50%) scale(1, 1);
-    
     will-change: transform, opacity;
-    animation: success_icon 0.4s cubic-bezier(.39, 1.69, .61, .97) forwards;
-    animation-fill-mode: forwards;
-}
-
-@keyframes success_icon {
-    0% { 
-        transform: translateX(-50%) scale(0); 
-        opacity: 0%; 
-    }
-    100% { 
-        top: 0; 
-        opacity: 100%; 
-    }
 }
 
 .h3Text {
@@ -98,21 +245,8 @@ body {
     animation: h3Text 2s;
     opacity: 0;
     will-change: transform, opacity;
-    animation: text 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.2s;
-    animation-fill-mode: forwards;
 }
 
-@keyframes text {
-    0% { 
-        transform: translateY(20px); 
-        opacity: 0%; 
-    }
-    100% { 
-        transform: translateY(0); 
-        opacity: 100%; 
-    }
-}
 
 .p {
     font-size: 24px;
@@ -127,21 +261,8 @@ body {
     animation: h3Text 2s;
     opacity: 0;
     will-change: transform, opacity;
-    animation: textTwo 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.4s;
-    animation-fill-mode: forwards;
 }
 
-@keyframes textTwo {
-    0% { 
-        transform: translateY(20px); 
-        opacity: 0%; 
-    }
-    100% { 
-        transform: translateY(0); 
-        opacity: 100%; 
-    }
-}
 
 .button_parent {
     margin-left: 50%;
@@ -154,21 +275,8 @@ body {
     animation: h3Text 2s;
     opacity: 0;
     will-change: transform, opacity;
-    animation: but 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.6s;
-    animation-fill-mode: forwards;
 }
 
-@keyframes but {
-    0% { 
-        transform: translate(-50%, 20px); 
-        opacity: 0%; 
-    }
-    100% { 
-        transform: translate(-50%, 0); 
-        opacity: 100%; 
-    }
-}
 
 .button {
     padding: 16px 30px;
@@ -203,21 +311,8 @@ body {
     animation: h3Text 2s;
     opacity: 0;
     will-change: transform, opacity;
-    animation: info 1s cubic-bezier(.07,.73,.42,1) forwards;
-    animation-delay: 0.8s;
-    animation-fill-mode: forwards;
 }
 
-@keyframes info {
-    0% { 
-        transform: translate(-50%, 20px); 
-        opacity: 0%; 
-    }
-    100% { 
-        transform: translate(-50%, 0); 
-        opacity: 100%; 
-    }
-}
 
 .section_one {
     display: flex;

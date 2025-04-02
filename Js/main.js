@@ -1,119 +1,64 @@
-const roundBox1 = document.querySelector('.information_one_section_round_box');
-const nextButton1 = document.querySelector('.next');
-const prevButton1 = document.querySelector('.prev');
+function handleScroll() {
+    let sections = [
+        {selector: '.information_one_section_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_one_section_title', offset: 0.05, transform: 'translate(-50%, 0)', opacity: '100%'},
+        {selector: '.if_o_s_o_t', offset: 0.1, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_o_s_o_s_t', offset: 0.1, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_o_s_o_i', offset: 0.1, transform: 'translate(0, 20px)', opacity: '74%'},
 
-let currentPosition1 = 0;
-const moveAmount1 = 375;
+        {selector: '.if_o_s_t_t', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_o_s_t_s_t', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_o_s_t_i', offset: 0.15, transform: 'translate(0, 30px)', opacity: '74%'},
 
-function moveRightBox1() {
-  if (currentPosition1 == 0) {
-    currentPosition1 -= moveAmount1;
-    roundBox1.style.transform = `translateX(${currentPosition1}px)`;
-  }
-}
+        {selector: '.if_o_s_th_t', offset: 0.19, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_o_s_th_s_t', offset: 0.19, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_o_s_th_i', offset: 0.19, transform: 'translate(0, -20px)'},
 
-function moveLeftBox1() {
-  if (currentPosition1 == -375) {
-    currentPosition1 += moveAmount1;
-    roundBox1.style.transform = `translateX(${currentPosition1}px)`;
-  }
-}
+        {selector: '.information_two_section_sub_title', offset: 0.23, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_section_title', offset: 0.23, transform: 'translateY(0)', opacity: '100%'},
 
-nextButton1.addEventListener('click', moveRightBox1);
-prevButton1.addEventListener('click', moveLeftBox1);
+        {selector: '#one', offset: 0.32, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '#two', offset: 0.32, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '#three', offset: 0.32, transform: 'translateY(0)', opacity: '100%'},
 
-const counterElement = document.getElementById('counter');
-const targetNumber = 30;
-const startScrollPosition = 3200;
-const duration = 1000;
+        {selector: '.if_t_s_o_t', offset: 0.43, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_t_s_o_s_t', offset: 0.43, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_t_s_o_i ', offset: 0.43, transform: 'translate(0, 20px)', opacity: '74%'},
 
-let isAnimating = false;
-
-window.addEventListener('scroll', () => {
-  if (window.scrollY >= startScrollPosition && !isAnimating) {
-    isAnimating = true;
-    animateCounter();
-  }
-});
-
-function animateCounter() {
-  let currentNumber = 15;
-  const increment = targetNumber / (duration / 16);
-
-  const counterInterval = setInterval(() => {
-    currentNumber += increment;
-
-    if (currentNumber >= targetNumber) {
-      currentNumber = targetNumber;
-      clearInterval(counterInterval);
-    }
-
-    counterElement.textContent = Math.floor(currentNumber);
-  }, 25);
-}
+        {selector: '.information_three_section_sub_title', offset: 0.55, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_three_section_title', offset: 0.55, transform: 'translateY(0)', opacity: '100%'},
 
 
-const roundBox2 = document.querySelector('.information_three_section_round_box');
-const nextButton2 = document.querySelector('.right');
-const prevButton2 = document.querySelector('.left');
+        {selector: '.if_th_s_o_t', offset: 0.59, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_th_s_o_s_t', offset: 0.59, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_th_s_o_i ', offset: 0.59, transform: 'translate(0, 20px)', opacity: '74%'},
 
-let currentPosition2 = 0;
-const moveAmount2 = 375;
+        {selector: '.if_th_s_t_t', offset: 0.64, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_th_s_t_s_t', offset: 0.64, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_th_s_t_i ', offset: 0.64, transform: 'translate(0, 30px)', opacity: '74%'},
 
-function moveRightBox2() {
-  if (currentPosition2 == 0) {
-    currentPosition2 -= moveAmount2;
-    roundBox2.style.transform = `translateX(${currentPosition2}px)`;
-  }
-}
+        {selector: '.information_four_section_sub_title', offset: 0.7, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_four_section_title', offset: 0.7, transform: 'translateY(0)', opacity: '100%'},
 
-function moveLeftBox2() {
-  if (currentPosition2 == -375) {
-    currentPosition2 += moveAmount2;
-    roundBox2.style.transform = `translateX(${currentPosition2}px)`;
-  }
-}
-
-nextButton2.addEventListener('click', moveRightBox2);
-prevButton2.addEventListener('click', moveLeftBox2);
+        {selector: '.if_f_s_o_i', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_f_s_o_t', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.if_f_s_o_s_t', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
 
 
-// function handleScroll() {
-//     let sections = [
-//         {selector: '.information_one_section_main_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_main_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_round_one_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_round_two_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_round_three_box', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_one_title_image', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_one_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_one_sub_title', offset: 0.27, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_two_title_image', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_two_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_one_section_two_sub_title', offset: 0.37, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_main_sub_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_main_title', offset: 0.47, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_one_title_image', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_one_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_one_sub_title', offset: 0.52, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_two_title_image_parent', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_two_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_two_section_two_sub_title', offset: 0.58, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_three_section_main_sub_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_three_section_main_title', offset: 0.72, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_three_section_round_one_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_three_section_round_two_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_three_section_round_three_box', offset: 0.79, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_four_section_round_three_box_image', offset: 0.95, transform: 'translate(-50%, 0)', opacity: '100%'},
-//         {selector: '.information_four_section_main_title .line1', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.information_four_section_main_title .line2', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-//         {selector: '.lastbutton button', offset: 0.95, transform: 'translate(-50%, 0)', opacity: '100%'},
+        {selector: '.if_f_s_t_t', offset: 0.85, transform: 'translateY(-140px)', opacity: '100%'},
+
+        {selector: '.if_f_section_one', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},
+        {selector: '.if_f_section_two', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},
+        {selector: '.if_f_section_three', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},
 
 
+        {selector: '.information_five_section_round_three_box_image', offset: 0.95, transform: 'translate(-50%, 0%)', opacity: '100%'},
+        {selector: '.information_five_section_main_title .line1', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_five_section_main_title .line2', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.input_two_section button', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.input_three_section button', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
 
-
-
-//     ];
+    ];
 
     let scrollTop = window.scrollY;
     let docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -130,6 +75,5 @@ prevButton2.addEventListener('click', moveLeftBox2);
             }
         }
     });
-
-
+  }
 window.addEventListener('scroll', handleScroll);

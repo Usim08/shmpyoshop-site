@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <title>결제 완료 | shmpyoshop</title>
+    <link rel="stylesheet" href="/project/payment/order.css"/>
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="쉼표샵에서 만들어진 높은 퀄리티를 자랑하는 상품을 구매하세요.">
+    <meta name="description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
     <meta name="robots" content="max-image-preview:large">
-    <title>쉼표샵 상품 | shmpyo#</title>
-    <link href="./IMg/쉼표샵로고.png" rel="shortcut icon" type="image/x-icon">
-    <link rel="canonical" href="https://shmpyoshop.netlify.app/">
+    <link href="/IMG/파비콘.svg" rel="shortcut icon" type="image/x-icon">
+    <link rel="canonical" href="https://www.shmpyoshop.com/home">
     <meta property="og:locale" content="ko_KR">
     <meta property="og:site_name" content="쉼표샵 shmpyo#">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="쉼표샵 상품 - 쉼표샵 공식 홈페이지">
-    <meta property="og:description" content="쉼표샵에서 만들어진 높은 퀄리티를 자랑하는 상품을 구매하세요.">
-    <meta property="og:url" content="https://shmpyoshop.netlify.app/">
-    <meta property="og:image" content="https://media.discordapp.net/attachments/1193969295881933010/1284363066175131701/660510020f1c7f4d.png?ex=66e65bd1&is=66e50a51&hm=e3ae295b17cdcd2a3a707a1c37cb568b5f9308580cfa8d37a639a2c43e2fc61a&=&format=webp&quality=lossless">
+    <meta property="og:title" content="쉼표샵 - 공식 홈페이지">
+    <meta property="og:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
+    <meta property="og:url" content="https://www.shmpyoshop.com/home">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="쉼표샵 로고">    
 
-    <meta name="twitter:site" content="https://shmpyoshop.netlify.app/">
-    <meta name="twitter:title" content="쉼표샵 상품 - 쉼표샵 공식 홈페이지">
-    <meta name="twitter:description" content="쉼표샵에서 만들어진 높은 퀄리티를 자랑하는 상품을 구매하세요.">
+    <meta name="twitter:site" content="https://www.shmpyoshop.com/home">
+    <meta name="twitter:title" content="쉼표샵 - 공식 홈페이지">
+    <meta name="twitter:description" content="간편하게, 똑똑하게! 손쉽게 완성하는 나를 위한 시스템을 쉼표샵에서 만나보세요.">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1193969295881933010/1284363066175131701/660510020f1c7f4d.png?ex=66e65bd1&is=66e50a51&hm=e3ae295b17cdcd2a3a707a1c37cb568b5f9308580cfa8d37a639a2c43e2fc61a&=&format=webp&quality=lossless">
-    <link rel="stylesheet" href="/project/payment/order.css"/>
-    <script src="https://js.tosspayments.com/v2/standard"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta name="twitter:image:src" content="https://media.discordapp.net/attachments/1282189604803444830/1342507726852587580/7d134f0e74b599b0.png?ex=67b9e340&is=67b891c0&hm=6904e632e03d87dbba50a57a111c489a7739896954bfe1a0694361aa5689c343&=&format=webp&quality=lossless">
 </head>
 <body>
-    <header class="header" id="header">
-        <a href="/home" class="logo">shmpyo</a>
-        <nav class='navbar'>
-            <a href="/home">홈</a>
-            <a href="/project/service-terms">이용규정</a>
-            <a href="https://smartstore.naver.com/shmpyo" target="_blank">전체상품</a>
-            <a href="/project/add/goods-code">비밀코드 활성화</a>
-        </nav>
-    </header>
 
+    <div id="header-container"></div>
+    <div id="loadingPopup" class="popup-overlay">
+        <div class="popup-container">
+            <div class="info_1_section">
+                <div class="loader"></div>
+                <div class="h11">상품을 결제하고 있어요</div>
+                <div class="pp">안전하게 결제를 진행하고 있어요.<br>결제는 최대 1분 소요될 수 있어요.</div>
+            </div>
+        </div>
+    </div>
     <div class="info_1_section">
         <div>
             <svg class="success_icon" xmlns="http://www.w3.org/2000/svg" width="96.082" height="96.082" viewBox="0 0 96.082 96.082">
@@ -61,7 +63,7 @@
 
             <div class="flex">
                 <div class="section_one">
-                    <img class="img_pro" src="/IMG/product_img/SP2537.png">
+                    <img class="img_pro" id="image" src="/IMG/product_img/상품준비.png">
                     <div class="inline">
                         <div id="h1_pro" class="h1_pro"></div>
                         <div id="price_pro" class="price_pro"></div>
@@ -87,17 +89,15 @@
         </div>
     </div>
 
-    <iframe 
-        src="/footer.html" 
-        style="width: 100%; height: 250px; border: none;">
-    </iframe>
-    <script src="/Js/scrollTop.js"></script>
+    <iframe src="/footer.html" style="width: 100%; height: 250px; max-height: 250px; border: none; overflow: hidden;"></iframe>
     <script>
+        document.body.style.overflow = "hidden";
         const urlParams = new URLSearchParams(window.location.search);
         const paymentKey = urlParams.get("paymentKey");
         const orderId = urlParams.get("orderId");
         const amount = urlParams.get("amount");
         const orderName = urlParams.get("orderName");
+        const productId = urlParams.get("productId");
         const userName = urlParams.get("customerName");
         const userphone = urlParams.get("customerPhone");
         const coupon = urlParams.get("coupon");
@@ -109,6 +109,7 @@
                 orderId: orderId,
                 amount: amount,
                 orderName: orderName,
+                productId: productId,
                 userName: userName,
                 userphone: userphone,
                 coupon: coupon,
@@ -126,12 +127,18 @@
             const json = await response.json();
 
             if (!response.ok) {
-            // 결제 실패 비즈니스 로직을 구현하세요.
-            console.log(json);
-            window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+                console.log(json);
+                window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+            } else {
+                document.body.style.overflow = "auto";
+                document.getElementById("loadingPopup").style.display = "none";
+                document.querySelector('.success_icon').classList.add('success');
+                document.querySelector('.h1').classList.add('success');
+                document.querySelector('.p').classList.add('success');
+                document.querySelector('.button_parent').classList.add('success');
+                document.querySelector('.flex').classList.add('success');
             }
 
-            // 결제 성공 비즈니스 로직을 구현하세요.
             console.log(json);
         }
         confirm();
@@ -140,6 +147,7 @@
         const orderIdElement = document.getElementById("order_id");
         const amountElement = document.getElementById("price_pro");
         const orderNameElement = document.getElementById("h1_pro");
+        const imageElement = document.getElementById("image");
         const phoneElement = document.getElementById("phone");
         const formattedPrice = parseInt(amount).toLocaleString() + '원';
 
@@ -148,8 +156,17 @@
         amountElement.textContent = formattedPrice;
         paymentKeyElement.textContent = userName;
         orderNameElement.textContent = orderName
+        imageElement.src = `/IMG/product_img/${productId}.png`;
     </script>
     
-    
+    <script src="/Js/scrollTop.js"></script>
+
+    <script>
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+    </script>
 </body>
 </html>

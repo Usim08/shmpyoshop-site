@@ -1,0 +1,278 @@
+@font-face {
+    font-family: 'PLight';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PSemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PMedium';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'PRegular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.info_1_section {
+    margin-left: 50%;
+    margin-top: 160px;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 670px;
+}
+
+
+.flex_tag {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.product_discount {
+    width: auto;
+    height: 18px;
+}
+
+.product_tag {
+    width: auto;
+    height: 18px;
+}
+
+.product_res {
+    width: auto;
+    height: 18px;
+}
+
+
+
+.product_title {
+    font-size: 24px;
+    font-family: "PSemiBold";
+    margin-top: 2px;
+    color: #6B6B6B;
+    margin-bottom: -1px;
+}
+
+.info_1_flex_1 {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.info_1_flex_2 {
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -15px;
+}
+
+.gray {
+    font-size: 14.75px;
+    font-family: "Plight";
+    color: #909090;
+}
+
+.black {
+    font-size: 14.75px;
+    font-family: "Pregular";
+    color: #6B6B6B;
+}
+
+.info_1_flex_3 {
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+}
+
+.product_image {
+    width: 240px;
+    height: 240px;
+    border-radius: 12px;
+}
+
+.buy_button {
+    color: rgb(255, 255, 255);
+    font-family: 'PLight';
+    font-size: 14.75px;
+    padding: 14px;
+    background-color: #459CF3;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.buy_button.not {
+    display: block;
+    color: rgb(255, 255, 255);
+    font-family: 'PLight';
+    font-size: 14.75px;
+    padding: 14px;
+    background-color: rgb(196, 199, 201);
+    border-radius: 8px;
+    cursor:not-allowed;
+    width: 100%;
+}
+
+
+.info_2_flex_1 {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 140px;
+    width: 176PX;
+}
+
+.info_2_section {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 670px;
+}
+
+.nof_title {
+    
+    font-size: 17.75px;
+    font-family: "PMedium";
+    margin-top: -2px;
+    color: #6B6B6B;
+}
+
+.nof_sub{
+    font-size: 15.75px;
+    font-family: "PLight";
+    text-align: center;
+    margin-top: -2px;
+    line-height: 25px;
+    color: #b1b1b1;
+}
+
+.youtube {
+    margin-top: 70px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    margin-bottom: 100px;
+}
+
+.table {
+    width: 70%;
+    max-width: 670px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-collapse: collapse;
+    margin-bottom: 80px;
+}
+
+.table td {
+    padding-bottom: 30px;
+    vertical-align: top;
+    word-wrap: break-word;
+}
+
+.bold {
+    font-size: 15.75px;
+    font-family: "PRegular";
+    color: #878b8f;
+    line-height: 23px;
+}
+
+.light {
+    font-size: 15.75px;
+    font-family: "PLight";
+    color: #959BA1;
+    line-height: 23px;
+}
+
+.table td:first-child {
+    padding-right: 25px;
+    width: 140px;
+}
+
+.table td:last-child {
+    width: 530px;
+}
+
+
+.bold_two{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 670px;
+    font-size: 20px;
+    font-family: "PSemiBold";
+    margin-bottom: 35px;
+    color: #6B6B6B;
+}
+
+
+
+@media screen and (max-width: 900px) {
+
+    html,body {
+        overflow-x: hidden;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    .info_1_flex_1 {
+        display: inline-block;
+    }
+
+    .product_image{
+        width: 100%;
+        height: auto;
+    }
+
+    .info_1_product_info{
+        margin-top: 30px;
+    }
+
+    .flex_tag{
+        margin-bottom: 10px;
+    }
+
+    .nof_sub {
+        word-break:keep-all
+    }
+
+    .youtube {
+        width: 70%;
+        height: 20.8vh;
+        border-radius: 10px;
+    }
+
+    .info_1_flex_2 {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .info_1_flex_3 {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+}
