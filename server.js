@@ -276,64 +276,64 @@ app.post('/check_secret', async (req, res) => {
     try {
         const existingCode = await SecretCode.findOne({ secret: secretCode });
 
-        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        const now = Date.now();
-        const lastTime = recentRequests.get(ip) || 0;
+        // const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        // const now = Date.now();
+        // const lastTime = recentRequests.get(ip) || 0;
     
-        if (now - lastTime < 130 ) {
-            return res.status(429).json({
-                success: false,
-                message: '요청이 너무 빠릅니다. 잠시 후 다시 시도해 주세요!'
-            });
-        }
+        // if (now - lastTime < 130 ) {
+        //     return res.status(429).json({
+        //         success: false,
+        //         message: '요청이 너무 빠릅니다. 잠시 후 다시 시도해 주세요!'
+        //     });
+        // }
     
-        recentRequests.set(ip, now);
+        // recentRequests.set(ip, now);
 
         
-        if (secretCode === "zWe1AHWDbb5Q") {
-            const trollMessages = [
-                "이 코드는 당신의 욕심을 시험하기 위한 함정이었습니다 😌",
-                "축하드립니다! 아무 일도 일어나지 않았습니다 🎉",
-                "무한복사? 그런 건 세상에 없어요 고갱님!!",
-                "비밀코드가 당신을 실망시키는 중입니다… 완료되었습니다.",
-                "만우절 특가: 실망 99%, 혜택 1% 🎁 (숨겨진 선물이.. 계속 누르세요!)",
-                "당신의 입력은 우주로 전송되었습니다. 외계인이 웃고 있습니다 👽",
-                "시스템 오류: ‘너무 욕심부림’ 에러 발생 💥",
-                "인증됐어요! …라는 줄 알았죠?",
-                "지금 이 코드 입력한 사람 1억명 넘음. 당신도 그중 하나예요.",
-            ];
+        // if (secretCode === "zWe1AHWDbb5Q") {
+        //     const trollMessages = [
+        //         "이 코드는 당신의 욕심을 시험하기 위한 함정이었습니다 😌",
+        //         "축하드립니다! 아무 일도 일어나지 않았습니다 🎉",
+        //         "무한복사? 그런 건 세상에 없어요 고갱님!!",
+        //         "비밀코드가 당신을 실망시키는 중입니다… 완료되었습니다.",
+        //         "만우절 특가: 실망 99%, 혜택 1% 🎁 (숨겨진 선물이.. 계속 누르세요!)",
+        //         "당신의 입력은 우주로 전송되었습니다. 외계인이 웃고 있습니다 👽",
+        //         "시스템 오류: ‘너무 욕심부림’ 에러 발생 💥",
+        //         "인증됐어요! …라는 줄 알았죠?",
+        //         "지금 이 코드 입력한 사람 1억명 넘음. 당신도 그중 하나예요.",
+        //     ];
         
-            const luckyChance = Math.random();
+        //     const luckyChance = Math.random();
         
-            if (luckyChance < 0.0007) {
-                function generateRandomString(length) {
-                    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                    let result = '';
-                    for (let i = 0; i < length; i++) {
-                        result += characters.charAt(Math.floor(Math.random() * characters.length));
-                    }
-                    return result;
-                }
+        //     if (luckyChance < 0.0007) {
+        //         function generateRandomString(length) {
+        //             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        //             let result = '';
+        //             for (let i = 0; i < length; i++) {
+        //                 result += characters.charAt(Math.floor(Math.random() * characters.length));
+        //             }
+        //             return result;
+        //         }
 
-                const verifyCode = generateRandomString(12);
+        //         const verifyCode = generateRandomString(12);
 
-                const verification = new coupon_number_data({
-                    couponId: verifyCode,
-                    sale: "40"
-                });
-                await verification.save();
+        //         const verification = new coupon_number_data({
+        //             couponId: verifyCode,
+        //             sale: "40"
+        //         });
+        //         await verification.save();
 
 
-                return res.status(418).json({
-                    success: true,
-                    message: verifyCode
-                });
-            }
+        //         return res.status(418).json({
+        //             success: true,
+        //             message: verifyCode
+        //         });
+        //     }
 
         
-            const randomMessage = trollMessages[Math.floor(Math.random() * trollMessages.length)];
-            return res.status(404).json({ success: false, message: randomMessage });
-        }        
+        //     const randomMessage = trollMessages[Math.floor(Math.random() * trollMessages.length)];
+        //     return res.status(404).json({ success: false, message: randomMessage });
+        // }        
         
 
         if (!existingCode) {
