@@ -122,7 +122,6 @@ app.get('/post/:id', async (req, res) => {
             return res.status(404).send('게시글을 찾을 수 없습니다.');
         }
 
-        // 현재 보고 있는 게시물을 제외하고 최신 4개의 게시물 가져오기
         const recommendedPosts = await Post.find({ _id: { $ne: req.params.id } })
                                            .sort({ date: -1 }) // 최신순 정렬
                                            .limit(4); // 최대 4개

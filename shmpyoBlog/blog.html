@@ -33,10 +33,12 @@
 <body>
     <div id="header-container"></div>
     <div class="information_1_section">
-        <div class="flex">
-            <img class="image" src="/IMG/벨.png">
-            <span class="title">쉼표샵의 새로운 소식</span>
-        </div>
+        <p class="title">Blog</p>
+        <p class="sub_title">추천 포스트</p>
+        <div class="flex" id="recommended-posts"></div>        
+
+        <p class="sub_title two">최신 포스트</p>
+
         <div class="tag_flex">
             <button class="tag-button" data-tag="">전체</button>
             <button class="tag-button" data-tag="규정"># 규정</button>
@@ -44,60 +46,95 @@
             <button class="tag-button" data-tag="공지사항"># 공지사항</button>
             <button class="tag-button" data-tag="모집 공고"># 모집 공고</button>
         </div>
-        <hr>
+
         <div id="post-list" class="post-button-container"></div>
     </div>
 
     <iframe src="/footer.html" style="width: 100%; height: 250px; max-height: 250px; border: none; overflow: hidden;"></iframe>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const postListElement = document.getElementById("post-list");
-    const tagButtons = document.querySelectorAll(".tag-button");
+    document.addEventListener("DOMContentLoaded", () => {
+        const postListElement = document.getElementById("post-list");
+        const tagButtons = document.querySelectorAll(".tag-button");
+        const recommendedContainer = document.getElementById("recommended-posts");
 
-    tagButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const selectedTag = button.dataset.tag;
-            loadPosts(selectedTag);
+        tagButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const selectedTag = button.dataset.tag;
+                loadPosts(selectedTag);
+            });
         });
-    });
 
-    function loadPosts(tag = '') {
-        let url = "/posts";
-        if (tag) {
-            url += `?tag=${encodeURIComponent(tag)}`;
+        function loadRecommendedPosts(posts) {
+            recommendedContainer.innerHTML = "";
+
+            posts.slice(0, 2).forEach((post, index) => {
+                const button = document.createElement("button");
+                button.classList.add("box");
+
+                const image = document.createElement("img");
+                image.classList.add("image");
+
+                image.src = index === 0 ? "/IMG/미니 책.png" : "/IMG/확성기.png";
+
+                const date = document.createElement("p");
+                date.classList.add("main_date");
+                date.textContent = `# ${post.tag}, ${post.date}`;
+
+                const title = document.createElement("p");
+                title.classList.add("main_title");
+                title.textContent = post.title;
+
+                button.appendChild(image);
+                button.appendChild(date);
+                button.appendChild(title);
+
+                button.onclick = () => window.location.href = `/post/${post._id}`;
+                recommendedContainer.appendChild(button);
+            });
         }
 
-        fetch(url)
+        function loadPosts(tag = '') {
+            let url = "/posts";
+            if (tag) {
+                url += `?tag=${encodeURIComponent(tag)}`;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(posts => {
+                    postListElement.innerHTML = "";
+
+                    posts.forEach(post => {
+                        const button = document.createElement("button");
+                        const dateDiv = document.createElement("div");
+                        const titleSpan = document.createElement("span");
+
+                        button.classList.add("post-button");
+                        dateDiv.classList.add("post-date");
+                        titleSpan.classList.add("post-title");
+
+                        dateDiv.textContent = `${post.tag}, ${post.date}`;
+                        titleSpan.textContent = post.title;
+
+                        button.appendChild(dateDiv);
+                        button.appendChild(titleSpan);
+
+                        button.onclick = () => window.location.href = `/post/${post._id}`;
+                        postListElement.appendChild(button);
+                    });
+                })
+                .catch(err => console.error("게시글을 가져오는 데 오류가 발생했습니다.", err));
+        }
+
+        fetch("/posts")
             .then(response => response.json())
             .then(posts => {
-                postListElement.innerHTML = "";
+                loadRecommendedPosts(posts);
+                loadPosts();
+            });
+    });
 
-                posts.forEach(post => {
-                    const button = document.createElement("button");
-                    const dateDiv = document.createElement("div");
-
-                    button.classList.add("post-button");
-                    button.innerHTML = `
-                    <span>${post.title}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" style="margin-left: 8px;">
-                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
-                    </svg>
-                    `;
-
-                    dateDiv.textContent = `# ${post.tag}, ${post.date}`;
-                    dateDiv.classList.add("post-date");
-                    button.appendChild(dateDiv);
-                    button.onclick = () => window.location.href = `/post/${post._id}`;
-
-                    postListElement.appendChild(button);
-                });
-            })
-            .catch(err => console.error("게시글을 가져오는 데 오류가 발생했습니다.", err));
-    }
-
-    loadPosts();
-});
 
 
 </script>
