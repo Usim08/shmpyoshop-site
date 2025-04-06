@@ -63,13 +63,13 @@ body {
 
 
 .tag_flex button  {
-    padding: 14px 30px;
+    padding: 14px 27px;
     outline: none;
     border: none;
     background-color:#ECF5FF;
     border-radius: 10px;
     font-family: 'PLight';
-    font-size: 14px;
+    font-size: 15px;
     color: #3485FF;
     cursor: pointer;
     text-align: center;
