@@ -94,6 +94,7 @@
     color: rgb(112, 112, 112);
     line-height: 26px;
     word-break: keep-all;
+    background-color: rgb(247, 247, 247);
 }
 
 .light {
@@ -102,15 +103,9 @@
     color: rgb(112, 112, 112);
     line-height: 26px;
     word-break: keep-all;
-}
-
-.table td:first-child {
-    background-color: rgb(247, 247, 247);
-}
-
-.table td:last-child {
     background-color: rgb(255, 255, 255);
 }
+
 
 .post-title {
     font-size: 22px;
