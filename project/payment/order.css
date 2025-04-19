@@ -53,18 +53,23 @@ body {
 }
 
 .popup-container {
+    width: 70vmin;
+    height: 70vmin;
+    aspect-ratio: 1 / 1;
     background-color: rgb(255, 255, 255);
-    height: 70%;
-    width: 70%;
     padding: 20px;
     border-radius: 20px;
     text-align: center;
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .loader {
     margin-bottom: 90px;
-    margin-left: 40%;
+    margin-left: 45%;
     width: 40px;
     aspect-ratio: 1;
     border-radius: 50%;
@@ -101,7 +106,7 @@ body {
     letter-spacing: -1px;
     margin-left: 50%;
     transform: translateX(-50%);
-    width: 80%;
+    width: 100%;
     word-break: keep-all;
 }
 
@@ -113,22 +118,31 @@ body {
     margin-top: 10px;
     letter-spacing: 0px;
     line-height: 23px;
-    word-break: keep-all;
-    width: 80%;
+    width: 100%;
     margin-left: 50%;
     transform: translateX(-50%);
 }
 
 
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 400px) {
     .h11 {
         font-size: 21px;
     }
 
     .pp {
-        font-size: 16px;
-        word-break: break-all;
+        font-size: 14px;
+    }
+
+    .loader {
+        width: 25px;
+        margin-bottom: 50PX;
+        margin-left: 43%;
+    }
+
+
+    .info_1_section_ov {
+        margin-top: 50px;
     }
 }
 
