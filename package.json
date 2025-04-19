@@ -21,14 +21,9 @@
     "got": "^11.8.6",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.9.0",
-<<<<<<< HEAD
-    "mongoose": "^8.7.0",
-    "nodemon": "^3.1.9",
-=======
     "mongoose": "^8.10.1",
     "node-fetch": "^3.3.2",
     "nodemon": "^3.1.7",
->>>>>>> faeba41adf2240d46ed569c0071bdd0ed0e5b7fc
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
