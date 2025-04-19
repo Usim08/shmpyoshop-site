@@ -260,26 +260,28 @@ hr {
         font-size: 15px;
     }
 
-    .title {
-        font-size: 26px;
+    .main_title{
+        font-size: 20px;
+        line-height: 25px;
         font-family: "PSemibold";
         color: rgb(85, 86, 92);
     }
 
-    .image{
-        width: 33px;
-        height: 34px;
-        transform: translateY(-2px);
+    .main_date{
+        word-break: keep-all;
+        line-height: 20px;
     }
+
 
     .tag_flex {
         overflow-x:scroll;
-        width: 100%;
     }
 
     .tag_flex button {
+        margin-top: 3px;
         font-size: 15px;
         padding: 15px 20px;
         margin-bottom:15px;
+        white-space: nowrap;
     }
 }
