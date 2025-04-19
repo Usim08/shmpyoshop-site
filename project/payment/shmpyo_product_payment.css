@@ -374,3 +374,50 @@ body {
 .input_error {
     border-color: rgb(243, 166, 166) !important;
 }
+
+
+
+
+
+@media screen and (max-width: 900px) {
+
+    html,body {
+        overflow-x: hidden;
+    }
+    * {
+        box-sizing: border-box;
+    }
+
+    .info_1_section {
+        width: 100%;
+        margin-left: 50%;
+        margin-top: 100px;
+        transform: translateX(-50%);
+        margin-bottom: 100px;
+    }
+    
+
+    .flexx {
+        display: block;
+
+    }
+
+    .section_one {
+        width: 100%;
+    }
+
+    .find_item{
+        width: 90%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .section_two {
+        width: 100%;
+    }
+
+    #last {
+        width: 100%;
+    }
+
+}
