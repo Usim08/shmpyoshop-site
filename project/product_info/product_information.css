@@ -425,11 +425,19 @@ hr {
         display: inline-block;
     }
 
-    .product_image{
-        width: 100%;
-        height: auto;
+    .info_1_section {
+        margin-top: 120px;
+
     }
 
+    .product_image {
+        position: relative;
+        z-index: 1;
+        width: 70%;
+        height: auto;
+        border-radius: 12px;
+    }
+    
     .info_1_product_info{
         margin-top: 30px;
     }
