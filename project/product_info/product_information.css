@@ -42,7 +42,7 @@ body {
     left: 0;
     right: 0;
     margin: auto;
-    width: 70%;
+    width: 90%;
     backdrop-filter: blur(8.5px);
     max-width: 500px;
     background: rgba(255, 255, 255, 0.822);
