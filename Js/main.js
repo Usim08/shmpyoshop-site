@@ -1,62 +1,8 @@
 function handleScroll() {
     let sections = [
-        {selector: '.information_one_section_sub_title', offset: 0.05, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_one_section_title', offset: 0.05, transform: 'translate(-50%, 0)', opacity: '100%'},
-        {selector: '.if_o_s_o_t', offset: 0.1, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_o_s_t', offset: 0.1, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_o_i', offset: 0.1, transform: 'translate(0, 20px)', opacity: '74%'},
-
-        {selector: '.if_o_s_t_t', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_t_s_t', offset: 0.15, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_t_i', offset: 0.15, transform: 'translate(0, 30px)', opacity: '74%'},
-
-        {selector: '.if_o_s_th_t', offset: 0.19, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_th_s_t', offset: 0.19, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_o_s_th_i', offset: 0.19, transform: 'translate(0, -20px)'},
-
-        {selector: '.information_two_section_sub_title', offset: 0.23, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_two_section_title', offset: 0.23, transform: 'translateY(0)', opacity: '100%'},
-
-        {selector: '#one', offset: 0.32, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '#two', offset: 0.32, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '#three', offset: 0.32, transform: 'translateY(0)', opacity: '100%'},
-
-        {selector: '.if_t_s_o_t', offset: 0.43, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_t_s_o_s_t', offset: 0.43, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_t_s_o_i ', offset: 0.43, transform: 'translate(0, 20px)', opacity: '74%'},
-
-        {selector: '.information_three_section_sub_title', offset: 0.55, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_three_section_title', offset: 0.55, transform: 'translateY(0)', opacity: '100%'},
-
-
-        {selector: '.if_th_s_o_t', offset: 0.59, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_th_s_o_s_t', offset: 0.59, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_th_s_o_i ', offset: 0.59, transform: 'translate(0, 20px)', opacity: '74%'},
-
-        {selector: '.if_th_s_t_t', offset: 0.64, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_th_s_t_s_t', offset: 0.64, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_th_s_t_i ', offset: 0.64, transform: 'translate(0, 30px)', opacity: '74%'},
-
-        {selector: '.information_four_section_sub_title', offset: 0.7, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_four_section_title', offset: 0.7, transform: 'translateY(0)', opacity: '100%'},
-
-        {selector: '.if_f_s_o_i', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_f_s_o_t', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.if_f_s_o_s_t', offset: 0.74, transform: 'translateY(0)', opacity: '100%'},
-
-
-        {selector: '.if_f_s_t_t', offset: 0.85, transform: 'translateY(-140px)', opacity: '100%'},
-
-        {selector: '.if_f_section_one', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},
-        {selector: '.if_f_section_two', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},
-        {selector: '.if_f_section_three', offset: 0.85, transform: 'translateY(-95%)', opacity: '100%'},
-
-
-        {selector: '.information_five_section_round_three_box_image', offset: 0.95, transform: 'translate(-50%, 0%)', opacity: '100%'},
-        {selector: '.information_five_section_main_title .line1', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.information_five_section_main_title .line2', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.input_two_section button', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
-        {selector: '.input_three_section button', offset: 0.95, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_sub_title', offset: 0.77, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.information_two_title', offset: 0.77, transform: 'translateY(0)', opacity: '100%'},
+        {selector: '.review_parent', offset: 0.77, transform: 'translateY(0)', opacity: '100%'}
 
     ];
 
@@ -77,3 +23,57 @@ function handleScroll() {
     });
   }
 window.addEventListener('scroll', handleScroll);
+
+
+
+const texts = [
+    "손쉽게 완성하는",
+    "손쉽게 다루는",
+    "손쉽게 꾸미는",
+    "손쉽게 연결하는",
+    "손쉽게 시작하는",
+    "손쉽게 경험하는"
+];
+
+let index = 0;
+const rotatingEl = document.querySelector("#text");
+
+setInterval(() => {
+    rotatingEl.style.opacity = 0;
+    rotatingEl.style.transform = "translateY(-10px)";
+
+    setTimeout(() => {
+        index = (index + 1) % texts.length;
+        rotatingEl.textContent = texts[index];
+        rotatingEl.style.opacity = 1;
+        rotatingEl.style.transform = "translateY(0)";
+    }, 600);
+}, 3500);
+
+
+window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const box1 = document.querySelector(".if_one_box.one");
+    const box2 = document.querySelector(".if_one_box.two");
+    const box3 = document.querySelector(".if_one_box.three");
+
+    const vh = window.innerHeight;
+
+    if (scrollY < vh * 1) {
+      box1.classList.remove("visible");
+      box2.classList.remove("visible");
+      box3.classList.remove("visible");
+    } else if (scrollY < vh * 1.7) {
+      box1.classList.add("visible");
+      box2.classList.remove("visible");
+      box3.classList.remove("visible");
+    } else if (scrollY < vh * 2.5) {
+      box1.classList.add("visible");
+      box2.classList.add("visible");
+      box3.classList.remove("visible");
+    } else {
+        box1.classList.add("visible");
+        box2.classList.add("visible");
+        box3.classList.add("visible");
+    }
+  });
