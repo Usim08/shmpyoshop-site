@@ -427,7 +427,7 @@
                         orderId: orderId,
                         orderName: orderName,
                         successUrl: `${window.location.origin}/order_success.html?orderName=${encodeURIComponent(orderName)}&productId=${encodeURIComponent(imagelink)}&customerName=${encodeURIComponent(customerName)}&customerPhone=${encodeURIComponent(customerMobilePhone)}&coupon=${encodeURIComponent(couponNbInput.value.trim())}&roblox=${encodeURIComponent(robloxName.value.trim())}`,
-                        failUrl: window.location.origin + "/fail.html",
+                        failUrl: `${window.location.origin}/order_fail.html`,
                         customerName: customerName,
                         customerMobilePhone: customerMobilePhone
                     });

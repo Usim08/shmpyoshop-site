@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>결제 완료 | shmpyoshop</title>
+    <title>결제 실패 | shmpyoshop</title>
     <link rel="stylesheet" href="/project/payment/order.css"/>
-
-
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,15 +31,6 @@
 <body>
 
     <div id="header-container"></div>
-    <div id="loadingPopup" class="popup-overlay">
-        <div class="popup-container">
-            <div class="info_1_section_ov">
-                <div class="loader"></div>
-                <div class="h11">결제 진행 중이에요</div>
-                <div class="pp">1분 내로 마무리할 수 있도록<br>열심히 결제 진행 중이에요.</div>
-            </div>
-        </div>
-    </div>
     <div class="block"></div>
     <div class="info_1_section">
         <div>
@@ -49,14 +38,13 @@
             <div class="load_check"></div>
 
             <lottie-player class="success_icon"
-                src="/IMG/check.json"
+                src="/IMG/실패.json"
                 background="transparent"
                 speed="1">
             </lottie-player>
 
-
-            <div class="h1">결제가 완료됐어요</div>
-            <div class="p">비밀 코드는 카카오톡을 통해 전달해 드렸어요.</div>
+            <div class="h1">결제에 실패했어요</div>
+            <div class="p">결제에 실패했어요. 자세한 내용은 아래를 참고해 주세요.</div>
             <div class="flex start">
                 <div class="section_one">
                     <img class="img_pro" id="image" src="/IMG/product_img/상품준비.png">
@@ -66,20 +54,16 @@
                     </div>
                 </div>
 
-                <div class="pill-badge">결제 완료</div>
+                <div class="pill-badge">결제 실패</div>
 
             </div>
             <hr>
             <div class="flex">
                 <div class="section_two start">
-                    <div class="p_pro_one">이름</div>
-                    <div class="p_pro_one">전화번호</div>
-                    <div class="p_pro_one">주문번호</div>
+                    <div class="p_pro_one">실패한 사유</div>
                 </div>
                 <div class="section_two">
-                    <div id="name" class="p_pro_two">test</div>
-                    <div id="phone" class="p_pro_two">test</div>
-                    <div id="order_id" class="p_pro_two">tset</div>
+                    <div id="why" class="p_pro_two">tset</div>
                 </div>
             </div>
 
@@ -94,75 +78,40 @@
         document.querySelector('lottie-player').addEventListener('ready', () => {
             document.querySelector('.load_check').style.display = 'none';
         });
-
     </script>
-    
+
     <script>
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = "auto";
+        document.querySelector('.info_1_section').classList.add('success');
+        document.querySelector('.block').classList.add('success');
+        document.querySelector('lottie-player').play();
+
         const urlParams = new URLSearchParams(window.location.search);
-        const paymentKey = urlParams.get("paymentKey");
-        const orderId = urlParams.get("orderId");
+        const message = urlParams.get('message');
+        const code = urlParams.get('code');
         const amount = urlParams.get("amount");
-        const orderName = urlParams.get("orderName");
-        const productId = urlParams.get("productId");
-        const userName = urlParams.get("customerName");
-        const userphone = urlParams.get("customerPhone");
-        const coupon = urlParams.get("coupon");
-        const roblox = urlParams.get("roblox");
+        const orderName = urlParams.get("name");
+        const productId = urlParams.get("ordercode");
 
-        async function confirm() {
-            const requestData = {
-                paymentKey: paymentKey,
-                orderId: orderId,
-                amount: amount,
-                orderName: orderName,
-                productId: productId,
-                userName: userName,
-                userphone: userphone,
-                coupon: coupon,
-                roblox: roblox
-            };
-
-            const response = await fetch("/confirm", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData),
-            });
-
-            const json = await response.json();
-
-            if (!response.ok) {
-                console.log(json);
-                window.location.href = `/project/payment/order_fail.html?message=${json.message}&code=${json.code}&amount=${amount}&name=${orderName}&ordercode=${productId}`;
-            } else {
-                document.body.style.overflow = "auto";
-                document.getElementById("loadingPopup").style.display = "none";
-                document.querySelector('.info_1_section').classList.add('success');
-                document.querySelector('.block').classList.add('success');
-                document.querySelector('lottie-player').play()
-            }
-            console.log(json);
+        const whyElement = document.getElementById('why');
+        if (message) {
+            whyElement.textContent = decodeURIComponent(message);
+        } else {
+            whyElement.textContent = "알 수 없는 오류가 발생했습니다.";
         }
-        confirm();
 
-        const paymentKeyElement = document.getElementById("name");
-        const orderIdElement = document.getElementById("order_id");
+
+
         const amountElement = document.getElementById("price_pro");
         const orderNameElement = document.getElementById("h1_pro");
         const imageElement = document.getElementById("image");
-        const phoneElement = document.getElementById("phone");
         const formattedPrice = parseInt(amount).toLocaleString() + '원';
 
-        orderIdElement.textContent = orderId;
-        phoneElement.textContent = userphone
         amountElement.textContent = formattedPrice;
-        paymentKeyElement.textContent = userName;
         orderNameElement.textContent = orderName
         imageElement.src = `/IMG/product_img/${productId}.png`;
     </script>
-    
+
     <script src="/Js/scrollTop.js"></script>
 
     <script>

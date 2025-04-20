@@ -9,6 +9,7 @@ const buydata = require('./models/web_toss_data');
 const discord_web = require('./models/discord_web_verify');
 const yangsik = require('./models/partner_yang');
 const tsdata = require('./models/trash_data');
+const pay_fail = require('./models/pay_fail');
 const Post = require('./models/Post');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -834,7 +835,7 @@ app.post("/confirm", async function (req, res) {
         }
 
         const discordId = rb ? rb.discordId : "123456";  // 로블록스 닉네임을 찾을 수 없으면 123456으로 설정
-
+        console.log("Payment Data: ");
         const response = await got.post("https://api.tosspayments.com/v1/payments/confirm", {
             headers: {
                 Authorization: encryptedSecretKey,
@@ -849,7 +850,7 @@ app.post("/confirm", async function (req, res) {
         });
 
         const paymentData = response.body;
-
+ 
         const verifyCode = generateRandomString(12);
         const verification = new SecretCode({
             secret: verifyCode,
@@ -922,14 +923,32 @@ app.post("/confirm", async function (req, res) {
         });
 
     } catch (error) {
-        console.error("Error during payment confirmation:", error);
+        console.log(error.response.body);
+        res.status(error.response.statusCode).json(error.response.body)
 
-        // 이미 응답을 보냈다면 추가 응답을 보내지 않도록 처리
-        if (!res.headersSent) {
-            res.status(500).json({ message: "서버 오류가 발생했습니다." });
-        }
+        const failData = new pay_fail({
+            phoneNumber: userphone,
+            orderId: orderId,
+            orderName: orderName,
+            paymentKey: paymentKey,
+            amount: parseInt(amount).toLocaleString() + '원',
+            customerName: userName,
+            roblox: roblox,
+            couponNumber: coupon,
+            failureReason: JSON.stringify(error.response.body) || '알 수 없는 이유', // 실패 사유 저장
+        });
+        await failData.save();
+        
     }
 });
+
+app.get('/payment/failReason', (req, res) => {
+    // 결제 실패 사유를 가져오는 로직
+    const failReason = "네트워크 오류"; // 예시 사유, 실제로는 DB에서 가져오거나 동적으로 처리됨
+
+    res.json({ failReason });
+});
+
 
 
 app.post('/check_roblox_name', async (req, res) => { // 쉼표 추가
@@ -950,9 +969,20 @@ app.post('/check_roblox_name', async (req, res) => { // 쉼표 추가
         }
 
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ success: false, message: '서버 에러가 발생했습니다.' });
+        console.error("Error during payment confirmation:", error);
+    
+        if (error.response && error.response.body) {
+            console.log("토스 응답 본문:", error.response.body);
+        }
+    
+        if (!res.headersSent) {
+            return res.status(403).json({
+                message: "토스 결제 인증에 실패했습니다. API 키 또는 인증 정보가 올바른지 확인해 주세요.",
+                detail: error.response?.body || null
+            });
+        }
     }
+    
 });
 
 
